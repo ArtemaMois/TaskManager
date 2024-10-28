@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use App\Services\Auth\AuthService;
 use App\Services\Email\EmailService;
-use App\Services\VerificationCode\VerificationCodeService;
+use App\Services\User\UserService;
+use App\Services\Verification\VerificationService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,8 +20,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(EmailService::class, function() {
             return new EmailService();
         });
-        $this->app->singleton(VerificationCodeService::class, function () {
-            return new VerificationCodeService();
+        $this->app->singleton(VerificationService::class, function () {
+            return new VerificationService();
+        });
+        $this->app->singleton(UserService::class, function () {
+            return new UserService();
         });
     }
 

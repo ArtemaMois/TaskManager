@@ -2,13 +2,13 @@
 
 namespace App\Facades\Verification;
 
-use App\Services\VerificationCode\VerificationCodeService;
+use App\Services\Verification\VerificationService;
 use Illuminate\Support\Facades\Facade;
 
 class VerificationFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return VerificationCodeService::class;
+        return VerificationService::class;
     }
 }

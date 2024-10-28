@@ -9,7 +9,7 @@ use App\Facades\VerificationCode\VerificationCodeFacade;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendVerificationEmailListener
+class SendVerificationEmailListener implements ShouldQueue
 {
     /**
      * Create the event listener.

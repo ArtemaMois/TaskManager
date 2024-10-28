@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = AuthFacade::registerUser($request->validated());
-        return response()->json(['status' => 'success', 'data' => [$user => $user]], 201);
+        return response()->json(['status' => 'success', 'data' => ['user' => $user]], 201);
     }
 
     public function login()
