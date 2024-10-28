@@ -1,0 +1,6 @@
+/nginx
+/nginx/*
+/php
+/db
+/backend/*
+docker-compose.yml
