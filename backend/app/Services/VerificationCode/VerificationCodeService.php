@@ -21,7 +21,7 @@ class VerificationCodeService
     private function createCode(): int
     {
         $code = mt_rand(0, 999999);
-        str_pad($code, 10, "0", STR_PAD_LEFT);
+        str_pad($code, 6, "0", STR_PAD_LEFT);
         return $code;
     }
 }

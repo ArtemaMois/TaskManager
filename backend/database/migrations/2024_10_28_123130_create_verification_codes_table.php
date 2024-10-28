@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('verification_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->integer('code');
             $table->foreignIdFor(User::class)
             ->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamp('expired_at')->nullable();

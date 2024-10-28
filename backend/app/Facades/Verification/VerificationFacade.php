@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Facades\VerificationCode;
+namespace App\Facades\Verification;
 
 use App\Services\VerificationCode\VerificationCodeService;
 use Illuminate\Support\Facades\Facade;
 
-class VerificationCodeFacade extends Facade
+class VerificationFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {

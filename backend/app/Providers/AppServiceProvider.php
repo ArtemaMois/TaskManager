@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(VerificationCodeService::class, function () {
             return new VerificationCodeService();
-        })
+        });
     }
 
 
