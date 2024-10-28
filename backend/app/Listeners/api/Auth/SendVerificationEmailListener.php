@@ -3,6 +3,8 @@
 namespace App\Listeners\api\Auth;
 
 use App\Events\api\Auth\UserCreatedEvent;
+use App\Facades\Email\EmailFacade;
+use App\Facades\VerificationCode\VerificationCodeFacade;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -21,6 +23,6 @@ class SendVerificationEmailListener
      */
     public function handle(UserCreatedEvent $event): void
     {
-
+        $code = VerificationCodeFacade::getVerificationCode($event->user);
     }
 }
