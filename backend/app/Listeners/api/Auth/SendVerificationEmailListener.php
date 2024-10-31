@@ -6,10 +6,11 @@ use App\Events\api\Auth\UserCreatedEvent;
 use App\Facades\Email\EmailFacade;
 use App\Facades\Verification\VerificationFacade;
 use App\Facades\VerificationCode\VerificationCodeFacade;
+use App\Jobs\api\Email\SendVerificationCodeJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendVerificationEmailListener implements ShouldQueue
+class SendVerificationEmailListener 
 {
     /**
      * Create the event listener.
@@ -24,7 +25,6 @@ class SendVerificationEmailListener implements ShouldQueue
      */
     public function handle(UserCreatedEvent $event): void
     {
-        $code = VerificationFacade::getVerificationCode($event->user);
-        EmailFacade::sendVerificationEmail($event->user, $code);
+        SendVerificationCodeJob::dispatch($event->user)->onQueue('email');
     }
 }

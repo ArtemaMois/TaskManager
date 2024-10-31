@@ -1,4 +1,7 @@
 /db
 /nginx
 /php
-docker-compose.yml
+.env
+/rabbitmq
+/rabbitmq/*
+/database
