@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Extensions\RabbitMQ\Enums\Exchange\ExchangeEnum;
+use App\Extensions\RabbitMQ\Facades\RabbitMQ;
 use App\Extensions\RabbitMQ\Facades\RabbitMQConnection;
 use Illuminate\Console\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -13,7 +15,7 @@ class RabbitmqInit extends Command
      *
      * @var string
      */
-    protected $signature = 'rabbitmq:init';
+    protected $signature = 'rabbit:init';
 
     protected $description = 'Make init queue and exchange';
 
@@ -22,12 +24,11 @@ class RabbitmqInit extends Command
      */
     public function handle()
     {
-        $connection = RabbitMQConnection::getConnection();
-        $channel = RabbitMQConnection::getChannel();
-        $channel->exchange_declare('laravel', 'direct', false, true, false);
-        $channel->queue_declare('email', false, false, false, false);
-        $channel->queue_bind('email', 'laravel', 'email');
-        $channel->close();
-        $connection->close();
+
+        RabbitMQ::declareExchange('laravel', ExchangeEnum::Direct, false, true, false);
+        RabbitMQ::declareQueue('verification-email', false, true, false, false);
+        RabbitMQ::declareQueue('test', false, true, false, false);
+        RabbitMQ::bindQueue('verification-email', 'laravel', 'verification', []);
+        RabbitMQ::bindQueue('test', 'laravel', 'test', []);
     }
 }

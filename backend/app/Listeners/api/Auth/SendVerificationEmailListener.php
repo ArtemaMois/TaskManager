@@ -3,6 +3,8 @@
 namespace App\Listeners\api\Auth;
 
 use App\Events\api\Auth\UserCreatedEvent;
+use App\Extensions\RabbitMQ\Facades\RabbitMessage;
+use App\Extensions\RabbitMQ\Facades\RabbitMQ;
 use App\Facades\Email\EmailFacade;
 use App\Facades\Verification\VerificationFacade;
 use App\Facades\VerificationCode\VerificationCodeFacade;
@@ -25,6 +27,7 @@ class SendVerificationEmailListener
      */
     public function handle(UserCreatedEvent $event): void
     {
-        SendVerificationCodeJob::dispatch($event->user)->onQueue('email');
+        $message = RabbitMessage::makeMessage(SendVerificationCodeJob::class, $event->user);
+        RabbitMQ::publish($message, 'laravel', 'verification');
     }
 }

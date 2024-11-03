@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class SendVerificationCodeJob implements ShouldQueue
+class SendVerificationCodeJob 
 {
     use Queueable;
 

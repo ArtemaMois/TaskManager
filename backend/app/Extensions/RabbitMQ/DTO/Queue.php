@@ -2,8 +2,11 @@
 
 namespace App\Extensions\RabbitMQ\DTO;
 
+use App\Extensions\RabbitMQ\Bindings\QueueBind;
+
 class Queue
 {
+
     private function __construct(
         private string $name,
         private bool $durable, 
@@ -42,5 +45,7 @@ class Queue
     {
         return $this->autoDelete;
     }
+
+
 
 }

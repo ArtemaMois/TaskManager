@@ -19,10 +19,10 @@ class ConnectionService implements ConnectionContract
     {
         $this->connect();
     }
-    public function connect()
+    private function connect()
     {
         $config = AMQPConfig::make();
-        $this->connection = new AMQPStreamConnection($config->host, $config->port, $config->user, $config->password);
+        $this->connection = new AMQPStreamConnection($config->host(), $config->port(), $config->user(), $config->password());
         $this->channel = $this->connection->channel();
     }
 
@@ -34,6 +34,11 @@ class ConnectionService implements ConnectionContract
     public function getChannel(): AMQPChannel
     {
         return $this->channel;
+    }
+
+    public function reconnect()
+    {
+        $this->connect();
     }
 
 

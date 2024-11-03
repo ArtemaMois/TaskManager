@@ -1,19 +1,19 @@
-<?php 
+<?php
 
 namespace App\Extensions\RabbitMQ\DTO;
 
+use App\Extensions\RabbitMQ\Bindings\ExchangeBind;
 use App\Extensions\RabbitMQ\Enums\Exchange\ExchangeEnum;
 
 class Exchange
 {
-
     private function __construct(
-        private string $name, 
-        private ExchangeEnum $type, 
-        private bool $durable, 
-        private bool $autoDelete, 
-        private string $alternativeExchange='')
-    {
+        private string $name,
+        private ExchangeEnum $type,
+        private bool $durable,
+        private bool $autoDelete,
+        private string $alternativeExchange = ''
+    ) {
         $this->name = $name;
         $this->type = $type;
         $this->durable = $durable;
@@ -21,7 +21,7 @@ class Exchange
         $this->alternativeExchange = $alternativeExchange;
     }
 
-    public static function make(string $name, ExchangeEnum $type, bool $durable, bool $autoDelete, string $alternativeExchange=''): Exchange
+    public static function make(string $name, ExchangeEnum $type, bool $durable, bool $autoDelete, string $alternativeExchange = ''): Exchange
     {
         return new self($name, $type, $durable, $autoDelete, $alternativeExchange);
     }

@@ -5,11 +5,11 @@ namespace App\Extensions\RabbitMQ\DTO;
 class AMQPConfig
 {
     private function __construct(
-        public readonly string $host, 
-        public readonly string $port, 
-        public readonly string $user, 
-        public readonly string $password, 
-        public readonly string $vhost, 
+        private string $host, 
+        private string $port, 
+        private string $user, 
+        private string $password, 
+        private string $vhost, 
     )
     {
         $this->host = $host;
@@ -27,5 +27,30 @@ class AMQPConfig
         $password = env('RABBITMQ_PASSWORD', 'guest');
         $vhost = env('RABBITMQ_VHOST', '/');
         return new self($host, $port, $user, $password, $vhost);
+    }
+
+    public function host(): string
+    {
+        return $this->host;
+    }
+
+    public function port(): string
+    {
+        return $this->port;
+    }
+
+    public function user(): string
+    {
+        return $this->user;
+    }
+
+    public function password(): string
+    {
+        return $this->password;
+    }
+
+    public function vhost(): string
+    {
+        return $this->vhost;
     }
 }

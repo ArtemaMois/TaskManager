@@ -7,7 +7,6 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 interface ConnectionContract
 {
-    public function connect();
 
     public function getConnection(): AMQPStreamConnection;
 

@@ -2,8 +2,10 @@
 
 namespace App\Extensions\RabbitMQ\Services;
 
+use App\Console\Commands\RabbitmqInit;
 use App\Extensions\RabbitMQ\Exceptions\NotFoundQeueuException;
 use App\Extensions\RabbitMQ\DTO\Queue;
+use App\Extensions\RabbitMQ\Facades\RabbitMQConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
@@ -14,10 +16,10 @@ class QueueService
     private AMQPStreamConnection $connecton;
     private AMQPChannel $channel;
 
-    public function __construct(AMQPStreamConnection $conn, AMQPChannel $channel)
+    public function __construct()
     {
-        $this->connecton = $conn;
-        $this->channel = $channel;
+        $this->connecton = RabbitMQConnection::getConnection();
+        $this->channel = RabbitMQConnection::getChannel();
     }
 
     public function queue_declare(string $queueName, bool $durable = true, bool $exclusive = false, bool $auto_delete = false)
@@ -29,12 +31,16 @@ class QueueService
     
     private function saveQueue(Queue $queue)
     {
-        $this->queues[$queue->name()] = ['queue' => $queue];
+        $this->queues[$queue->name()] = $queue;
     }
 
     public function bindQueue(string $queue, string $exchange, string $routing_key)
     {
-        
+        if(!$this->checkQueue($queue)){
+            throw new NotFoundQeueuException();
+        }   
+        $bind = ($this->queues[$queue])->getBinds();
+        $bind->bindExchange($exchange, $routing_key);
         $this->channel->queue_bind($queue, $exchange, $routing_key);
     }
 
@@ -43,8 +49,13 @@ class QueueService
         return in_array($queue, array_keys($this->queues)) ? $this->queues[$queue] : false;
     }
 
-    private function upgradeQueue()
+    public function unbind_Exhcange(string $exchange, string $queue)
     {
-        
+        if(!$this->checkQueue($queue)){
+            throw new NotFoundQeueuException();
+        }
+
+        $this->queues[$queue]->getBinds()->unbindExchange($exchange);
+        // $this->channel->queue_unbind();
     }
 }

@@ -23,6 +23,7 @@ class ResendVerificationCode implements ShouldQueue
     }
     public function handle(): void
     {
+        dump(1);
         $code = VerificationFacade::getVerificationCode($this->user);
         EmailFacade::sendVerificationEmail($this->user, $code);
     }

@@ -3,9 +3,11 @@
 namespace App\Extensions\RabbitMQ\Providers;
 
 use App\Extensions\RabbitMQ\Facades\RabbitMQConnection;
+use App\Extensions\RabbitMQ\Services\AMQPService;
 use App\Extensions\RabbitMQ\Services\ConnectionService;
 use App\Extensions\RabbitMQ\Services\ExchangeService;
 use App\Extensions\RabbitMQ\Services\QueueService;
+use Backend\App\Extensions\RabbitMQ\Services\AMQPMessageService;
 use Carbon\Laravel\ServiceProvider;
 
 class RabbitMQServiceProvider extends ServiceProvider
@@ -16,11 +18,18 @@ class RabbitMQServiceProvider extends ServiceProvider
             return new ConnectionService();
         });
         $this->app->singleton(ExchangeService::class, function ($app) {
-            return new ExchangeService(RabbitMQConnection::getConnection(), RabbitMQConnection::getChannel());
+            return new ExchangeService();
         });
 
         $this->app->singleton(QueueService::class, function ($app) {
-            return new QueueService(RabbitMQConnection::getConnection(), RabbitMQConnection::getChannel());
+            return new QueueService();
+        });
+        $this->app->singleton(AMQPService::class, function ($app) {
+            return new AMQPService();
+        });
+        $this->app->singleton(AMQPMessageService::class, function ($app)
+        {
+            return new AMQPMessageService();
         });
     }
 
