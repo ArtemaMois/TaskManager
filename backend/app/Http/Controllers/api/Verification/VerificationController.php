@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\api\Verification;
 
+use App\Events\api\Verification\ResendCodeEvent;
 use App\Facades\User\UserFacade;
 use App\Facades\Verification\VerificationFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\Verification\ResendVerificationCodeRequest;
 use App\Http\Requests\api\Verification\VerifyCodeRequest;
+use App\Jobs\api\Email\SendVerificationCodeJob;
 use App\Jobs\api\Verification\ResendVerificationCode;
 use App\Models\User;
 use App\Models\VerificationCode;
-use Illuminate\Http\Request;
-use Str;
+
 
 class VerificationController extends Controller
 {
@@ -29,7 +30,7 @@ class VerificationController extends Controller
     public function resendCode(ResendVerificationCodeRequest $request)
     {
         $user = UserFacade::getUserByEmail($request->input('email'));
-        ResendVerificationCode::dispatch($user);
+        event(new ResendCodeEvent($user));
         return response()->noContent();
     }
 }
