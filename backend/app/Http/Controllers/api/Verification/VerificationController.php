@@ -21,7 +21,7 @@ class VerificationController extends Controller
         $code = VerificationFacade::getUserVerificationCode($request->validated());
         $result = VerificationFacade::verifyCode($code, $request->input('code'));
         if(!is_bool($result)){
-            return response()->json(['status' => 'failed', 'data' => ['error' => $result]], 400);
+            return response()->json(['status' => 'failed', 'error' => $result], 400);
         }
         UserFacade::addVerifiedEmailAt($request->input('email'));
         return response()->json(['status' => 'success'], 200);

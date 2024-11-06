@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = AuthFacade::registerUser($request->validated());
-        return response()->json(['status' => 'success', 'data' => ['user' => new UserResource($user)]], 201);
+        return response()->json(['status' => 'success', 'user' => new UserResource($user)], 201);
     }
 
     public function login(LoginRequest $request)
@@ -28,10 +28,5 @@ class AuthController extends Controller
             return response()->json(['status' => 'success']);
         }
         return response()->json(['status' => 'failed', 'errors' => 'Неверные данные для входа']);
-    }
-    public function time()
-    {
-        $user = User::query()->first();
-        return response()->json(['user' => new UserResource($user)]);
     }
 }

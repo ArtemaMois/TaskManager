@@ -10,8 +10,6 @@ Route::controller(AuthController::class)
 ->group(function () {
     Route::post('/register', 'register')->name('auth.register');
     Route::post('/login', 'login')->name('auth.login');
-    Route::get('/test', 'time')->name('test');
 });
 
-Route::post('/timezone', [UserController::class, 'changeTimezone']);
 
