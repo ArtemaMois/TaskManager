@@ -27,7 +27,7 @@ class SendVerificationEmailListener
      */
     public function handle(UserCreatedEvent $event): void
     {
-        $message = RabbitMessage::makeMessage(SendVerificationCodeJob::class, $event->user);
-        RabbitMQ::publish($message, 'laravel', 'verification');
+        // $message = RabbitMessage::makeMessage(SendVerificationCodeJob::class, $event->user);
+        // RabbitMQ::publish($message, 'laravel', 'verification');
     }
 }
