@@ -21,10 +21,11 @@ class UserService
         $user->update(['email_verified_at' => now()->toDateTimeString()]);
     }
 
-    public function storeFile(UploadedFile $photo)
+    public function storeFile(UploadedFile $photo): string
     {
-        $file = Storage::disk('public')->putFile('\\uploads\\users\\', $photo);
-        $path= Storage::disk('public')->path($file);
-        dd($path);
+        $file = Storage::disk('public')->putFile('/uploads/users/', $photo);
+        $fullPath= Storage::disk('public')->path($file);
+        $resultPath = str_replace('//', '/', '/storage/' . explode('uploads', $fullPath)[1]);
+        return $resultPath;
     }
 }

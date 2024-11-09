@@ -23,10 +23,12 @@ class UserController extends Controller
     //TODO: сделать s3
     public function update(UpdateUserRequest $request)
     {
-        $request->hasFile('photo') ? UserFacade::storeFile($request->file('photo')) : null;
+        $photoPath = $request->hasFile('photo') ? UserFacade::storeFile($request->file('photo')) : null;
         Auth::user()->update([
-            'login' => $request->input('login')
+            'login' => $request->input('login'),
+            'photo_url' => $photoPath 
         ]);
+        return response()->json(['status' => 'success', 'user' => new UserResource(Auth::user())]);
     }
 
 }
