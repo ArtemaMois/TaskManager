@@ -13,4 +13,14 @@ class ResendVerificationCodeRequest extends FormRequest
             'email' => ['required', 'exists:users,email', 'email']
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Для подтверждения почты требуется email',
+            'email.exists' => 'Пользователь с таким email не найден',
+            'email.email' => 'Enail должен соответствовать виду hello@world.com'
+        ];
+    }
+    
 }

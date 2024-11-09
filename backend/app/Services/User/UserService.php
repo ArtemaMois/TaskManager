@@ -3,6 +3,9 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\FileBag;
 
 class UserService
 {
@@ -16,5 +19,12 @@ class UserService
     {
         $user = $this->getUserByEmail($email);
         $user->update(['email_verified_at' => now()->toDateTimeString()]);
+    }
+
+    public function storeFile(UploadedFile $photo)
+    {
+        $file = Storage::disk('public')->putFile('\\uploads\\users\\', $photo);
+        $path= Storage::disk('public')->path($file);
+        dd($path);
     }
 }

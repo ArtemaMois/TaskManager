@@ -14,4 +14,13 @@ class LoginRequest extends FormRequest
             'password' => ['required']
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'login.required' => 'Требуется ввести логин',
+            'login.exists' => 'Пользователя с таким логином не существует',
+            'password.required' => 'Требуется ввести пароль'
+        ];
+    }
 }
