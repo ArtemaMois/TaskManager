@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany(VerificationCode::class);
     }
 
+    public function resetCodes(): HasMany
+    {
+        return $this->hasMany(ResetPasswordCode::class);
+    } 
+
     public function settings(): HasOne
     {
         return $this->hasOne(Setting::class);

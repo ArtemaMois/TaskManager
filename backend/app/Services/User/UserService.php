@@ -28,4 +28,13 @@ class UserService
         $resultPath = str_replace('//', '/', '/storage/' . explode('uploads', $fullPath)[1]);
         return $resultPath;
     }
+
+    public function updatePassword(User $user, $password)
+    {
+        $password = bcrypt($password);
+        $user->update([
+            'password' => $password
+        ]);
+        return $user;
+    }
 }

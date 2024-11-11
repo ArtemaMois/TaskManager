@@ -3,6 +3,7 @@
 namespace App\Services\Verification;
 
 use App\Facades\User\UserFacade;
+use App\Models\ResetPasswordCode;
 use App\Models\User;
 use App\Models\VerificationCode;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
@@ -59,6 +60,5 @@ class VerificationService
         $code = $user->codes->last();
         return $code instanceof VerificationCode ? $code : $default;
     }
-
 
 }

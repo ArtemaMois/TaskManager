@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Requests\api\Verification;
+namespace App\Http\Requests\api\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyCodeRequest extends FormRequest
+class CheckResetCodeRequest extends FormRequest
 {
 
     public function rules(): array
     {
         return [
-            'email' => ['required', 'exists:users,email'],
+            'email' => ['required', 'email', 'exists:users,email'],
             'code' => ['required', 'min:6', 'max:6']
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => 'Для проверки кода требуется email',

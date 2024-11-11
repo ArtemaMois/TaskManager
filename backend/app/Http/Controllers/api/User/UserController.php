@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api\User;
 
 use App\Facades\User\UserFacade;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\api\Password\ResetPasswordRequest;
+use App\Http\Requests\api\Password\UpdatePasswordRequest;
 use App\Http\Requests\api\User\UpdateUserRequest;
 use App\Http\Resources\api\User\UserResource;
 use App\Models\Setting;
@@ -29,6 +31,13 @@ class UserController extends Controller
             'photo_url' => $photoPath 
         ]);
         return response()->json(['status' => 'success', 'user' => new UserResource(Auth::user())]);
+    }
+
+    public function changePassword(UpdatePasswordRequest $request)
+    {
+        $user = UserFacade::getUserByEmail($request->input('email'));
+        $user = UserFacade::updatePassword($user, $request->input('password'));
+        return response()->json(['status' => 'success', 'user' => $user]);
     }
 
 }
