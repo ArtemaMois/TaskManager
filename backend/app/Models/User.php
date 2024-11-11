@@ -61,4 +61,10 @@ class User extends Authenticatable
     {
         return Carbon::make($this->updated_at)->setTimezone( $this->settings->timezone->code)->format('H:i d-m-Y');
     }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
+    }
+
 }

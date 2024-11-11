@@ -40,5 +40,10 @@ class Category extends Model
     {
         return Carbon::make($this->updated_at)->setTimezone( Auth::user()->settings->timezone->code)->format('H:i d-m-Y');
     }
+
+    public function claims()
+    {
+        return $this->hasMany(Category::class);
+    }
     
 }

@@ -14,5 +14,9 @@ class ClaimStatus extends Model
         'code'
     ];
 
+    public function claims()
+    {
+        return $this->hasMany(Claim::class);
+    }
 
 }
