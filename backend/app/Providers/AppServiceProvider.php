@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Services\Auth\AuthService;
+use App\Services\Category\CategoryService;
+use App\Services\Claim\ClaimService;
+use App\Services\ClaimStatus\ClaimStatusService;
 use App\Services\Email\EmailService;
 use App\Services\Password\ResetPasswordService;
 use App\Services\User\UserService;
@@ -30,6 +33,17 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(ResetPasswordService::class, function ($app){
             return new ResetPasswordService();
+        });
+        $this->app->singleton(CategoryService::class, function ($app) {
+            return new CategoryService();
+        });
+
+        $this->app->singleton(ClaimService::class, function ($app) {
+            return new ClaimService();
+        });
+
+        $this->app->singleton(ClaimStatusService::class, function ($app) {
+            return new ClaimStatusService();
         });
     }
 

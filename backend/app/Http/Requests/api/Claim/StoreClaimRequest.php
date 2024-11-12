@@ -25,8 +25,8 @@ class StoreClaimRequest extends FormRequest
             'description.max' => 'Описание не может быть длиннее 300 символов.',
             'file.mimes' => 'Разрешается загружать файлы формата pdf, docx, png, jpeg, jpg.',
             'file.max' => 'Максимальный размер файла - 3 МБ.',
-            'category.required' => 'Требуется выбрать категорию.',
-            'category.exists' => 'Такой категории не существует.'
+            'category.required' => 'Требуется выбрать категорию',
+            'category.exists' => 'Такой категории не существует'
         ];
     }
 
