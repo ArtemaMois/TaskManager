@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\Claim;
 use App\Facades\Claim\ClaimFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\Claim\StoreClaimRequest;
+use App\Http\Requests\api\Claim\UpdateClaimRequest;
 use App\Http\Resources\api\Claim\ClaimResource;
 use App\Models\Claim;
 use Illuminate\Http\Request;
@@ -22,8 +23,10 @@ class ClaimsController extends Controller
         return response()->json(['status' => 'success', 'claim' => new ClaimResource($claim)]);
     }
 
-    public function update()
+    public function update(UpdateClaimRequest $request, Claim $claim)
     {
-        
+        $claim->update($request->validated());
+        ClaimFacade::sendEmailResponseToUser($claim, $claim->user);
+        return response()->json(['status' => 'success', 'claim' => new ClaimResource($claim)]);
     }
 }

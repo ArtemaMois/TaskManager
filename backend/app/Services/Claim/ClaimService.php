@@ -1,10 +1,12 @@
-<?php 
+<?php
 
 namespace App\Services\Claim;
 
+use App\Extensions\RabbitMQ\Facades\RabbitMessage;
 use App\Facades\Category\CategoryFacade;
 use App\Facades\ClaimStatus\ClaimStatusFacade;
 use App\Models\Claim;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +27,7 @@ class ClaimService
     private function saveClaimFile(UploadedFile $file)
     {
         $uploadedFile = Storage::disk('public')->putFile('/uploads/claims/', $file);
-        $fullPath= Storage::disk('public')->path($uploadedFile);
+        $fullPath = Storage::disk('public')->path($uploadedFile);
         $resultPath = str_replace('//', '/', '/storage/' . explode('uploads', $fullPath)[1]);
         return $resultPath;
     }
@@ -34,5 +36,13 @@ class ClaimService
     {
         return ClaimStatusFacade::getHandleStatus();
     }
-    
+
+    public function sendEmailResponseToUser(Claim $claim, User $user)
+    {
+        if ($claim->claimStatus->code == 'reject') {
+            $message = RabbitMessage::makeMessage();
+        } else{
+
+        }
+    }
 }

@@ -23,4 +23,10 @@ class ClaimStatusService
         $status = ClaimStatus::query()->where('code', 'reject')->first();
         return $status;
     }
+
+    public function getClaimStatusById(int $id): ClaimStatus|null
+    {
+        $status = ClaimStatus::query()->where('id', $id)->first();
+        return $status;
+    }
 }
