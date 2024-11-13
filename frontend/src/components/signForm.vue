@@ -86,7 +86,7 @@ import axios from 'axios';
             
             async sendUserData() {
                 try {
-                    const response = await axios.post('http://127.0.0.1:88/api/auth/register', {
+                    const response = await axios.post('http://127.0.0.1/api/auth/register', {
                         login: this.post.login,
                         email: this.post.email,
                         password: this.post.password
