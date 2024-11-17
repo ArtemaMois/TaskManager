@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ClaimResponse extends Mailable
+class RejectClaim extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,7 +32,7 @@ class ClaimResponse extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.claim_response',
+            view: 'email.reject_claim',
             with: [
                 'user' => $this->user,
                 'claim' => $this->claim
@@ -40,11 +40,6 @@ class ClaimResponse extends Mailable
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];

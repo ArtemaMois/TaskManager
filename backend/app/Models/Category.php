@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
@@ -43,7 +44,12 @@ class Category extends Model
 
     public function claims()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Claim::class);
+    }
+
+    public function mantors(): BelongsToMany
+    {
+        return $this->belongsToMany(Mentor::class);
     }
     
 }

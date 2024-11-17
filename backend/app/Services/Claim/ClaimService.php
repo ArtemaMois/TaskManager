@@ -3,8 +3,10 @@
 namespace App\Services\Claim;
 
 use App\Extensions\RabbitMQ\Facades\RabbitMessage;
+use App\Extensions\RabbitMQ\Facades\RabbitMQ;
 use App\Facades\Category\CategoryFacade;
 use App\Facades\ClaimStatus\ClaimStatusFacade;
+use App\Jobs\api\Claim\SendClaimResponseJob;
 use App\Models\Claim;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -39,10 +41,8 @@ class ClaimService
 
     public function sendEmailResponseToUser(Claim $claim, User $user)
     {
-        if ($claim->claimStatus->code == 'reject') {
-            $message = RabbitMessage::makeMessage();
-        } else{
-
-        }
+        $message = RabbitMessage::makeMessage(SendClaimResponseJob::class, ['user' => $user, 'claim' => $claim]);
+        RabbitMQ::publish($message, 'laravel', 'verification');
     }
+
 }

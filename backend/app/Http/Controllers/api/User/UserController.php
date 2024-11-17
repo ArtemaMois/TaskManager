@@ -26,10 +26,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request)
     {
         $photoPath = $request->hasFile('photo') ? UserFacade::storeFile($request->file('photo')) : null;
-        Auth::user()->update([
-            'login' => $request->input('login'),
-            'photo_url' => $photoPath 
-        ]);
+        $updateData = UserFacade::getUpdatedData($request->validated(), $request->file('photo'));
+        Auth::user()->update($updateData);
         return response()->json(['status' => 'success', 'user' => new UserResource(Auth::user())]);
     }
 

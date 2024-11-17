@@ -52,6 +52,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Setting::class);
     }
+
+    public function mentor(): HasOne
+    {
+        return $this->hasOne(Mentor::class);
+    }
     public function getLocalCreatedAt()
     {
         return Carbon::make($this->created_at)->setTimezone( $this->settings->timezone->code)->format('H:i d-m-Y');

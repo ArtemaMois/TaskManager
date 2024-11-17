@@ -9,5 +9,5 @@ Route::controller(ClaimsController::class)
 ->group(function () {
     Route::get('/', 'index')->name('claim.index');
     Route::post('/', 'store')->name('claim.store');
-    Route::patch('/', 'update')->name('claim.update');
+    Route::patch('/{claim}', 'update')->name('claim.update');
 });
