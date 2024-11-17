@@ -9,6 +9,7 @@ use App\Http\Requests\api\Claim\StoreClaimRequest;
 use App\Http\Requests\api\Claim\UpdateClaimRequest;
 use App\Http\Resources\api\Claim\ClaimResource;
 use App\Models\Claim;
+use App\Models\ClaimStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ class ClaimsController extends Controller
 {
     public function index()
     {
-        return response()->json(['status' => 'success', 'claims' => ClaimResource::collection(Claim::all())]);
+        $claims = Claim::query()->where('claim_status_id', ClaimStatus::query()->where('code', 'handling')->first()->id)->get();
+        return response()->json(['status' => 'success', 'claims' => ClaimResource::collection($claims)]);
     }
 
     public function store(StoreClaimRequest $request)
