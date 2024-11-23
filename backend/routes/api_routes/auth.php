@@ -10,6 +10,9 @@ Route::controller(AuthController::class)
 ->group(function () {
     Route::post('/register', 'register')->name('auth.register');
     Route::post('/login', 'login')->name('auth.login');
+    Route::post('/logout', 'logout')->name('auth.logout');
+    Route::post('/reset-password', 'resetPassword')->name('auth.reset-password');
+    Route::post('/reset-password/check', 'checkResetCode')->name('auth.reset-password.check');
 });
 
 

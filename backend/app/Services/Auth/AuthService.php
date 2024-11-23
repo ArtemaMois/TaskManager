@@ -4,7 +4,11 @@
 namespace App\Services\Auth;
 
 use App\Events\api\Auth\UserCreatedEvent;
+use App\Extensions\RabbitMQ\Facades\RabbitMessage;
+use App\Extensions\RabbitMQ\Facades\RabbitMQ;
+use App\Jobs\api\Password\SendResetPasswordCodeJob;
 use App\Models\User;
+use PhpAmqpLib\Message\AMQPMessage;
 
 class AuthService
 {
@@ -26,6 +30,12 @@ class AuthService
     private function emailEvent(User $user)
     {
         event(new UserCreatedEvent($user));
+    }
+
+    public function resetPassword(User $user)
+    {
+        $message = RabbitMessage::makeMessage(SendResetPasswordCodeJob::class, $user);
+        RabbitMQ::publish($message, 'laravel', 'verification');
     }
 
 

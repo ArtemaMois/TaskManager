@@ -19,7 +19,7 @@ class VerifyCodeRequest extends FormRequest
     {
         return [
             'email.required' => 'Для проверки кода требуется email',
-            'email.exists' => 'ПОльзователь с таким email не найден',
+            'email.exists' => 'Пользователь с таким email не найден',
             'code.required' => 'Требуется ввести код',
             'code.min' => 'Код должен быть не короче и не длиннее 6 символов',
             'code.max' => 'Код должен быть не короче и не длиннее 6 символов'

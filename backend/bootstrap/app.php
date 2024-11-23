@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\api\AdminMiddleware;
+use App\Http\Middleware\api\NotUpdatedClaims;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->statefulApi();
         $middleware->append(StartSession::class);
         $middleware->api(EnsureFrontendRequestsAreStateful::class);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
     })->create();

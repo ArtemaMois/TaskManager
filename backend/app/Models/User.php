@@ -43,9 +43,19 @@ class User extends Authenticatable
         return $this->hasMany(VerificationCode::class);
     }
 
+    public function resetCodes(): HasMany
+    {
+        return $this->hasMany(ResetPasswordCode::class);
+    } 
+
     public function settings(): HasOne
     {
         return $this->hasOne(Setting::class);
+    }
+
+    public function mentor(): HasOne
+    {
+        return $this->hasOne(Mentor::class);
     }
     public function getLocalCreatedAt()
     {
@@ -56,4 +66,10 @@ class User extends Authenticatable
     {
         return Carbon::make($this->updated_at)->setTimezone( $this->settings->timezone->code)->format('H:i d-m-Y');
     }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
+    }
+
 }
