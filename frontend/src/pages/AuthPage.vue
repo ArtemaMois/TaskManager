@@ -1,5 +1,4 @@
 <template>
-    <div class="lang">en</div>
     <div class="signup-wrapper">
         <div class="logo-view">
             <svg width="34px" height="34" viewBox="0 0 34 34" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +21,7 @@
     import signForm from '@/components/signForm.vue';
     export default {
         components: {
-            signForm, 
+            signForm,
         },
         data() {
             return {
@@ -36,24 +35,9 @@
 </script>
 
 <style lang="scss" scoped>
-.lang{
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 25px;
-    height: 20px;
-    border: none;
-    border-radius: 15px;
-    font-family: Square;
-    font-size: small;
-    background-color: rgb(84, 111, 255);
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .signup-wrapper{
     display: flex;
-    height: 100vh;
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -61,6 +45,7 @@
 .signup__bar{
     display: flex;
     justify-content: center;
+    max-height: 300px;
 }
 
 .logo-view{
@@ -68,6 +53,7 @@
     flex-direction: row;
     justify-content: center;
     margin-bottom: 20px;
+    max-height: 50px;
 }
 .logo__title{
     color: black;
@@ -77,5 +63,9 @@
     margin-left: 1.5px;
     display: flex;
     align-items: end;
+}
+.error-view{
+    position: absolute;
+    max-height: 50px;
 }
 </style>

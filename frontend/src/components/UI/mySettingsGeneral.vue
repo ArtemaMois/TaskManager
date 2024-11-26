@@ -1,0 +1,65 @@
+<template>
+    <div>
+        <my-dragdrop></my-dragdrop>
+        <div class="general-input-block">
+            <div class="general-input-title__login">Информация о пользователе:</div>
+            <my-input v-model="login" placeholder="Ваш логин" class="general-input__login"></my-input>
+            <my-input placeholder="Ваша почта" disabled class="general-input__email"></my-input>
+            <my-button class="general-input-button">Обновить данные</my-button>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'my-settings-general',
+        data() {
+            return {
+                selected: null,
+                login: '',
+                options: [
+                    {
+                        value: 1, label: "English"
+                    },
+                    {
+                        value: 2, label: "Russian"
+                    },
+                    
+                ],
+            };
+        },
+    };
+</script>
+
+<style lang="scss" scoped>
+.general-input-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 32px 0 0 32px;
+}
+.general-input__login, .general-input__email {
+    width: 200px;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #546FFF;
+    border-radius: 10px;
+    
+}
+.general-input-title__login {
+    font-family: NimbusRegular;
+    font-size: 18px;
+}
+.general-input__email {
+    opacity: 50%;
+    color: black;
+}
+.general-input-button{
+    max-width: 150px;
+    height: 100%;
+    margin: 32px 0 32px 0px;
+    padding: 10px 0 10px 0;
+    justify-content: center;
+    background-color: #546FFF;
+}
+</style>

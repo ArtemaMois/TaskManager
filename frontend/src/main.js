@@ -10,11 +10,22 @@ import PostList from '@/components/postList.vue'
 import signForm from '@/components/signForm.vue'
 import PostItem from '@/components/postItem.vue'
 import signupForm from '@/components/signupForm.vue'
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-vue/dist/bootstrap-vue.css"
-import "bootstrap"
-const app = createApp(App)
+import myFootMain from '@/components/UI/myFootMain.vue'
+import myRunningTask from '@/components/UI/myRunningTask.vue'
+import myFootSettings from '@/components/UI/myFootSettings.vue'
+import mySettingsGeneral from '@/components/UI/mySettingsGeneral.vue'
+import mySettingsNotification from '@/components/UI/mySettingsNotification.vue'
+import myInputCheckbox from '@/components/UI/myInputCheckbox.vue'
+import axios from 'axios'
+import myDragAndDrop from '@/components/UI/myDragAndDrop.vue'
+import myInputRadio from '@/components/UI/myInputRadio.vue'
+import myError from '@/components/UI/myError.vue'
+import myActivitySchedule from '@/components/UI/myActivitySchedule.vue'
 
+
+const app = createApp(App)
+axios.defaults.baseURL = 'http://localhost:88';
+axios.defaults.withCredentials = true;
 
 
 app
@@ -27,5 +38,15 @@ app
     .component('sign-form', signForm)
     .component('post-item', PostItem)
     .component('signup-form', signupForm)
+    .component('my-main-foot', myFootMain)
+    .component('my-runing', myRunningTask)
+    .component('my-foot-settings', myFootSettings)
+    .component('my-settings-general', mySettingsGeneral)
+    .component('my-settings-notif', mySettingsNotification)
+    .component('my-checkbox', myInputCheckbox)
+    .component('my-dragdrop', myDragAndDrop)
+    .component('my-radio', myInputRadio)
+    .component('my-error', myError)
+    .component('my-activity', myActivitySchedule)
     .use(router)
     .mount('#app')

@@ -1,68 +1,77 @@
 <template>
-    <div>
-        <h1 style="margin-bottom: 15px;">Страница с постами</h1>
-        <my-input
-            v-model="searchQuery"
-            placeholder="Поиск"
-            style="margin-bottom: 10px;"
-        />
-        <div class="app__btns">
-            <my-button
-            @click="showDialog"
-            style="margin-top: 15px; margin-bottom: 15px; padding: 7px;"
-            >
-            Создать пост
-            </my-button>
-            <my-select
-                v-model="selectedSort"
-                :options="sortOptions"
-            />
-        </div>   
-        
-        <my-dialog v-model:show="dialogVisible">
-            <signForm
-                @create="createPost"
-                >   
-            </signForm>
-        </my-dialog>
-        
-        <postList 
-            :posts="sortedSearchPosrs"
-            @remove="removePost"
-            v-if="isPostsLoading"
-        ></postList>
-        
-        <div v-else>Загрузка...</div>
-        <div ref="observer" class="observer">
-        
-        </div>
-        <!-- <div class="page__wrapper">
-            <div 
-                v-for="page in totalPage" 
-                :key="page"
-                class="page"
-                :class="{
-                    'current-page': pageNum === page
-                }"
-                @click="changePage(page)"
-            >
-                {{ page }}
+    <div class="main-class">
+        <nav-bar v-if="$route.path !== '/'" ></nav-bar>
+        <div class="main-menu">
+            <my-main-foot></my-main-foot>
+            <div class="activity-menu">
+                <my-runing></my-runing>
+                <my-activity></my-activity>
+
             </div>
-        </div> -->
+            <!-- <my-input
+                v-model="searchQuery"
+                placeholder="Поиск"
+                style="margin-bottom: 10px;"
+            />
+            <div class="app__btns">
+                <my-button
+                @click="showDialog"
+                style="margin-top: 15px; margin-bottom: 15px; padding: 7px;"
+                >
+                Создать пост
+                </my-button>
+                <my-select
+                    v-model="selectedSort"
+                    :options="sortOptions"
+                />
+            </div>   
+            
+            <my-dialog v-model:show="dialogVisible">
+                <signForm
+                    @create="createPost"
+                    >   
+                </signForm>
+            </my-dialog>
+            
+            <postList 
+                :posts="sortedSearchPosrs"
+                @remove="removePost"
+                v-if="isPostsLoading"
+            ></postList>
+            
+            <div v-else>Загрузка...</div>
+            <div ref="observer" class="observer">
+            
+            </div>
+             <div class="page__wrapper">
+                <div 
+                    v-for="page in totalPage" 
+                    :key="page"
+                    class="page"
+                    :class="{
+                        'current-page': pageNum === page
+                    }"
+                    @click="changePage(page)"
+                >
+                    {{ page }}
+                </div>
+            </div> -->
+        </div>
+        <div class="finished-menu"></div>
     </div>
 </template>
 
 <script>
-import signForm from '@/components/signForm.vue';
-import postList from '@/components/postList.vue';
-import myDialog from '@/components/UI/myDialog.vue';
-import myButton from '@/components/UI/myButton.vue';
-import mySelect from '@/components/UI/mySelect.vue';
+// import signForm from '@/components/signForm.vue';
+// import postList from '@/components/postList.vue';
+// import myDialog from '@/components/UI/myDialog.vue';
+// import myButton from '@/components/UI/myButton.vue';
+// import mySelect from '@/components/UI/mySelect.vue';
 import axios from 'axios';
-import myInput from '@/components/UI/myInput.vue';
+// import myInput from '@/components/UI/myInput.vue';
 export default {
     components: {
-        signForm, postList, myDialog, myButton, mySelect, myInput
+        // signForm, postList, myDialog, myButton, mySelect, myInput
     },
     data() {
         return {
@@ -128,25 +137,25 @@ export default {
             } catch (e) {
                 alert('Ошибка!')
             } 
-        }
+        },
     },
-    mounted() {
-        this.fetchPosts();
-        const options = {
-        rootMargin: "0px",
-        threshold: 1.0,
-        };
-        const callback = () => {
-            if (this.pageNum < this.totalPage) {
-                this.loadMorePosts()
-                console.log(this.pageNum)
+    // mounted() {
+    //     this.fetchPosts();
+    //     const options = {
+    //     rootMargin: "0px",
+    //     threshold: 1.0,
+    //     };
+    //     const callback = () => {
+    //         if (this.pageNum < this.totalPage) {
+    //             this.loadMorePosts()
+    //             console.log(this.pageNum)
                 
-            }
+    //         }
             
-        };
-        const observer = new IntersectionObserver(callback, options);
-        observer.observe(this.$refs.observer);
-    },
+    //     };
+    //     const observer = new IntersectionObserver(callback, options);
+    //     observer.observe(this.$refs.observer);
+    // },
     computed: {
         sortedPosts() {
             return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
@@ -165,10 +174,15 @@ export default {
 
 <style>
 
-
-form {
-    display: flex;
-    flex-direction: column;
+.main-class{
+    display: grid;
+    grid-template-columns: 17.5% 1fr 30.6%;
+}
+.main-menu{
+    grid-column: 2;
+    max-width: 752px;
+    padding-left: 32px;
+    background-color: #FAFAFA;
 }
 .app__btns{
     display: flex;
@@ -183,11 +197,17 @@ form {
     border: 2px solid black;
     padding: 10px;
 }
-.current-page{
-    border: 2px solid #000000;
+
+
+.finished-menu{
+    max-width: 436px;
+    grid-column: 3;
+    background: #F5F5F7;
 }
-.observer{
-    height: 30px;
-    background: #000;
+.activity-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    margin-top: 44px;
 }
 </style>

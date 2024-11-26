@@ -42,6 +42,7 @@
     border-radius: 15px;
     min-height: 50px;
     min-width: 300px;
+    max-height: 300px;
     padding: 20px;
 }
 </style>

@@ -16,11 +16,9 @@ export default {
 }
 .btn {
     display: flex;
-    color: rgb(255, 255, 255);
+    align-items: center;
     font-family: Square;
-    background: rgba(84, 111, 255);
     border-radius: 10px;
-    margin-bottom: 10px;
     border: none;
 }
 .signup__btn{
