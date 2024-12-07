@@ -14,6 +14,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     ports:
     - "${POSTGRES_PORT}:5432"
+
   nginx:
       image: nginx:alpine
       container_name: app-nginx
@@ -43,13 +44,13 @@ services:
       build:
         context: ./frontend
         dockerfile: ./Dockerfile
-      command: ["npm", "run", "serve"]
+      command: npm run serve
       ports:
         - "8080:8080"
       environment:
         - CHOKIDAR_USEPOLLING=true
       volumes:
-        - ./frontend:/app
+        - ./frontend:/frontend
 
   rabbitmq:
       container_name: app-rabbitmq
