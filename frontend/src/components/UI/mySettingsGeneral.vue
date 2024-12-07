@@ -48,7 +48,7 @@
 }
 .general-input-title__login {
     font-family: NimbusRegular;
-    font-size: 18px;
+    font-size: 14px;
 }
 .general-input__email {
     opacity: 50%;
@@ -60,6 +60,7 @@
     margin: 32px 0 32px 0px;
     padding: 10px 0 10px 0;
     justify-content: center;
+    color: #FFF;
     background-color: #546FFF;
 }
 </style>

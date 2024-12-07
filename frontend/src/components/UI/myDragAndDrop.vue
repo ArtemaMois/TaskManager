@@ -29,42 +29,65 @@
         this.$refs.dropZone?.classList.remove('drag-over');
       },
       async onDrop(event) {
-        const file = event.dataTransfer.files[0];
-  
-        if (file && file.type.startsWith('image/')) {
+        event.preventDefault();
+        const files = event.dataTransfer.files;
+        if (files.length === 0) return;
+        const file = files[0];
+        const formData = new FormData();
+        formData.append("file", file);
 
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.image = reader.result;
-          };
-          reader.readAsDataURL(file);
-  
-          try {
-            const response = await this.createBook();
-            this.serverResponse = response;
-            console.log('Успешно загружено:', response);
-            console.log('Успешно загружено:', file);
-          } catch (error) {
-            console.error('Ошибка загрузки:', error);
-          }
+        try {
+          const response = await axios.patch("http://127.0.0.1:88/api/accounts/me", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          console.log("Файл загружен!", response.data);
+          
+        } catch (e) {
+          console.log("Ошибка при загрузке!", e);
         }
-        this.$refs.dropZone?.classList.remove('drag-over');
+
+
+
+
+
+        // const file = event.dataTransfer.files[0];
+  
+        // if (file && file.type.startsWith('image/')) {
+
+        //   const reader = new FileReader();
+        //   reader.onload = () => {
+        //     this.image = reader.result;
+        //   };
+        //   reader.readAsDataURL(file);
+  
+        //   try {
+        //     const response = await this.createFile();
+        //     this.serverResponse = response;
+        //     console.log('Успешно загружено:', response);
+        //     console.log('Успешно загружено:', file);
+        //   } catch (error) {
+        //     console.error('Ошибка загрузки:', error);
+        //   }
+        // }
+        // this.$refs.dropZone?.classList.remove('drag-over');
       },
 
-      async createBook () {
-        axios.patch('http://127.0.0.1:88/api/accounts/me', this.file, {
-            _method: 'PATCH',
-            photo: this.file, 
-        }, {
-                'Content-Type': 'multipart/form-data',
-                'cookie': localStorage.getItem('xsrfToken'), 
-            })
-                .then(response => console.log(response))
-                .catch(error => console.log(error))
-            },
-                onAttachmentChange (e) {
-                this.file.image = e.target.files[0]
-            }
+      // async createFile() {
+      //   axios.patch('http://127.0.0.1:88/api/accounts/me', this.file, {
+      //       _method: 'PATCH',
+      //       photo: this.file, 
+      //   }, {
+      //           'Content-Type': 'multipart/form-data',
+      //           'cookie': localStorage.getItem('xsrfToken'), 
+      //       })
+      //           .then(response => console.log(response))
+      //           .catch(error => console.log(error))
+      //       },
+      //           onAttachmentChange (e) {
+      //           this.file.image = e.target.files[0]
+      //       }
         }
     };
   </script>

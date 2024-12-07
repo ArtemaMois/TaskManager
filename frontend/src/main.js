@@ -21,6 +21,7 @@ import myDragAndDrop from '@/components/UI/myDragAndDrop.vue'
 import myInputRadio from '@/components/UI/myInputRadio.vue'
 import myError from '@/components/UI/myError.vue'
 import myActivitySchedule from '@/components/UI/myActivitySchedule.vue'
+import mySliderSmall from '@/components/UI/mySliderSmall.vue'
 
 
 const app = createApp(App)
@@ -48,5 +49,6 @@ app
     .component('my-radio', myInputRadio)
     .component('my-error', myError)
     .component('my-activity', myActivitySchedule)
+    .component('my-sslider', mySliderSmall)
     .use(router)
     .mount('#app')

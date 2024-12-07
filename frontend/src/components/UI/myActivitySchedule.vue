@@ -10,7 +10,7 @@ Nikita, [27.11.2024 0:04]
       </select>
     </div>
     <div class="chart-container">
-      <canvas ref="canvas" @click="handleClick"></canvas>
+      <canvas style="width: 422px; height: 130px;" ref="canvas" @click="handleClick"></canvas>
       <div
         v-if="tooltip.visible"
         class="tooltip"

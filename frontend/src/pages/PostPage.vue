@@ -6,7 +6,9 @@
             <div class="activity-menu">
                 <my-runing></my-runing>
                 <my-activity></my-activity>
-
+            </div>
+            <div class="slider-box-small">
+                <my-sslider></my-sslider>
             </div>
             <!-- <my-input
                 v-model="searchQuery"
@@ -210,4 +212,11 @@ export default {
     gap: 32px;
     margin-top: 44px;
 }
+.slider-box-small {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+}
+
 </style>

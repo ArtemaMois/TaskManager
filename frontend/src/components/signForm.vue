@@ -186,7 +186,7 @@ import axios from 'axios';
     justify-content: center;
     align-items: center;
     font-size: 75%;
-    background: #546FFF;
+    color: #F5F5F7;
 }
 .dialog-view{
     margin: auto;
