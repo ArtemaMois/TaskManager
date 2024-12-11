@@ -9,6 +9,8 @@ use App\Services\ClaimStatus\ClaimStatusService;
 use App\Services\Email\EmailService;
 use App\Services\Mentor\MentorService;
 use App\Services\Password\ResetPasswordService;
+use App\Services\PerformingTask\PerformingTaskService;
+use App\Services\Task\TaskService;
 use App\Services\User\UserService;
 use App\Services\Verification\VerificationService;
 use Illuminate\Support\ServiceProvider;
@@ -31,20 +33,26 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserService::class, function () {
             return new UserService();
         });
-        $this->app->singleton(ResetPasswordService::class, function ($app){
+        $this->app->singleton(ResetPasswordService::class, function (){
             return new ResetPasswordService();
         });
-        $this->app->singleton(CategoryService::class, function ($app) {
+        $this->app->singleton(CategoryService::class, function () {
             return new CategoryService();
         });
-        $this->app->singleton(ClaimService::class, function ($app) {
+        $this->app->singleton(ClaimService::class, function () {
             return new ClaimService();
         });
-        $this->app->singleton(ClaimStatusService::class, function ($app) {
+        $this->app->singleton(ClaimStatusService::class, function () {
             return new ClaimStatusService();
         });
-        $this->app->singleton(MentorService::class, function ($app) {
+        $this->app->singleton(MentorService::class, function () {
             return new MentorService();
+        });
+        $this->app->singleton(TaskService::class, function () {
+            return new TaskService();
+        });
+        $this->app->singleton(PerformingTaskService::class, function () {
+            return new PerformingTaskService();
         });
     }
 

@@ -57,6 +57,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mentor::class);
     }
+
+    public function grades(): HasMany
+    {
+        return $this->hasMany(Grade::class);
+    }
     public function getLocalCreatedAt()
     {
         return Carbon::make($this->created_at)->setTimezone( $this->settings->timezone->code)->format('H:i d-m-Y');
@@ -70,6 +75,16 @@ class User extends Authenticatable
     public function claims(): HasMany
     {
         return $this->hasMany(Claim::class);
+    }
+
+    public function performingTasks(): HasMany
+    {
+        return $this->hasMany(PerformingTask::class);
+    }
+
+    public function performingCheckpoints(): HasMany
+    {
+        return $this->hasMany(PerformedCheckpoint::class);
     }
 
 }

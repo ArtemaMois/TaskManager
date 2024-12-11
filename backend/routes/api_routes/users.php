@@ -8,6 +8,8 @@ Route::controller(UserController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/', 'index')->name('users.index');
+        Route::get('/me', 'me')->name('users.password.update');
         Route::patch('/me', 'update')->name('users.update');
         Route::patch('/me/password', 'changePassword')->name('users.password.update');
+        Route::get("/cookie", "getCookie")->name('cookie');
 });

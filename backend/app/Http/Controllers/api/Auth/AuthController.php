@@ -16,6 +16,7 @@ use App\Http\Resources\api\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Test\Constraint\ResponseIsUnprocessable;
 
 class AuthController extends Controller
@@ -32,7 +33,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return response()->json(['status' => 'success']);
         }
-        return response()->json(['status' => 'failed', 'errors' => 'Неверные данные для входа']);
+        return response()->json(['status' => 'failed', 'errors' => 'Неверные данные для входа'], 400);
     }
 
     public function resetPassword(ResetPasswordRequest $request)
@@ -56,4 +57,6 @@ class AuthController extends Controller
         Auth::logout();
         return response()->json(['status' => 'success']);
     }
+
+
 }

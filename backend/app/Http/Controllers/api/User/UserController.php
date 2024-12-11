@@ -12,6 +12,8 @@ use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Symfony\Component\HttpFoundation\Test\Constraint\ResponseFormatSame;
 
 class UserController extends Controller
 {
@@ -20,6 +22,11 @@ class UserController extends Controller
     {
         $users = User::all();
         return response()->json(['status' => 'success', 'users' => UserResource::collection($users)]);
+    }
+
+    public function me()
+    {
+        return response()->json(['status' => 'success', 'user' => new UserResource(Auth::user())]);
     }
 
     //TODO: сделать s3
@@ -36,6 +43,12 @@ class UserController extends Controller
         $user = UserFacade::getUserByEmail($request->input('email'));
         $user = UserFacade::updatePassword($user, $request->input('password'));
         return response()->json(['status' => 'success', 'user' => $user]);
+    }
+
+    public function getCookie()
+    {
+        $xsrf = Cookie::get('XSRF-TOKEN');
+        return response()->json(['status' => 'success', 'token' => $xsrf]);
     }
 
 }
