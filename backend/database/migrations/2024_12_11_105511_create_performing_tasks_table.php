@@ -17,7 +17,7 @@ return new class extends Migration
             ->constrained('users')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
-            $table->foreignId('user_id')
+            $table->foreignId('task_id')
             ->constrained('tasks');
             $table->integer('progress')->default(0);
             $table->boolean('is_completed')->default(false);

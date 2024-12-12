@@ -1,7 +1,7 @@
 FROM node:22.11.0
 
-WORKDIR /app
-
+WORKDIR /frontend
+RUN chown -R node:node /frontend 
 COPY package*.json ./
 
 RUN npm install

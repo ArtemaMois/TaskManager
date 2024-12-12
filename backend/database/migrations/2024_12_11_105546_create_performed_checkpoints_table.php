@@ -17,11 +17,11 @@ return new class extends Migration
             ->constrained('users')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
-            $table->foreignIdFor('checkpoint_id')
+            $table->foreignId('checkpoint_id')
             ->constrained('checkpoints')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
-            $table->foreignIdFor('task_id')
+            $table->foreignId('task_id')
             ->constrained('tasks')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();

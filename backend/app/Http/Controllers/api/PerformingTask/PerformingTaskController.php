@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\PerformingTask;
 
+use App\Facades\PerformedCheckpoint\PerformedCheckpointFacade;
 use App\Facades\PerformingTask\PerformingTaskFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\TaskUser\StoreTaskUserRequest;
@@ -18,7 +19,11 @@ class PerformingTaskController extends Controller
 {
     public function index()
     {
-        // $unsortedTasks = Auth::user()->perfo
+        $tasks = PerformingTask::query()
+        ->where('user_id', Auth::user()
+        ->id)->get();
+        $result = PerformingTaskFacade::sortTaskByCompletion($tasks);
+        return response()->json(['status' => 'success', 'completed' => $result['completed'], 'uncompleted' => $result['uncompleted']]);        
     }
 
     public function store(StoreTaskUserRequest $request)
@@ -30,6 +35,12 @@ class PerformingTaskController extends Controller
 
     public function update(Task $task, UpdateUserTasksRequest $request)
     {
-        $data = PerformingTaskFacade::updateUserTasksData($task->id, $request->input('checkpoint'));
+        $updatedCheckpoint = PerformedCheckpointFacade::getPerformedCheckpoint($task->id, $request->input('checkpoint'));
+        if(is_null($updatedCheckpoint)){
+            return response()->json(['status' => 'failed', 'message' => 'Неверные данные для обновления прогресса'], 400);
+        }
+        $updatedCheckpoint->update(['is_completed' => true]);
+        $progress = PerformingTaskFacade::updateProgress($task);
+        return response()->json(['status' => 'success', 'progress' => $progress]);
     }
 }

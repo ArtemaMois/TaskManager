@@ -17,19 +17,19 @@ class TasksController extends Controller implements ShouldDispatchAfterCommit
     public function index()
     {
         $tasks = TaskResource::collection(Task::all());
-        return response()->json(['status' => 'success', 'tasks' => $tasks]);
+        return response()->json(['status' => 'success', 'tasks' => TaskResource::collection($tasks)]);
     }
 
     public function store(StoreTaskRequest $request)
     {
-        $task = DB::transaction(function () use ($request){
-            $data = TaskFacade::getFormedData($request->validated());
-            $task = Task::query()->create($data);
-            return $task;
-        });
-        DB::afterCommit(function () use ($task, $request) {
-            event(new TaskCreatedEvent($task, $request['checkpoints']));
-        });
+        // $task = DB::transaction(function () use ($request){
+        //     $data = TaskFacade::getFormedData($request->validated());
+        //     $task = Task::query()->create($data);
+        //     return $task;
+        // });
+        $data = TaskFacade::getFormedData($request->validated());
+        $task = Task::query()->create($data);
+        TaskFacade::initTaskCheckpoints($task, $request['checkpoints']);
         return response()->json(['status' => 'success', 'task' => new TaskResource($task)], 201);
     }
 

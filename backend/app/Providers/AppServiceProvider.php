@@ -9,6 +9,7 @@ use App\Services\ClaimStatus\ClaimStatusService;
 use App\Services\Email\EmailService;
 use App\Services\Mentor\MentorService;
 use App\Services\Password\ResetPasswordService;
+use App\Services\PerformedCheckpoint\PerformedCheckpointService;
 use App\Services\PerformingTask\PerformingTaskService;
 use App\Services\Task\TaskService;
 use App\Services\User\UserService;
@@ -53,6 +54,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(PerformingTaskService::class, function () {
             return new PerformingTaskService();
+        });
+        $this->app->singleton(PerformedCheckpointService::class, function() {
+            return new PerformedCheckpointService();
         });
     }
 

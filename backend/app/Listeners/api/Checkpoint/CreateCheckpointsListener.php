@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\api\Checkpoints;
 
 use App\Events\api\Task\TaskCreatedEvent;
 use App\Models\Checkpoint;
@@ -18,6 +18,7 @@ class CreateCheckpointsListener
 
     public function handle(TaskCreatedEvent $event): void
     {
+        dd($event->checkpoints);
         foreach ($event->checkpoints as $key => $value) {
             Checkpoint::query()->create(
                 [

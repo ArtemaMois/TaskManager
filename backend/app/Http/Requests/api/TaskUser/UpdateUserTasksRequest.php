@@ -12,4 +12,12 @@ class UpdateUserTasksRequest extends FormRequest
             'checkpoint' => ['required', 'exists:checkpoints,id']
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'checkpoint.required' => 'Не выбран чекпоинт',
+            'checkpoint.exists' => 'Выбранный чекпоинт не существует'
+        ];
+    }
 }
