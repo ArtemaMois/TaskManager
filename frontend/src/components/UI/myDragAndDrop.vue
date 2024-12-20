@@ -35,18 +35,29 @@
         const file = files[0];
         const formData = new FormData();
         formData.append("file", file);
+        const initCsrf = async () => {
+                        await axios.get('http://127.0.0.1:88/api/csrf-cookie', {
+                            withCredentials: true,
+                        });
+                    }
+        initCsrf();
+        const xsrfToken = document.cookie
+        setTimeout(() => {
 
-        try {
-          const response = await axios.patch("http://127.0.0.1:88/api/accounts/me", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-          console.log("Файл загружен!", response.data);
+        }, 1000);
+        console.log(xsrfToken);
+        localStorage.setItem('xsrfToken', xsrfToken);
+        // try {
+        //   const response = await axios.patch("http://127.0.0.1:88/api/accounts/me", formData, {
+        //     headers: {
+        //       "Content-Type": "multipart/form-data",
+        //     },
+        //   });
+        //   console.log("Файл загружен!", response.data);
           
-        } catch (e) {
-          console.log("Ошибка при загрузке!", e);
-        }
+        // } catch (e) {
+        //   console.log("Ошибка при загрузке!", e);
+        // }
 
 
 

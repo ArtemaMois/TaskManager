@@ -30,8 +30,8 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::attempt($request->validated())) {
-            $request->session()->regenerate();
-            return response()->json(['status' => 'success']);
+            $token = AuthFacade::getApiToken(Auth::user());
+            return response()->json(['status' => 'success', 'token' => $token]);
         }
         return response()->json(['status' => 'failed', 'errors' => 'Неверные данные для входа'], 400);
     }
@@ -54,6 +54,7 @@ class AuthController extends Controller
 
     public function logout()
     {
+        Auth::user()->currentAccessToken()->delete();
         Auth::logout();
         return response()->json(['status' => 'success']);
     }

@@ -25,7 +25,7 @@ import mySliderSmall from '@/components/UI/mySliderSmall.vue'
 
 
 const app = createApp(App)
-axios.defaults.baseURL = 'http://localhost:88';
+axios.defaults.baseURL = 'http://127.0.0.1:88/api';
 axios.defaults.withCredentials = true;
 
 

@@ -88,7 +88,7 @@ import axios from 'axios';
                     const response = await axios.post('http://127.0.0.1:88/api/auth/register', {
                         login: this.form.login,
                         email: this.form.email,
-                        password: this.form.password
+                        password: this.form.password,
                     });
                     if (response.data.status == "success") {
                         console.log('Успешная регистрация! Можете войти!', response.data);
@@ -111,25 +111,15 @@ import axios from 'axios';
                     console.log(e);  
                 } 
             },
+            
             async signinUser() {
                 this.errorMessage = '';
                 try {
-                    localStorage.removeItem('xsrfToken');
-                    const initCsrf = async () => {
-                        await axios.get('http://127.0.0.1:88/api/csrf-cookie', {
-                            withCredentials: true,
-                        });
-                    }
-                    initCsrf();
-                    const xsrfToken = document.cookie
-                    setTimeout(() => {
-
-                    }, 1000);
-                    localStorage.setItem('xsrfToken', xsrfToken);
                     const response2 = await axios.post('http://127.0.0.1:88/api/auth/login', {
                         login: this.form.login,
                         password: this.form.password,
-                    });
+                    }
+                );
                     if (response2.data.status == "success") {
                         console.log('Успешный вход!', response2.data);
                         this.$router.push('/settings');

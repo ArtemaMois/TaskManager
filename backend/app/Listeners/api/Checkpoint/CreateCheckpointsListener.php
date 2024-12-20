@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\api\Checkpoints;
+namespace App\Listeners\api\Checkpoint;
 
 use App\Events\api\Task\TaskCreatedEvent;
 use App\Models\Checkpoint;
