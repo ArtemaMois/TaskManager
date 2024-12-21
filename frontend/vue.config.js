@@ -3,10 +3,10 @@ module.exports =
   defineConfig({
     transpileDependencies: true,
     devServer: {
-      port: 8080, // Замените на желаемый порт, например, 88
+      port: 8080, // Замените на желаемый порт, например
       proxy: {
         '/api': {
-          target: 'http://localhost:88', // Адрес вашего бэкенда
+          target: 'http://localhost:80', // Адрес вашего бэкенда
           changeOrigin: true, // Чтобы изменить Origin заголовка, если требуется
           secure: false, // Отключить проверку SSL, если используется HTTPS
         },

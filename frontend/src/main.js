@@ -25,8 +25,12 @@ import mySliderSmall from '@/components/UI/mySliderSmall.vue'
 
 
 const app = createApp(App)
-axios.defaults.baseURL = 'http://127.0.0.1:88/api';
+axios.defaults.baseURL = 'http://localhost:80/api';
 axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
+axios.defaults.xsrfCookieName = "XSRF-TOKEN";
+axios.defaults.xsrfHeaderName = "X-XSRF-TOKEN";
+
 
 
 app
