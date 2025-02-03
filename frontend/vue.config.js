@@ -4,6 +4,7 @@ module.exports =
     transpileDependencies: true,
     devServer: {
       port: 8080, // Замените на желаемый порт, например
+      webSocketServer: false,
       proxy: {
         '/api': {
           target: 'http://localhost:80', // Адрес вашего бэкенда
