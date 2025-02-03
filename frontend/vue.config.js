@@ -3,7 +3,8 @@ module.exports =
   defineConfig({
     transpileDependencies: true,
     devServer: {
-      port: 8080, // Замените на желаемый порт, например, 88
+      port: 8080, 
+      webSocketServer: false,// Замените на желаемый порт, например, 88
       proxy: {
         '/api': {
           target: 'http://localhost:88', // Адрес вашего бэкенда
