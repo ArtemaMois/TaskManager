@@ -1,7 +1,7 @@
 <template>
     <div class="slider-container">
       <div class="slider-header">
-        <h2 class="slider-title">Название слайдера</h2>
+        <h2 class="slider-title">Задачи</h2>
         <div class="slider-controls">
           <button ref="prev" class="swiper-button-prev slider-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,9 +30,12 @@
         <SwiperSlide v-for="(slide, index) in slides" :key="index">
           <div class="slide-content">
             <img :src="slide.image" :alt="`Slide ${index + 1}`" />
+            <div  class="slide-title" style="margin-left: 15px;"> {{ slide.title }} </div>
+            <div  class="slide-title__small" style="font-size: 12px; color: gray; margin-left: 15px;"> {{ slide.title1 }} </div>
           </div>
         </SwiperSlide>
       </Swiper>
+
     </div>
   </template>
   
@@ -45,7 +48,7 @@
   
   
   export default {
-    name: 'CustomSlider',
+    name: 'my-sslider',
     components: {
       Swiper,
       SwiperSlide,
@@ -55,10 +58,23 @@
       const prev = ref(null);
       const next = ref(null);
       const slides = ref([
-        { image: 'https://via.placeholder.com/328x140?text=Slide+1'},
-        { image: 'https://via.placeholder.com/328x140?text=Slide+2'},
-        { image: 'https://via.placeholder.com/328x140?text=Slide+3'},
-        { image: 'https://via.placeholder.com/328x140?text=Slide+4'},
+        { image: './assets/slider-images/SliderImage.png',
+          title: 'Создание приложения WEB',
+          title1: 'Категории: IOS, Android, WEB',
+        },
+        { image: './assets/slider-images/SliderImage2.png',
+          title: 'Создание приложения Android',
+          title1: 'Категории: IOS, Android, WEB',
+        },
+        { image: './assets/slider-images/SliderImage.png',
+          title: 'Создание приложения IOS',
+          title1: 'Категории: IOS, Android, WEB',
+        },
+        { image: './assets/slider-images/SliderImage2.png',
+          title: 'Создание приложения',
+          title1: 'Категории: IOS, Android, WEB',
+        },
+        
       ]);
 
       return {
@@ -90,6 +106,7 @@
   }
   
   .slider-title {
+    font-family: NimbusRegular;
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0;
@@ -117,20 +134,31 @@
 
   .slider {
     width: 100%;
+    padding-right: 24px;
   }
   
   .slide-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
+    gap: 10px;
     background-color: #f9f9f9;
     border-radius: 10px;
-    max-height: 140px;
-    max-width: 328px;
+    max-height: 230px;
+    padding-bottom: 20px;
+    max-width: 350px;
+    font-family: NimbusRegular;
+    font-size: 18px;
+    background-color: #fff;
+    border-radius: 20px;;
+
   }
   
   .slide-content img {
     border-radius: 10px;
+    width: 100%;
+    object-fit: cover;
+  
   }
   
   </style>

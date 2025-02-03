@@ -8,6 +8,6 @@ Route::controller(UserController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/', 'index')->name('users.index');
-        Route::patch('/me', 'update')->name('users.update');
+        Route::post('/me', 'update')->name('users.update');
         Route::patch('/me/password', 'changePassword')->name('users.password.update');
 });

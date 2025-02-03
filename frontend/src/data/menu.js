@@ -3,13 +3,13 @@ export default [
         id: 1, 
         text: 'Overview', 
         image: '/assets/btn-images/category-2.svg',
-        path: '/posts'
+        path: '/overview'
     },
     {
         id: 2, 
         text: 'Task', 
         image: '/assets/btn-images/book.svg',
-        path: '/about',
+        path: '/task',
 
     },
     {

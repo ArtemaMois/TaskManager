@@ -43,7 +43,7 @@
                 type="password" 
                 placeholder="Пароль"
             />
-            <my-button @click="registerUser" style="justify-content: center; align-items: center; margin-top: 20px; font-size: 85%; max-width: 300px; height: 35px;">
+            <my-button @click="registerUser"  style="background: #546FFF; color: #fff; justify-content: center; align-items: center; margin-top: 20px; font-size: 85%; max-width: 300px; height: 35px;">
                 Зарегестрироваться
             </my-button>
         </my-dialog>
@@ -130,9 +130,10 @@ import axios from 'axios';
                         login: this.form.login,
                         password: this.form.password,
                     });
+                    localStorage.setItem('login', this.form.login);
                     if (response2.data.status == "success") {
                         console.log('Успешный вход!', response2.data);
-                        this.$router.push('/settings');
+                        this.$router.push('/overview');
                         
                     } else {
                         if (response2.data.status == "failed") {
@@ -173,9 +174,15 @@ import axios from 'axios';
     border-radius: 10px;
     
 }
-.input {
+.form-box input{
+    background: #F5F5F7;
+    width: calc(100vh * 0.5);
+    height: calc(100vh * 0.5);
+    max-width: 280px;
     max-height: 30px;
+    
 }
+
 .signup__btn {
     display: flex;
     margin-top: 10px;

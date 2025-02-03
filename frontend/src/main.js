@@ -22,6 +22,10 @@ import myInputRadio from '@/components/UI/myInputRadio.vue'
 import myError from '@/components/UI/myError.vue'
 import myActivitySchedule from '@/components/UI/myActivitySchedule.vue'
 import mySliderSmall from '@/components/UI/mySliderSmall.vue'
+import myTaskCard from '@/components/UI/myTaskCard.vue'
+import mySlider from '@/components/UI/mySlider.vue'
+import mySliderTasks from '@/components/UI/mySliderTasks.vue'
+import mySearch from '@/components/UI/mySearch.vue'
 
 
 const app = createApp(App)
@@ -50,5 +54,9 @@ app
     .component('my-error', myError)
     .component('my-activity', myActivitySchedule)
     .component('my-sslider', mySliderSmall)
+    .component('my-taskcard', myTaskCard)
+    .component('my-slider', mySlider)
+    .component('my-sliderTask', mySliderTasks)
+    .component('my-search', mySearch)
     .use(router)
     .mount('#app')

@@ -75,7 +75,6 @@
     border-radius: 10px;
     cursor: pointer;
     background-color: #fff;
-    width: 400px;
     height: 50px;
 }
 .custom-select__header .arrow {

@@ -3,9 +3,9 @@
         <my-dragdrop></my-dragdrop>
         <div class="general-input-block">
             <div class="general-input-title__login">Информация о пользователе:</div>
-            <my-input v-model="login" placeholder="Ваш логин" class="general-input__login"></my-input>
+            <my-input v-model="login" :placeholder="login" class="general-input__login"></my-input>
             <my-input placeholder="Ваша почта" disabled class="general-input__email"></my-input>
-            <my-button class="general-input-button">Обновить данные</my-button>
+            <my-button @click="loginSet" class="general-input-button">Обновить данные</my-button>
         </div>
     </div>
 </template>
@@ -28,6 +28,11 @@
                 ],
             };
         },
+        methods: {
+            loginSet() {
+                this.login = localStorage.getItem('login');
+            }
+        }
     };
 </script>
 
@@ -55,8 +60,8 @@
     color: black;
 }
 .general-input-button{
-    max-width: 150px;
-    height: 100%;
+    max-width: 200px;
+    height: 50%;
     margin: 32px 0 32px 0px;
     padding: 10px 0 10px 0;
     justify-content: center;

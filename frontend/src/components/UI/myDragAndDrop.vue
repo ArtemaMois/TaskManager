@@ -34,49 +34,54 @@
         if (files.length === 0) return;
         const file = files[0];
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append('file', file);
+
+        for (let pair of formData.entries()) {
+          console.log(pair[0]);
+          
+          
+        }
+
+        console.log("Файл", files);
+        
 
         try {
-          const response = await axios.patch("http://127.0.0.1:88/api/accounts/me", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-          console.log("Файл загружен!", response.data);
+          const response = await axios.post("http://127.0.0.1:88/api/accounts/me", formData, {
+            photo: formData,
+          },
+        );
+          console.log("Файл загружен!", response);
           
         } catch (e) {
           console.log("Ошибка при загрузке!", e);
+          
         }
 
 
-
-
-
-        // const file = event.dataTransfer.files[0];
+      //   const file = event.dataTransfer.files[0];
   
-        // if (file && file.type.startsWith('image/')) {
+      //   if (file && file.type.startsWith('image/')) {
 
-        //   const reader = new FileReader();
-        //   reader.onload = () => {
-        //     this.image = reader.result;
-        //   };
-        //   reader.readAsDataURL(file);
+      //     const reader = new FileReader();
+      //     reader.onload = () => {
+      //       this.image = reader.result;
+      //     };
+      //     reader.readAsDataURL(file);
   
-        //   try {
-        //     const response = await this.createFile();
-        //     this.serverResponse = response;
-        //     console.log('Успешно загружено:', response);
-        //     console.log('Успешно загружено:', file);
-        //   } catch (error) {
-        //     console.error('Ошибка загрузки:', error);
-        //   }
-        // }
-        // this.$refs.dropZone?.classList.remove('drag-over');
-      },
+      //     try {
+      //       const response = await this.createFile();
+      //       this.serverResponse = response;
+      //       console.log('Успешно загружено:', response);
+      //       console.log('Успешно загружено:', file);
+      //     } catch (error) {
+      //       console.error('Ошибка загрузки:', error);
+      //     }
+      //   }
+      //   this.$refs.dropZone?.classList.remove('drag-over');
+      // },
 
       // async createFile() {
-      //   axios.patch('http://127.0.0.1:88/api/accounts/me', this.file, {
-      //       _method: 'PATCH',
+      //   axios.post('http://127.0.0.1:88/api/accounts/me', this.file, {
       //       photo: this.file, 
       //   }, {
       //           'Content-Type': 'multipart/form-data',
@@ -87,7 +92,7 @@
       //       },
       //           onAttachmentChange (e) {
       //           this.file.image = e.target.files[0]
-      //       }
+            }
         }
     };
   </script>

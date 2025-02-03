@@ -1,8 +1,8 @@
 <template>
     <div class="main-foot">
         <div class="welcome-message">
-            <div class="welcome-message__main">Iskam Nikita</div>
-            <div class="welcome-message__secondary">Let's finish your task today!</div>
+            <div class="welcome-message__main"><slot name="name"></slot></div>
+            <div class="welcome-message__secondary"><slot name="title"></slot></div>
         </div>
         <div class="user_image-block">
             <div class="notif">
@@ -12,7 +12,7 @@
                 </svg>
             </div>
             <div class="profile">
-                <img src="/assets/foot-images/Profil.png" alt="">
+                <img src="/assets/foot-images/lam.jpg" alt="Image">
             </div>
         </div>
     </div>
@@ -71,8 +71,12 @@ import foot from '@/data/foot-name.js';
     justify-content: center;
     align-items: center;
 }
-.profile {
+
+.profile img{
+    border-radius: 50%;
     width: 52px;
+    height: 52px;
+    object-fit: cover
 }
 
 </style>

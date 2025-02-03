@@ -1,7 +1,7 @@
 import AuthPage from "@/pages/AuthPage.vue";
-import PostPage from "@/pages/PostPage.vue";
-import AboutPage from "@/pages/AboutPage.vue";
-import settingsPage from "@/pages/settingsPage.vue";
+import OverPage from "@/pages/OverPage.vue";
+import TaskPage from "@/pages/TaskPage.vue";
+import SettingsPage from "@/pages/SettingsPage.vue";
 import { createRouter, createWebHistory } from 'vue-router';
 const routes = [{
         path: '/',
@@ -9,16 +9,16 @@ const routes = [{
        
     },
     {
-        path: '/posts',
-        component: PostPage,
+        path: '/overview',
+        component: OverPage,
     },
     {
-        path: '/about',
-        component: AboutPage,
+        path: '/task',
+        component: TaskPage,
     },
     {
         path: '/settings',
-        component: settingsPage,
+        component: SettingsPage,
     }
 ]
 
