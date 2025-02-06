@@ -23,7 +23,7 @@ class PerformingTaskController extends Controller
         ->where('user_id', Auth::user()
         ->id)->get();
         $result = PerformingTaskFacade::sortTaskByCompletion($tasks);
-        return response()->json(['status' => 'success', 'completed' => $result['completed'], 'uncompleted' => $result['uncompleted']]);        
+        return response()->json(['status' => 'success', 'completed' => $result['completed'], 'handling' => $result['uncompleted']]);        
     }
 
     public function store(StoreTaskUserRequest $request)

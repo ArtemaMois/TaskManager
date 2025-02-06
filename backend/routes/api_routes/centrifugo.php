@@ -1,0 +1,12 @@
+<?php
+
+use App\Http\Controllers\api\WS\WSController;
+use Illuminate\Support\Facades\Route;
+
+Route::controller(WSController::class)
+->prefix('/ws')
+->middleware(['auth:sanctum'])
+->group(function ()
+{
+    Route::get('/token', 'connectionToken')->name('ws.token');
+});
