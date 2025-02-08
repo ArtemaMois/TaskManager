@@ -1,0 +1,41 @@
+{
+  "client": {
+    "token": {
+      "hmac_secret_key": "R0ytHWpYNFbAeN_XIOjUaXG8ik4PrqLE7-G9mQGGxPr4XvGRxadKES9G8EW6c41HTonXfb8PDW76GejKjJOSaA"
+    },
+    "subscribe_to_user_personal_channel": {
+      "enabled": true,
+      "single_connection": true
+    },
+    "allowed_origins": [
+      "http://localhost"
+    ]
+  },
+  "admin": {
+    "enabled": true,
+    "password": "_aPEWkUAMAQbmEZhJfz-dA",
+    "secret": "ukU2feJA4yHHXKk18-Vd71dMG524ZI8wjBQ1qS3mIi0_YSMeTvrjmMDnBF6VG6pr83b0cqRrx8jrGxLGV-oobQ"
+  },
+  "http_api": {
+    "key": "khHBtd_udr25FpF1v4W_3R_OAsYpp-uch1ZDZdJQAM7YqdvHTJ3D4g7ygkwqznpLmldgG-aKcUOVMdcS4csG_w"
+  },
+  "http_server": {
+    "port": "8427"
+  },
+  "channel": {
+    "without_namespace": {
+        "presence": true,
+        "history_size": 10,
+        "history_ttl": "300s",
+        "force_recovery": true,
+        "allow_subscribe_for_anonymous": true,
+        "allow_subscribe_for_client": true,
+        "allow_publish_for_anonymous": true,
+        "allow_publish_for_subscriber": true,
+        "allow_presence_for_anonymous": true,
+        "allow_presence_for_subscriber": true,
+        "allow_history_for_anonymous": true,
+        "allow_history_for_subscriber": true
+      }
+    }
+}

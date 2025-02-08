@@ -9,4 +9,6 @@ Route::controller(WSController::class)
 ->group(function ()
 {
     Route::get('/token', 'connectionToken')->name('ws.token');
+    Route::get('/channels', 'channels')->name('ws.channels');
+    Route::post('/publish', 'publish')->name('ws.publish');
 });

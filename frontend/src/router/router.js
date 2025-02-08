@@ -2,6 +2,7 @@ import AuthPage from "@/pages/AuthPage.vue";
 import PostPage from "@/pages/PostPage.vue";
 import AboutPage from "@/pages/AboutPage.vue";
 import settingsPage from "@/pages/settingsPage.vue";
+import WSPage from "@/pages/WSPage.vue";
 import { createRouter, createWebHistory } from 'vue-router';
 const routes = [{
         path: '/',
@@ -19,6 +20,10 @@ const routes = [{
     {
         path: '/settings',
         component: settingsPage,
+    }, 
+    {
+        path: '/ws',
+        component: WSPage
     }
 ]
 
