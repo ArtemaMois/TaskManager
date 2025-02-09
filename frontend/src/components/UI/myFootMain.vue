@@ -35,7 +35,7 @@ import foot from '@/data/foot-name.js';
     display: flex;
     justify-content: space-between;
     padding-right: 32px;
-    margin: 32px 0 0 0;
+    align-items: center;
 }
 .welcome-message {
     background-color: #FAFAFA;

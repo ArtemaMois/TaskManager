@@ -2,8 +2,8 @@ import AuthPage from "@/pages/AuthPage.vue";
 import PostPage from "@/pages/PostPage.vue";
 import AboutPage from "@/pages/AboutPage.vue";
 import settingsPage from "@/pages/settingsPage.vue";
-import WSPage from "@/pages/WSPage.vue";
 import { createRouter, createWebHistory } from 'vue-router';
+import ChatPage from "@/pages/ChatPage.vue";
 const routes = [{
         path: '/',
         component: AuthPage,
@@ -22,8 +22,8 @@ const routes = [{
         component: settingsPage,
     }, 
     {
-        path: '/ws',
-        component: WSPage
+        path: '/chat',
+        component: ChatPage
     }
 ]
 
