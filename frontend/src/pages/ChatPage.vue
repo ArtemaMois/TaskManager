@@ -92,7 +92,7 @@ const searchUsers = async () => {
 const fetchChatInfo = async () => {
     try {
         const response = await axios.post(
-            'http://localhost:80/api/chats/personal/' + currentUser.value.id,
+            'http://localhost:80/api/chats/personal/',
             {
                 user_id: currentUser.value.id
             },

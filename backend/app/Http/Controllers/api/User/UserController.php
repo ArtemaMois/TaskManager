@@ -60,7 +60,9 @@ class UserController extends Controller
     {
         $users = User::query()->when($request->get('search'), function ($query) use ($request) {
             return $query->where('login', 'ILIKE', '%' . $request->get('search') . '%'); 
-        })->paginate(10);
+        })
+        ->where('id', '!=', Auth::user()->id)
+        ->paginate(10);
         return response()->json(['status' => 'success', 'data' => UserForChatCollection::collection($users)]);
     }
 

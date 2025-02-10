@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('chat_user', function (Blueprint $table) {
             $table->id();
             $table
-            ->foreignId('user_id')
+            ->foreignId('first_member_id')
+            ->constrained('users')
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
+            $table
+            ->foreignId('second_member_id')
             ->constrained('users')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
