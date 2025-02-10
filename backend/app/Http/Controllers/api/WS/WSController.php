@@ -5,7 +5,11 @@ namespace App\Http\Controllers\api\WS;
 use App\Extensions\Centrifugo\Facades\CentrifugoClientFacade;
 use App\Extensions\Centrifugo\Facades\CentrifugoFacade;
 use App\Extensions\Centrifugo\Services\CentrifugoService;
+use App\Http\Resources\api\Message\MinifiedMessageResource;
+use App\Models\Chat;
+use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WSController
 {
@@ -21,11 +25,17 @@ class WSController
         return response()->json(['channels' => $channels]);
     }
 
-    public function publish(Request $request)
+    public function publish(Chat $chat, Request $request)
     {
-        $message = $request->get('message');
-        $channel = $request->get('channel');
-        CentrifugoClientFacade::publish($channel, [$message]);
-        return response()->json(['status' => 'success']);
+        $messageBody = $request->get('message');
+        $channel = $chat->title;
+        $message = Message::query()->create([
+            'body' => $messageBody,
+            'user_id' => Auth::user()->id,
+            'chat_id' => $chat->id
+        ]);
+        CentrifugoClientFacade::publish($channel, ['message' => new MinifiedMessageResource($message)]);
+
+        return response()->json(['status' => 'success', ]);
     }
 }

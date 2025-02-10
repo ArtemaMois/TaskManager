@@ -26,8 +26,10 @@
                 </div>
                 <div class="item__info-text">
                     <div class="item__login">{{ login }}</div>
+                    <div v-if="message" class="item__message">{{ message }}</div>
                 </div>
             </div>
+            <div v-if="time" class="item__time">{{ time }}</div>
         </div>
     </div>
 </template>
@@ -44,6 +46,10 @@ export default {
             type: String,
             required: false
         },
+        message: {
+            type: String,
+            required: false
+        }
     },
     methods: {
         openChat()

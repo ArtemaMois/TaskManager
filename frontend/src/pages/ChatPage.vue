@@ -43,6 +43,11 @@
                         </svg>
                     </button>
                 </div>
+                <my-chat-list
+                @chats="myChats"
+                >
+
+                </my-chat-list>
                 <my-chat-user-list
                     @openChat="openChat"
                     :users="users"
@@ -50,7 +55,12 @@
                 ></my-chat-user-list>
             </div>
             <div v-if="isVisibleChat" class="chat__container">
-                <my-chat :user="currentUser"></my-chat>
+                <my-chat
+                    :user="currentUser"
+                    :messages="messages"
+                    :centrifuge="centrifuge"
+                    :chat="chat"
+                ></my-chat>
             </div>
         </div>
     </div>
@@ -58,19 +68,27 @@
 
 <script setup>
 import axios from 'axios'
-// import { Centrifuge } from 'centrifuge'
+import { Centrifuge } from 'centrifuge'
 import MyChat from '@/components/Chat/MyChat.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import MyChatUserList from '@/components/Chat/MyChatUserList.vue'
 import { useSearchUsers } from '@/hooks/chat/useSearchUsers'
 const userSearchQueryString = ref('')
 const isVisibleChat = ref(false)
 const currentUser = ref({})
+const wsToken = ref('')
+const messages = ref([])
+const chat = ref('')
+const centrifuge = ref({})
+const myChats = ref([]);
 const { users, nextRef } = useSearchUsers(userSearchQueryString.value)
 const openChat = (user) => {
-    currentUser.value = user
-    console.log(currentUser.value.id)
-    isVisibleChat.value = true
+    currentUser.value = user;
+    messages.value.splice(0);
+    fetchChatInfo(currentUser.value.id)
+    if (chat.value != '') {
+        isVisibleChat.value = true
+    }
 }
 const searchUsers = async () => {
     try {
@@ -89,12 +107,12 @@ const searchUsers = async () => {
     }
 }
 
-const fetchChatInfo = async () => {
+const fetchChatInfo = async (userId) => {
     try {
         const response = await axios.post(
             'http://localhost:80/api/chats/personal/',
             {
-                user_id: currentUser.value.id
+                user_id: userId,
             },
             {
                 headers: {
@@ -102,13 +120,14 @@ const fetchChatInfo = async () => {
                 },
             }
         )
-        console.log(response.data)
+        const data = response.data;
+        chat.value = data.chat;
+        data.messages.forEach((item) => {
+            messages.value.push(item)
+        })
     } catch (e) {}
 }
 
-// const wsToken = ref('')
-// const message = ref('')
-// const centrifuge = ref({})
 // let publishMessage = () => {
 //     try {
 //         const response = axios.post(
@@ -133,36 +152,25 @@ const fetchChatInfo = async () => {
 //     }
 // }
 
-// onMounted(async () => {
-//     try {
-//         const response = await axios.get('http://localhost/api/ws/token', {
-//             headers: {
-//                 Authorization: localStorage.getItem('api_token'),
-//             },
-//         })
-//         wsToken.value = response.data.token
-//         centrifuge.value = new Centrifuge(
-//             'ws://localhost:8427/connection/websocket',
-//             {
-//                 token: wsToken.value,
-//             }
-//         )
-//         centrifuge.value.on('connected', () => {
-//             console.log('connected')
-//         })
-//         centrifuge.value.on('subscribed', function (msg) {
-//             console.log({ channel: msg.channel })
-//         })
-//         const sub = centrifuge.value.newSubscription('news')
-//         sub.subscribe()
-//         sub.on('publication', (msg) => {
-//             console.log({ channel: msg.channel, message: msg.data })
-//         })
-//         centrifuge.value.connect()
-//     } catch (e) {
-//         console.log(e)
-//     }
-// })
+onMounted(async () => {
+    try {
+        const response = await axios.get('http://localhost/api/ws/token', {
+            headers: {
+                Authorization: localStorage.getItem('api_token'),
+            },
+        })
+        wsToken.value = response.data.token
+        centrifuge.value = new Centrifuge(
+            'ws://localhost:8427/connection/websocket',
+            {
+                token: wsToken.value,
+            }
+        )
+        centrifuge.value.connect()
+    } catch (e) {
+        console.log(e)
+    }
+})
 </script>
 
 <style scoped>

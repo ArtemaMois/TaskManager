@@ -10,5 +10,5 @@ Route::controller(WSController::class)
 {
     Route::get('/token', 'connectionToken')->name('ws.token');
     Route::get('/channels', 'channels')->name('ws.channels');
-    Route::post('/publish', 'publish')->name('ws.publish');
+    Route::post('/{chat}/publish', 'publish')->name('ws.publish');
 });
