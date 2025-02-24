@@ -114,35 +114,26 @@ import axios from 'axios';
             async signinUser() {
                 this.errorMessage = '';
                 try {
-                    localStorage.removeItem('xsrfToken');
-                    const initCsrf = async () => {
-                        await axios.get('http://127.0.0.1:88/api/csrf-cookie', {
-                            withCredentials: true,
-                        });
-                    }
-                    initCsrf();
-                    const xsrfToken = document.cookie
-                    setTimeout(() => {
-
-                    }, 1000);
-                    localStorage.setItem('xsrfToken', xsrfToken);
-                    const response2 = await axios.post('http://127.0.0.1:88/api/auth/login', {
+                    const response2 = await axios.post('http://localhost:88/api/auth/login', {
                         login: this.form.login,
                         password: this.form.password,
-                    });
-                    localStorage.setItem('login', this.form.login);
+                    }
+                );
+                console.log(response2.status);
                     if (response2.data.status == "success") {
-                        console.log('Успешный вход!', response2.data);
-                        this.$router.push('/overview');
+                        console.log('Успешный вход!', response2.data.token);
+                        localStorage.setItem("api_token", "Bearer " + response2.data.token);
+                        this.$router.push('/settings');
                         
                     } else {
-                        if (response2.data.status == "failed") {
-                            this.errorMessage = response2.data.errors;
+                        if (response2.status == "failed") {
+                            console.log
+                            this.errorMessage = response2.data;
                         }
                     }
                 } catch (error) {
                     if (error && error.status === 422) {
-                        const errors = error.response2.data.errors || {};
+                        const errors = error.response2.errors || {};
                         this.errorMessage = errors.login?.[0];
                         this.regVisible = true;
                     } else {

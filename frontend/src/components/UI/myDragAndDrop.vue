@@ -33,23 +33,40 @@
         const files = event.dataTransfer.files;
         if (files.length === 0) return;
         const file = files[0];
-        const formData = new FormData();
-        formData.append('file', file);
-
-        for (let pair of formData.entries()) {
-          console.log(pair[0]);
+        console.log(file);
+        const photo = new FormData();
+        photo.append("photo", file);
+        console.log(photo);
+          try {
+          const response = axios.post("http://localhost:80/api/accounts/me", photo, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization": localStorage.getItem("api_token")
+            },
+            params : {
+              "_method": "PATCH",
+            }
+          });
+          response.then((response)=> {
+            console.log(response);
+          }) 
           
-          
+        } catch (e) {
+          console.log("Ошибка при загрузке!", e);
         }
 
-        console.log("Файл", files);
         
 
         try {
-          const response = await axios.post("http://127.0.0.1:88/api/accounts/me", formData, {
-            photo: formData,
-          },
-        );
+          const response = axios.post("http://localhost:88/api/accounts/me", photo, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization": localStorage.getItem("api_token")
+            },
+            params : {
+              "_method": "PATCH",
+            }
+          });
           console.log("Файл загружен!", response);
           
         } catch (e) {
