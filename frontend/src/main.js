@@ -25,6 +25,7 @@ import mySliderSmall from '@/components/UI/mySliderSmall.vue'
 import myTaskCard from '@/components/UI/myTaskCard.vue'
 import mySlider from '@/components/UI/mySlider.vue'
 import mySliderTasks from '@/components/UI/mySliderTasks.vue'
+import mySliderMentors from '@/components/UI/mySliderMentors.vue'
 import mySearch from '@/components/UI/mySearch.vue'
 
 
@@ -61,6 +62,7 @@ app
     .component('my-taskcard', myTaskCard)
     .component('my-slider', mySlider)
     .component('my-sliderTask', mySliderTasks)
+    .component('my-sliderMentors', mySliderMentors)
     .component('my-search', mySearch)
     .use(router)
     .mount('#app')

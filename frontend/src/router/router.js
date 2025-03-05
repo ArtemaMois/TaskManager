@@ -4,6 +4,7 @@ import TaskPage from "@/pages/TaskPage.vue";
 import SettingsPage from "@/pages/SettingsPage.vue";
 import { createRouter, createWebHistory } from 'vue-router';
 import ChatPage from "@/pages/ChatPage.vue";
+import MentorsPage from "@/pages/MentorsPage.vue";
 const routes = [{
         path: '/',
         component: AuthPage,
@@ -16,6 +17,10 @@ const routes = [{
     {
         path: '/task',
         component: TaskPage,
+    },
+    {
+        path: '/mentors',
+        component: MentorsPage,
     },
     {
         path: '/settings',

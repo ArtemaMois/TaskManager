@@ -16,7 +16,7 @@ export default [
         id: 3, 
         text: 'Mentors', 
         image: '/assets/btn-images/user-octagon.svg',
-        path: '',
+        path: '/mentors',
 
     },
     {
