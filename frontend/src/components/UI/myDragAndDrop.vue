@@ -75,7 +75,10 @@
         }
 
 
-      //   const file = event.dataTransfer.files[0];
+
+
+
+        // const file = event.dataTransfer.files[0];
   
       //   if (file && file.type.startsWith('image/')) {
 

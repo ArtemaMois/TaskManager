@@ -9,7 +9,6 @@ use App\Models\User;
 class MentorService
 {
     public function createMentor(User $user, Category $category): Mentor
-
     {
         $mentor = Mentor::query()->create([
             'user_id' => $user->id,

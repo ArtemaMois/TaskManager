@@ -85,10 +85,10 @@ import axios from 'axios';
             
             async registerUser() {
                 try {
-                    const response = await axios.post('http://127.0.0.1:88/api/auth/register', {
+                    const response = await axios.post('http://localhost:80/api/auth/register', {
                         login: this.form.login,
                         email: this.form.email,
-                        password: this.form.password
+                        password: this.form.password,
                     });
                     if (response.data.status == "success") {
                         console.log('Успешная регистрация! Можете войти!', response.data);
@@ -111,10 +111,11 @@ import axios from 'axios';
                     console.log(e);  
                 } 
             },
+            
             async signinUser() {
                 this.errorMessage = '';
                 try {
-                    const response2 = await axios.post('http://localhost:88/api/auth/login', {
+                    const response2 = await axios.post('http://localhost:80/api/auth/login', {
                         login: this.form.login,
                         password: this.form.password,
                     }

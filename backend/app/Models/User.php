@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
 
 
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'login',
@@ -57,6 +58,21 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mentor::class);
     }
+
+    public function grades(): HasMany
+    {
+        return $this->hasMany(Grade::class);
+    }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'chat_user');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
     public function getLocalCreatedAt()
     {
         return Carbon::make($this->created_at)->setTimezone( $this->settings->timezone->code)->format('H:i d-m-Y');
@@ -70,6 +86,33 @@ class User extends Authenticatable
     public function claims(): HasMany
     {
         return $this->hasMany(Claim::class);
+    }
+
+    public function performingTasks(): HasMany
+    {
+        return $this->hasMany(PerformingTask::class);
+    }
+
+    public function performingCheckpoints(): HasMany
+    {
+        return $this->hasMany(PerformedCheckpoint::class);
+    }
+
+    public function photoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function($value) {
+                if(!is_null($value))
+                {
+                    return "http://localhost:80/$value";
+                }
+                return null;
+            } 
+        );
+    }
+
+    public function myChats()
+    {
     }
 
 }

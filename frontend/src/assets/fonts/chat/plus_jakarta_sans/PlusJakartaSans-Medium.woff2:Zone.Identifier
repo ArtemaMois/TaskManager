@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/89f43ff6-caea-42ff-a1d0-ac579607e921/PlusJakartaSans-Medium.woff2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20250209%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20250209T063201Z&X-Amz-Expires=86400&X-Amz-Signature=b6ac0274481f4d560a7f3f8f4ef8368b152d611c14269a6c457df836312663a0&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22PlusJakartaSans-Medium.woff2%22&response-content-type=font%2Fwoff2&x-id=GetObject

@@ -12,8 +12,8 @@ class NotUpdatedClaims
 
     public function handle(Request $request, Closure $next): Response
     {
-        $claim = Claim::find($request->segment(count($request->segments())))->first();
-        if($claim->claimStatus->code != 'handle')
+        $claim = Claim::find($request->segment(count($request->segments())));
+        if($claim->claimStatus->code != 'handling')
         {
             return response()->json(['error' => "Заявка уже обновлена"], 400);
         }

@@ -29,8 +29,12 @@ import mySearch from '@/components/UI/mySearch.vue'
 
 
 const app = createApp(App)
-axios.defaults.baseURL = 'http://localhost:88';
+axios.defaults.baseURL = 'http://localhost:80/api';
 axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
+axios.defaults.xsrfCookieName = "XSRF-TOKEN";
+axios.defaults.xsrfHeaderName = "X-XSRF-TOKEN";
+
 
 
 app

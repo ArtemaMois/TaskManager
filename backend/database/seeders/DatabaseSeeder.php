@@ -31,20 +31,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Пользователь'
         // ]);
 
-        ClaimStatus::factory()->create([    
-            'title' => 'Принято',
-            'code' => 'complete'
-        ]);
+        // ClaimStatus::factory()->create([
+        //     'title' => 'Принято',
+        //     'code' => 'complete'
+        // ]);
 
-        ClaimStatus::factory()->create([
-            'title' => 'В обработке',
-            'code' => 'handling'
-        ]);
+        // ClaimStatus::factory()->create([
+        //     'title' => 'В обработке',
+        //     'code' => 'handling'
+        // ]);
 
-        ClaimStatus::factory()->create([
-            'title' => 'Отклонено',
-            'code' => 'reject'
-        ]);
+        // ClaimStatus::factory()->create([
+        //     'title' => 'Отклонено',
+        //     'code' => 'reject'
+        // ]);
 
         // Timezone::factory()->create([
         //     'code' => "Europe/Kaliningrad",
@@ -111,17 +111,17 @@ class DatabaseSeeder extends Seeder
         //     'slug' => 'android'
         // ]);
 
-        
+
         // Category::factory()->create([
         //     'title' => 'IOS-разработка',
         //     'slug' => 'ios'
         // ]);
-        
+
         // Category::factory()->create([
         //     'title' => 'Верстка',
         //     'slug' => 'html-coding'
         // ]);
-        
+
         // Category::factory()->create([
         //     'title' => 'Backend-разработка',
         //     'slug' => 'backend'
@@ -141,5 +141,97 @@ class DatabaseSeeder extends Seeder
         //     'title' => 'DevOps',
         //     'slug' => 'devops'
         // ]);
+
+        User::factory()->create([
+            'login' => 'timon Petrovich',
+            'email' => 'timonEmail@gmail.com',
+            'password' => 'password',
+            'role_id' => 2
+        ]);
+        User::factory()->create([
+            'login' => 'SuperTimonchick',
+            'email' => 'timonLemon@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Semenovich',
+            'email' => 'semchick@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Ashton',
+            'email' => 'Ashton@gmail.com',
+            'password' => 'password',
+            'role_id' => 2
+        ]);
+        User::factory()->create([
+            'login' => 'Esmond',
+            'email' => 'Esmond@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Yaroslav',
+            'email' => 'Yaroslav@gmail.com',
+            'password' => 'password',
+            'role_id' => 2
+        ]);
+        User::factory()->create([
+            'login' => 'Marcus',
+            'email' => 'Marcus@gmail.com',
+            'password' => 'password',
+            'role_id' => 1
+        ]);
+        User::factory()->create([
+            'login' => 'Dillon',
+            'email' => 'Dillon@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Yury',
+            'email' => 'Yury@gmail.com',
+            'password' => 'password',
+            'role_id' => 2
+        ]);
+        User::factory()->create([
+            'login' => 'Eusebius',
+            'email' => 'Eusebius@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Maxwell',
+            'email' => 'Maxwell@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Rabbie',
+            'email' => 'Rabbie@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Serhii',
+            'email' => 'Serhii@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+        User::factory()->create([
+            'login' => 'Jeffery',
+            'email' => 'Jeffery@gmail.com',
+            'password' => 'password',
+            'role_id' => 2
+        ]);
+        User::factory()->create([
+            'login' => 'Anatoliy',
+            'email' => 'Anatoliy@gmail.com',
+            'password' => 'password',
+            'role_id' => 3
+        ]);
+
     }
 }

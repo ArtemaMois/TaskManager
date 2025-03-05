@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
@@ -47,9 +48,13 @@ class Category extends Model
         return $this->hasMany(Claim::class);
     }
 
-    public function mantors(): BelongsToMany
+    public function mentors(): BelongsToMany
     {
         return $this->belongsToMany(Mentor::class);
     }
     
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
 }

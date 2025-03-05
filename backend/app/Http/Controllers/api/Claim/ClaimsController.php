@@ -12,6 +12,7 @@ use App\Models\Claim;
 use App\Models\ClaimStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClaimsController extends Controller
 {
@@ -29,8 +30,10 @@ class ClaimsController extends Controller
 
     public function update(UpdateClaimRequest $request, Claim $claim)
     {
-        $claim->update($request->validated());
-        event(new CompleteClaimEvent($claim, $claim->user, $claim->category));
+        DB::transaction(function () use ($request, $claim) {
+            $claim->update($request->validated());
+            event(new CompleteClaimEvent($claim, $claim->user, $claim->category));
+        });
         return response()->json(['status' => 'success', 'claim' => new ClaimResource($claim)]);
     }
 }

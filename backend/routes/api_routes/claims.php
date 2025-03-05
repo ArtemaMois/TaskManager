@@ -9,7 +9,7 @@ Route::controller(ClaimsController::class)
 ->prefix('/claims')
 ->middleware('auth:sanctum')
 ->group(function () {
-    Route::get('/', 'index')->name('claim.index')->middleware(AdminMiddleware::class);
+    Route::get('/', 'index')->name('claim.index');
     Route::post('/', 'store')->name('claim.store');
-    Route::patch('/{claim}', 'update')->name('claim.update')->middleware([NotUpdatedClaims::class, AdminMiddleware::class]);
+    Route::patch('/{claim}', 'update')->name('claim.update')->middleware([NotUpdatedClaims::class]);
 });
