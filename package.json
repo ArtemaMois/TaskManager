@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "centrifuge": "^5.3.4"
+  },
+  "devDependencies": {
+    "vue-loader": "^17.4.2"
+  }
+}

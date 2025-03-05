@@ -251,9 +251,9 @@ input:hover {
     overflow-x: hidden;
 }
 
-.chat__container {
+/* .chat__container {
     /* border: 1px solid blue; */
-}
+/*}*/ 
 button {
     background-color: transparent;
     outline: none;

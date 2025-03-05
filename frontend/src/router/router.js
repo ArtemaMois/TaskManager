@@ -19,7 +19,11 @@ const routes = [{
     },
     {
         path: '/settings',
-        component: settingsPage,
+        component: SettingsPage,
+    }, 
+    {
+        path: '/chat',
+        component: ChatPage
     }
 ]
 
