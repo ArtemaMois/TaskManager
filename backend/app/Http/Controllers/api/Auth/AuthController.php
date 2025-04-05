@@ -24,7 +24,17 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = AuthFacade::registerUser($request->validated());
-        return response()->json(['status' => 'success', 'user' => new UserResource($user)], 201);
+        $credentials = ['login' => $user->login, 'password' => $request->input('password')];
+        $response = [
+            'status' => 'success',
+            'role' => $user->role->code,
+        ];
+        if(Auth::attempt($credentials))
+        {
+            $token = AuthFacade::getApiToken(Auth::user());
+            $response['api_token'] = $token; 
+        }
+        return response()->json($response, 201);
     }
 
     public function login(LoginRequest $request)
