@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/8e7ac346-975b-4bb2-8b98-82a2fc8edbac/PlusJakartaSans-LightItalic.woff2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20250209%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20250209T063200Z&X-Amz-Expires=86400&X-Amz-Signature=774008d01bb2917c30a5359e78665546eb4994d0348aeef9e7000389848482ba&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22PlusJakartaSans-LightItalic.woff2%22&response-content-type=font%2Fwoff2&x-id=GetObject

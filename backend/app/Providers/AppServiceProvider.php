@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Services\Auth\AuthService;
 use App\Services\Category\CategoryService;
+use App\Services\Chat\ChatService;
 use App\Services\Claim\ClaimService;
 use App\Services\ClaimStatus\ClaimStatusService;
 use App\Services\Email\EmailService;
 use App\Services\Mentor\MentorService;
+use App\Services\Message\MessageService;
 use App\Services\Password\ResetPasswordService;
 use App\Services\PerformedCheckpoint\PerformedCheckpointService;
 use App\Services\PerformingTask\PerformingTaskService;
@@ -57,6 +59,13 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(PerformedCheckpointService::class, function() {
             return new PerformedCheckpointService();
+        });
+        
+        $this->app->singleton(ChatService::class, function () {
+            return new ChatService();
+        });
+        $this->app->singleton(MessageService::class, function () {
+            return new MessageService();
         });
     }
 

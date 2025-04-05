@@ -3,6 +3,7 @@ import PostPage from "@/pages/PostPage.vue";
 import AboutPage from "@/pages/AboutPage.vue";
 import settingsPage from "@/pages/settingsPage.vue";
 import { createRouter, createWebHistory } from 'vue-router';
+import ChatPage from "@/pages/ChatPage.vue";
 const routes = [{
         path: '/',
         component: AuthPage,
@@ -19,6 +20,10 @@ const routes = [{
     {
         path: '/settings',
         component: settingsPage,
+    }, 
+    {
+        path: '/chat',
+        component: ChatPage
     }
 ]
 
