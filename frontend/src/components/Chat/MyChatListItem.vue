@@ -26,10 +26,10 @@
                 </div>
                 <div class="item__info-text">
                     <div class="item__login">{{ login }}</div>
-                    <div v-if="message" class="item__message">{{ message }}</div>
+                    <div v-if="message" class="item__message" id="last-message">{{ message.body }}</div>
                 </div>
             </div>
-            <div v-if="time" class="item__time">{{ time }}</div>
+            <div v-if="time" class="item__time" id="last-time">{{ time }}</div>
         </div>
     </div>
 </template>
@@ -49,14 +49,29 @@ export default {
         message: {
             type: String,
             required: false
-        }
+        },
+        chatTitle: {
+            type: String
+        },
     },
     methods: {
         openChat()
         {
             this.$emit('openChat');
         }
-    }
+    },
+    // mounted()
+    // {
+    //     try {
+    //         const sub = this.centrifuge.newSubscription(this.chatTitle)
+    //         sub.on('publication', (msg) => {
+    //             const messageItem = msg.data.message;
+    //         });
+    //         sub.subscribe()
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }
 }
 </script>
 <style scoped>
@@ -107,6 +122,7 @@ export default {
 .item__info-text {
     display: flex;
     flex-direction: column;
+    gap: 8px;
     justify-content: space-between;
 }
 
@@ -116,12 +132,14 @@ export default {
 }
 
 .item__time {
-    font-size: 12px;
-    color: #8e92bc;
+    font-size: 13px;
+    color: #5a62bc;
     font-family: 'JakartaSansRegular';
 }
 
 .item__message{
+    max-width: 160px;
+    overflow: hidden;
     font-family: 'JakartaSansRegular';
     font-size: 12px;
     color: #8E92BC;

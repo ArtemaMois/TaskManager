@@ -43,16 +43,7 @@
                         </svg>
                     </button>
                 </div>
-                <my-chat-list
-                @chats="myChats"
-                >
-
-                </my-chat-list>
-                <my-chat-user-list
-                    @openChat="openChat"
-                    :users="users"
-                    class="chat__users-list"
-                ></my-chat-user-list>
+                <my-chat-list :chats="myChats.chats" :centrifuge="centrifuge" @openChat="openChat" class="chat__list-self"> </my-chat-list>
             </div>
             <div v-if="isVisibleChat" class="chat__container">
                 <my-chat
@@ -70,26 +61,31 @@
 import axios from 'axios'
 import { Centrifuge } from 'centrifuge'
 import MyChat from '@/components/Chat/MyChat.vue'
+import MyChatList from '@/components/Chat/MyChatList.vue'
 import { onMounted, ref } from 'vue'
 import MyChatUserList from '@/components/Chat/MyChatUserList.vue'
 import { useSearchUsers } from '@/hooks/chat/useSearchUsers'
+import { useInitialChats } from '@/hooks/chat/useInitialChats'
+import { useStore } from 'vuex'
 const userSearchQueryString = ref('')
 const isVisibleChat = ref(false)
+const store = useStore();
 const currentUser = ref({})
 const wsToken = ref('')
 const messages = ref([])
 const chat = ref('')
 const centrifuge = ref({})
-const myChats = ref([]);
-const { users, nextRef } = useSearchUsers(userSearchQueryString.value)
-const openChat = (user) => {
-    currentUser.value = user;
+const myChats = useInitialChats();
+const { users, nextSearhUsersRef } = useSearchUsers(userSearchQueryString.value);
+const openChat = (userId) => {
+    currentUser.value = userId;
     messages.value.splice(0);
-    fetchChatInfo(currentUser.value.id)
+    fetchChatInfo(currentUser.value);
     if (chat.value != '') {
         isVisibleChat.value = true
     }
 }
+
 const searchUsers = async () => {
     try {
         const response = await axios.get(
@@ -119,38 +115,17 @@ const fetchChatInfo = async (userId) => {
                     Authorization: localStorage.getItem('api_token'),
                 },
             }
-        )
+        );
         const data = response.data;
         chat.value = data.chat;
+        currentUser.value = data.user;
         data.messages.forEach((item) => {
             messages.value.push(item)
-        })
-    } catch (e) {}
+        });
+    } catch (e) {
+        console.log(e)
+    }
 }
-
-// let publishMessage = () => {
-//     try {
-//         const response = axios.post(
-//             'http://localhost:80/api/ws/publish',
-//             {
-//                 channel: 'news',
-//                 message: message.value,
-//             },
-//             {
-//                 headers: {
-//                     Authorization: localStorage.getItem('api_token'),
-//                 },
-//             }
-//         )
-//         const data = response.then(
-//             () => {},
-//             (err) => err
-//         )
-//         console.log(data);
-//     } catch (e) {
-//         console.log(e)
-//     }
-// }
 
 onMounted(async () => {
     try {
@@ -166,10 +141,11 @@ onMounted(async () => {
                 token: wsToken.value,
             }
         )
-        centrifuge.value.connect()
+        store.dispatch('setCentrifuge', wsToken.value);
     } catch (e) {
         console.log(e)
     }
+
 })
 </script>
 
@@ -237,7 +213,7 @@ input:hover {
     border-radius: 10px;
 }
 
-.chat__users-list {
+.chat__list-self {
     display: flex;
     flex-direction: column;
     gap: 15px;

@@ -49,6 +49,7 @@
 import MyChatNavbar from './MyChatNavbar.vue'
 import MyChatBody from './MyChatBody.vue'
 import axios from 'axios'
+import { mapGetters } from 'vuex';
 export default {
     components: {
         MyChatNavbar,
@@ -72,10 +73,9 @@ export default {
             type: Object,
             required: true,
         },
-        centrifuge: {
-            type: Object,
-            required: true,
-        },
+    },
+    computed: {
+        ...mapGetters(['getCentrifuge'])
     },
     methods: {
         async publishMessage(event) {
@@ -99,17 +99,25 @@ export default {
                 }
             }
         },
+        updateLastMessage(message, time)
+        {
+            document.querySelector("#last-message").innerText = message;
+            document.querySelector("#last-time").innerText = time;
+        }
     },
     mounted() {
+        console.log(this.getCentrifuge);
         try {
-            const sub = this.centrifuge.newSubscription(this.chat.title)
+            const sub = this.getCentrifuge.newSubscription(this.chat.title);
             sub.on('publication', (msg) => {
                 const message = msg.data.message
                 if (this.user.id == message.user) {
                     message.isMy = false;
                 }
-                console.log(message)
-                this.messages.push(message)
+                console.log(message);
+                this.messages.push(message);
+                this.updateLastMessage(message.body, message.updatedAt);
+                
             })
             sub.subscribe()
         } catch (e) {

@@ -22,6 +22,7 @@ import myInputRadio from '@/components/UI/myInputRadio.vue'
 import myError from '@/components/UI/myError.vue'
 import myActivitySchedule from '@/components/UI/myActivitySchedule.vue'
 import mySliderSmall from '@/components/UI/mySliderSmall.vue'
+import store from './store';
 
 
 const app = createApp(App)
@@ -55,4 +56,5 @@ app
     .component('my-activity', myActivitySchedule)
     .component('my-sslider', mySliderSmall)
     .use(router)
+    .use(store)
     .mount('#app')

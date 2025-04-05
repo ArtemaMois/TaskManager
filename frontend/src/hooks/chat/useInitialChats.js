@@ -6,19 +6,22 @@ export function useInitialChats() {
     const nextChatsRef = ref('');
     const fetchMyChats = async () => {
         try{
-            const response = await axios.get('http://localhost:80/api/chats/self', {
+            const response = await axios.get('http://localhost/api/chats/self', {
                 headers:{
                     "Authorization": localStorage.getItem('api_token')
                 }
             });
-            chats.value = response.data.chats;
-            nextChatsRef = response.data.nextRef;
+            console.log(response.data.data.chats);
+            response.data.data.chats.forEach(element => {
+                chats.value.push(element);
+            });
+            nextChatsRef.value = response.data.data.nextRef;
         }catch (e)
         {
             console.log(e);
         }
     }
-
+    fetchMyChats();
     return {
         chats, 
         nextChatsRef

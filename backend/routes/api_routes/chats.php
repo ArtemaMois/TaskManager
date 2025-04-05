@@ -9,5 +9,6 @@ Route::controller(ChatsController::class)
 ->group(function ()
 {
     Route::post('/personal', 'personal')->name('chats.personal');
+    Route::get('/self', 'myChats')->name('chats.self');
     Route::post('/test', 'test')->name('chats.test');
 });
