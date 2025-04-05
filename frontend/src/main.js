@@ -8,6 +8,7 @@ import MySelect from '@/components/UI/mySelect.vue'
 import NavBar from '@/components/UI/navBar.vue'
 import PostList from '@/components/postList.vue'
 import signForm from '@/components/signForm.vue'
+import signinForm from '@/components/signinForm.vue'
 import PostItem from '@/components/postItem.vue'
 import signupForm from '@/components/signupForm.vue'
 import myFootMain from '@/components/UI/myFootMain.vue'
@@ -46,6 +47,7 @@ app
     .component('nav-bar', NavBar)
     .component('post-list', PostList)
     .component('sign-form', signForm)
+    .component('signin-form', signinForm)
     .component('post-item', PostItem)
     .component('signup-form', signupForm)
     .component('my-main-foot', myFootMain)

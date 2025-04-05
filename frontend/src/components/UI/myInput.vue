@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 .input {
     width: 100%;
-    border: 1px solid rgba(245, 245, 247, 1);
+    border: 1px solid #DCE4FF;
     border-radius: 10px;
 }
 </style>

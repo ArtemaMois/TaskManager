@@ -50,6 +50,7 @@
           nextEl: next,
         }"
         :modules="modules"
+        :breakpoints="breakpoints"
         class="slider"
       >
         <SwiperSlide v-for="(slide, index) in filteredSlides" :key="index">
@@ -155,6 +156,20 @@ export default {
     const swiper = useSwiper()
     const prev = ref(null)
     const next = ref(null)
+    const breakpoints = {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 15,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+    };
     const slidesTasks = ref([
       {
         image: './assets/task-card/task1.jpg',
@@ -237,6 +252,7 @@ export default {
       prev,
       next,
       filteredSlides,
+      breakpoints,
     }
   },
   methods: {
@@ -247,9 +263,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .slider-container {
-  width: 100%;
+  width: 100% !important;
   max-width: 1200px;
   position: relative;
   margin: 32px 0 0 0;

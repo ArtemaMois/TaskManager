@@ -155,6 +155,7 @@
     background: none;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
   
     .swiper-button-prev {
@@ -181,6 +182,7 @@
     font-size: 18px;
     background-color: #fff;
     border-radius: 50% 50% 20px 20px;
+    cursor: pointer;
 
   }
   

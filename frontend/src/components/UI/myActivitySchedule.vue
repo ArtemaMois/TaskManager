@@ -297,6 +297,7 @@ canvas {
     transform: translate(-50%, -50%);
     white-space: nowrap;
     pointer-events: none;
+    cursor: pointer;
 }
 .tooltip2 {
     position: absolute;
@@ -307,6 +308,7 @@ canvas {
     transform: translate(-50%, -50%);
     white-space: nowrap;
     pointer-events: none;
+    cursor: pointer;
 }
 .header {
     display: flex;
@@ -328,6 +330,7 @@ canvas {
     border: none;
     background: none;
     margin: 0 20px 0 0;
+    cursor: pointer;
 }
 .header__option {
     font-family: NimbusRegular;
@@ -335,6 +338,7 @@ canvas {
     border: none;
     background: #FFFFFF;
     margin: 0 20px 0 0;
+    cursor: pointer;
 }
 
 

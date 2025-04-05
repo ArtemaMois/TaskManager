@@ -67,5 +67,6 @@
     justify-content: center;
     color: #FFF;
     background-color: #546FFF;
+    cursor: pointer;
 }
 </style>

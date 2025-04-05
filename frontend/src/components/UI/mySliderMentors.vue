@@ -17,7 +17,7 @@
       </div>
       <TransitionGroup name="slide-fade" tag="div" class="slides-wrapper">
         <Swiper
-          :slides-per-view="2"
+          :slides-per-view="3"
           :space-between="20"
           :navigation="{
             prevEl: prev,
@@ -25,6 +25,7 @@
           }"
           :loop="true"
           :modules="modules"
+          :breakpoints="breakpoints"
           class="slider"
         >
           <SwiperSlide v-for="(slide, index) in filteredSlides" :key="index">
@@ -83,6 +84,20 @@
       const swiper = useSwiper();
       const prev = ref(null);
       const next = ref(null);
+      const breakpoints = {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 15,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+      };
       const slidesMentor = ref([
         { image: './assets/mentors-slider/mentors1.jpg',
           title: 'Curious George',
@@ -147,6 +162,7 @@
         prev,
         next,
         filteredSlides,
+        breakpoints,
       };
     },
   };
@@ -154,10 +170,10 @@
   
   
   
-  <style>
+  <style lang="scss" scoped>
   .slider-container {
     width: 100%;
-    max-width: 688px;
+    max-width: 1200px;
     position: relative;
     margin: 32px 0 0 0;
   }
@@ -185,6 +201,7 @@
     background: none;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
   
     .swiper-button-prev {
@@ -211,6 +228,7 @@
     font-size: 18px;
     background-color: #fff;
     border-radius: 50% 50% 20px 20px;
+    cursor: pointer;
 
   }
   

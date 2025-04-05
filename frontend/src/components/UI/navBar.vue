@@ -18,9 +18,8 @@
                         <img class="image" 
                             :class="{ active: isActive(menu_item) }" 
                             :src="menu_item.image" 
-                            :alt="menu_item.description" 
-                            :key="index">
-                    {{ menu_item.text }}
+                            :alt="menu_item.description">
+                        <span class="btn-text">{{ menu_item.text }}</span>
                     </div>
                 </my-button>
             </div>
@@ -147,4 +146,80 @@
     font-size: 180%;
     margin-left: 1.5px;
 }
+
+@media (max-width: 1024px) {
+  .btn-text {
+    display: none;
+  }
+
+  .btn__image {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .navbar__btns {
+    margin-left: 16px;
+    width: auto;
+  }
+
+  .logo__title {
+    display: none;
+  }
+
+  .logo-view {
+    justify-content: center;
+    margin-left: 0;
+  }
+  .logo__title {
+    display: none;
+  }
+
+  .logo-view {
+    justify-content: center;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .navbar-wrapper {
+    max-width: 72px;
+    align-items: center;
+  }
+
+  .navbar__btns {
+    margin-left: 0;
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn__image {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .btns {
+    padding: 0;
+    justify-content: center;
+  }
+  .btns.active {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F5F7;
+    font-family: NimbusBold;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .navbar-wrapper {
+    max-width: 72px;
+  }
+  .btns {
+    padding: 0;
+  }
+}
+
 </style>

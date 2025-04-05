@@ -1,52 +1,35 @@
 <template>
     <form @submit.prevent class="form-box">
         <my-input
-            style="padding: 5px; margin-bottom: 10px;"
+            style="padding: 15px 20px; margin-bottom: 24px;"
             v-model="form.login"
             type="name" 
-            placeholder="Логин"
+            placeholder="Имя пользователя"
         />
         <my-input 
-            style="padding: 5px; margin-bottom: 10px;"
-            v-model="form.password"
-            type="password" 
-            placeholder="Пароль"
+            style="padding: 15px 20px; margin-bottom: 24px;"
+            v-model="form.email"
+            type="text" 
+            placeholder="Электронная почта / номер телефона"
         />
-        <my-button :class="'signup__btn'"
-            @click="signinUser"
-            >Войти
-        </my-button>
-        <my-button 
-            @click="showRegForm" 
-            class="signup__btn"
-            >Регистрация
-        </my-button>
-        <my-dialog v-model:show="regVisible" class="dialog-view">
-            <div class="reg-box__lable">
-                Регистрация
-            </div>
+        <div class="password-wrapper">
             <my-input 
-                style="padding: 5px;"
-                v-model="form.login"
-                type="name" 
-                placeholder="Имя"
-            />
-            <my-input
-                style="padding: 5px;"
-                v-model="form.email"
-                type="email" 
-                placeholder="Почта"
-            />
-            <my-input 
-                style="padding: 5px;"
+                style="padding: 15px 20px; margin-bottom: 24px;"
                 v-model="form.password"
-                type="password" 
+                :type="showPassword ? 'text' : 'password'" 
                 placeholder="Пароль"
+                class="password-input"
             />
-            <my-button @click="registerUser"  style="background: #546FFF; color: #fff; justify-content: center; align-items: center; margin-top: 20px; font-size: 85%; max-width: 300px; height: 35px;">
-                Зарегестрироваться
+            <my-button type="button" @click="togglePassword" class="password-toggle">
+                <span v-if="showPassword">🙈</span>
+                <span v-else>👁</span>
             </my-button>
-        </my-dialog>
+        </div>
+        <my-button 
+            @click="registerUser" 
+            class="signup__btn"
+            >Зарегистрироваться
+        </my-button>
     </form>
     <my-error class="error-message" v-if="errorMessage"> {{ errorMessage }} </my-error>
 </template>
@@ -61,7 +44,7 @@ import axios from 'axios';
         },
         data() {
             return {
-                regVisible: false,
+                showPassword: false,
                 form: {
                     login: '',
                     email: '',
@@ -71,6 +54,9 @@ import axios from 'axios';
             }
         },
         methods: {
+            togglePassword() {
+                this.showPassword = !this.showPassword;
+            },
             createPost() {
                 this.post.id = Date.now();
                 this.$emit('create', this.post)
@@ -92,7 +78,8 @@ import axios from 'axios';
                     });
                     if (response.data.status == "success") {
                         console.log('Успешная регистрация! Можете войти!', response.data);
-                        this.$router.push('/');
+                        localStorage.setItem("api_token", "Bearer " + response.data.token);
+                        this.$router.push('/settings');
                     } else {
                         alert('Пройдите регистрацию снова, проверьте данные!');
                     }
@@ -104,44 +91,11 @@ import axios from 'axios';
                         } else {
                             this.errorMessage = errors.email?.[0];
                         }
-                        this.regVisible = true;
                     } else {
                         this.errorMessage = 'Произошла непредвиденная ошибка!';
                     }
                     console.log(e);  
                 } 
-            },
-            
-            async signinUser() {
-                this.errorMessage = '';
-                try {
-                    const response2 = await axios.post('http://localhost:80/api/auth/login', {
-                        login: this.form.login,
-                        password: this.form.password,
-                    }
-                );
-                console.log(response2.status);
-                    if (response2.data.status == "success") {
-                        console.log('Успешный вход!', response2.data.token);
-                        localStorage.setItem("api_token", "Bearer " + response2.data.token);
-                        this.$router.push('/settings');
-                        
-                    } else {
-                        if (response2.status == "failed") {
-                            console.log
-                            this.errorMessage = response2.data;
-                        }
-                    }
-                } catch (error) {
-                    if (error && error.status === 422) {
-                        const errors = error.response2.errors || {};
-                        this.errorMessage = errors.login?.[0];
-                        this.regVisible = true;
-                    } else {
-                        this.errorMessage = 'Произошла непредвиденная ошибка!';
-                    }
-                    console.log(error);                    
-                }
             },
         },
     }
@@ -158,34 +112,35 @@ import axios from 'axios';
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #F5F5F7;
     width: calc(100vh * 0.5);
     height: calc(100vh * 0.5);
     max-width: 500px;
-    max-height: 300px;
+    max-height: 320px;
     border-radius: 10px;
     
 }
 .form-box input{
-    background: #F5F5F7;
-    width: calc(100vh * 0.5);
-    height: calc(100vh * 0.5);
-    max-width: 280px;
-    max-height: 30px;
-    
+    background: #FFFFFF;
+    border: 1px solid #DCE4FF;
+    width: clamp(343px, 30vw, 400px);
+    height: 50px;
+    max-width: 400px;
+    max-height: 50px;
+    outline: none;
 }
 
 .signup__btn {
     display: flex;
-    margin-top: 10px;
-    max-width: 200px;
+    max-width: 272px;
     background-color: #546FFF;
-    width: 50%;
-    height: 30px;
+    width: 272px;
+    height: 45px;
+    font-family: NimbusRegular;
     justify-content: center;
     align-items: center;
     font-size: 75%;
     color: #F5F5F7;
+    cursor: pointer;
 }
 .dialog-view{
     margin: auto;
@@ -198,5 +153,21 @@ import axios from 'axios';
     margin-bottom: 20px;
     max-height: 20px;
 }
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
 
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #546FFF;
+}
 </style>

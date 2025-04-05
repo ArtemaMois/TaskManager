@@ -13,28 +13,43 @@ const routes = [{
     {
         path: '/overview',
         component: OverPage,
+        meta: { reqiresAuth: true },
     },
     {
         path: '/task',
         component: TaskPage,
+        meta: { reqiresAuth: true },
     },
     {
         path: '/mentors',
         component: MentorsPage,
+        meta: { reqiresAuth: true },
     },
     {
         path: '/settings',
         component: SettingsPage,
+        meta: { reqiresAuth: true },
     }, 
     {
         path: '/chat',
-        component: ChatPage
+        component: ChatPage,
+        meta: { reqiresAuth: true },
     }
 ]
 
 const router = createRouter({
     routes,
     history: createWebHistory(process.env.BASE_URL)
-})
+});
+
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('api_token');
+  
+    if (to.meta.requiresAuth && !token) {
+      next('/');
+    } else {
+      next();
+    }
+});
 
 export default router;

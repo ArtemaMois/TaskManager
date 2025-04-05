@@ -59,6 +59,7 @@ import foot from '@/data/foot-name.js';
     display: flex;
     flex-direction: row;
     gap: 24px;
+    margin-top: 20px;
     width: 128px;
     height: 52px;
 }
