@@ -16,9 +16,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install posgresql driver
 RUN docker-php-ext-install pdo pdo_pgsql pgsql
 
-ENV TZ=Europe/Moscow
 RUN apt-get install tzdata
-RUN echo "Europe/Moscow" > /etc/timezone
 
 # Add user for laravel application
 RUN groupadd -g 1000 www

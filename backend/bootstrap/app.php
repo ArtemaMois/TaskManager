@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Middleware\api\AdminMiddleware;
+use App\Http\Middleware\api\NotUpdatedClaims;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Session\Middleware\StartSession;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use PhpAmqpLib\Exception\AMQPChannelClosedException;
@@ -15,9 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->statefulApi();
-        $middleware->append(StartSession::class);
-        $middleware->api(EnsureFrontendRequestsAreStateful::class);
+        $middleware->validateCsrfTokens(except: [
+            'api/auth/register',
+            'api/auth/login'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
     })->create();

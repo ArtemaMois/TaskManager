@@ -10,7 +10,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => ['required', 'string', 'max:30', 'unique:users,login'],
+            'login' => ['required', 'string', 'max:30', 'unique:users,login', 'min:3'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:3'],
         ];
@@ -23,6 +23,7 @@ class RegisterRequest extends FormRequest
             'login.string' => 'Логин должен быть строкой',
             'login.max' => 'Максимальная длина логина - 30 символов',
             'login.unique' => 'Пользователь с таким логином уже существует',
+            'login.min' => 'Логин не должен быть короче 3 символов',
             'email.required' => 'Требуется ввести email',
             'email.email' => 'Email должен соответствовать виду hello@world.com',
             'email.unique' => 'Пользователь с таким email уже существует',
