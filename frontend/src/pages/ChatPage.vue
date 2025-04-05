@@ -43,7 +43,7 @@
                         </svg>
                     </button>
                 </div>
-                <my-chat-list :chats="myChats.chats" :centrifuge="centrifuge" @openChat="openChat" class="chat__list-self"> </my-chat-list>
+                <my-chat-list :chats="myChats.chats" :centrifuge="centrifuge" @openChat="openChat" class="chat__list-self"></my-chat-list>
             </div>
             <div v-if="isVisibleChat" class="chat__container">
                 <my-chat
@@ -98,6 +98,7 @@ const searchUsers = async () => {
             }
         )
         users.value = response.data.data.users
+        console.log(response);
     } catch (e) {
         console.log(e)
     }

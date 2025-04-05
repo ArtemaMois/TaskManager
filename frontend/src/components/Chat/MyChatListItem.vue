@@ -77,7 +77,7 @@ export default {
 <style scoped>
 .user__list-item {
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px 15px;
     max-height: 70px;
     display: flex;
     justify-content: space-between;
@@ -141,7 +141,7 @@ export default {
     max-width: 160px;
     overflow: hidden;
     font-family: 'JakartaSansRegular';
-    font-size: 12px;
+    font-size: 14px;
     color: #8E92BC;
 }
 </style>

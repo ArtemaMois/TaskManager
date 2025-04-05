@@ -45,6 +45,11 @@ export default {
             require: true,
         },
     },
+    watch:{
+        online(oldValue, newValue)
+        {
+        }
+    }
 }
 </script>
 <style scoped>
@@ -60,50 +65,48 @@ export default {
     box-shadow: 0px 19px 27px -9px rgba(105, 141, 168, 0.2);
 }
 
-.navbar__image {
+.navbar__image img {
     width: 52px;
     height: 52px;
     border-radius: 26px;
     overflow: hidden;
 }
 
-.navbar__info
-{
+.navbar__info {
     display: flex;
     flex-direction: column;
     gap: 10px;
     color: #141522;
 }
 
-.navbar__login{
+.navbar__login {
     font-family: 'JakartaSansSemiBold';
     font-size: 16px;
 }
 
-.navbar__status{
+.navbar__status {
     font-family: 'JakartaSansMedium';
     font-size: 14px;
     color: #b9b9bafd;
 }
 
-.status{
+.status {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.navbar__circle{
+.navbar__circle {
     width: 10px;
     height: 10px;
     border-radius: 5px;
 }
 
-.green{
-    background-color: #25C78B;
+.green {
+    background-color: #25c78b;
 }
 
-.red{
-    background-color: #DB5962;
+.red {
+    background-color: #db5962;
 }
-
 </style>

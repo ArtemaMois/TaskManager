@@ -1,34 +1,34 @@
 export default [
     {
         id: 1, 
-        text: 'Overview', 
+        text: 'Главная', 
         image: '/assets/btn-images/category-2.svg',
         path: '/posts'
     },
     {
         id: 2, 
-        text: 'Task', 
+        text: 'Задачи', 
         image: '/assets/btn-images/book.svg',
         path: '/about',
 
     },
     {
         id: 3, 
-        text: 'Mentors', 
+        text: 'Менторы', 
         image: '/assets/btn-images/user-octagon.svg',
         path: '',
 
     },
     {
         id: 4, 
-        text: 'Message', 
+        text: 'Чат', 
         image: '/assets/btn-images/message.svg',
         path: '/chat',
 
     },
     {
         id: 5, 
-        text: 'Settings', 
+        text: 'Настройки', 
         image: '/assets/btn-images/setting-2.svg',
         path: '/settings',
 

@@ -39,16 +39,16 @@
     margin: 32px 0 0 32px;
 }
 .general-input__login, .general-input__email {
-    width: 200px;
-    height: 30px;
-    padding: 10px;
-    border: 1px solid #546FFF;
+    padding: 8px 15px;
+    font-size: 16px;
+    max-height: none;
+    border: 2px solid #546FFF;
     border-radius: 10px;
     
 }
 .general-input-title__login {
-    font-family: NimbusRegular;
-    font-size: 14px;
+    font-family: 'Ubuntu Regular';
+    font-size: 16px;
 }
 .general-input__email {
     opacity: 50%;
@@ -61,6 +61,14 @@
     padding: 10px 0 10px 0;
     justify-content: center;
     color: #FFF;
+    font-family: 'Ubuntu Medium';
     background-color: #546FFF;
+}
+
+.general-input-button:hover
+{
+    background-color: #4862f7;
+    cursor: pointer;
+    transition: all .3s;
 }
 </style>
