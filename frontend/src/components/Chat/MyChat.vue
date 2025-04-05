@@ -4,7 +4,7 @@
             <my-chat-navbar
                 :image="user.image"
                 :login="user.login"
-                :online="false"
+                :online="online"
                 class="chat__navbar"
             ></my-chat-navbar>
             <my-chat-body
@@ -19,7 +19,7 @@
                     placeholder="Enter message..."
                 ></my-input>
                 <div class="chat__message-options">
-                    <button @click="publishMessage">
+                    <button class="publish__message" @click="publishMessage">
                         <svg
                             width="44"
                             height="44"
@@ -49,6 +49,7 @@
 import MyChatNavbar from './MyChatNavbar.vue'
 import MyChatBody from './MyChatBody.vue'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
     components: {
         MyChatNavbar,
@@ -57,6 +58,9 @@ export default {
     data() {
         return {
             messageInput: '',
+            sub: null,
+            test: false,
+            online: false,
         }
     },
     props: {
@@ -72,10 +76,9 @@ export default {
             type: Object,
             required: true,
         },
-        centrifuge: {
-            type: Object,
-            required: true,
-        },
+    },
+    computed: {
+        ...mapGetters(['getCentrifuge']),
     },
     methods: {
         async publishMessage(event) {
@@ -99,22 +102,125 @@ export default {
                 }
             }
         },
+        updateLastMessage(message, time) {
+            document.querySelector('#last-message').innerText = message
+            document.querySelector('#last-time').innerText = time
+        },
+        updateUserOnline(isOnline) {
+            this.online = isOnline
+        },
+    },
+    watch: {
+        chat(newValue) {
+            this.sub = this.getCentrifuge.getSubscription(newValue.title)
+            if (this.sub == null) {
+                this.sub = this.getCentrifuge.newSubscription(newValue.title)
+
+                this.sub.on('publication', (msg) => {
+                    const message = msg.data.message
+                    if (this.user.id == message.user) {
+                        message.isMy = false
+                    }
+                    this.messages.push(message)
+                    this.updateLastMessage(message.body, message.updatedAt)
+                })
+                this.sub.on('join', (joinMsg) => {
+                    console.log(joinMsg.info.user)
+                    if (this.user.id == joinMsg.info.user) {
+                        this.updateUserOnline(true)
+                    }
+                })
+                this.sub.on('leave', (leaveMsg) => {
+                    if (this.user.id == leaveMsg.info.user) {
+                        this.updateUserOnline(false)
+                    }
+                })
+                // try {
+                //     this.sub = this.getCentrifuge.getSubscription(newValue.title)
+                //     if (this.sub == null) {
+                //         this.sub = this.getCentrifuge.newSubscription(
+                //             newValue.title
+                //         )
+                //     }
+                //     this.sub.on('publication', (msg) => {
+                //         const message = msg.data.message
+                //         if (this.user.id == message.user) {
+                //             message.isMy = false
+                //         }
+                //         this.messages.push(message)
+                //         this.updateLastMessage(message.body, message.updatedAt)
+                //     })
+                //     this.sub.on('join', (joinMsg) => {
+                //         console.log(joinMsg.info.user)
+                //         if (this.user.id == joinMsg.info.user) {
+                //             this.updateUserOnline(true)
+                //         }
+                //     })
+                //     this.sub.on('leave', (leaveMsg) => {
+                //         if (this.user.id == leaveMsg.info.user) {
+                //             this.updateUserOnline(false)
+                //         }
+                //     })
+                //     this.sub.subscribe()
+                // } catch (e) {
+                //     console.log(e)
+                // }
+                this.sub.subscribe()
+            }
+            const resp = this.sub.presence(newValue.title)
+            resp.then((data) => {
+                console.log(data)
+                if (Object.keys(data.clients).length == 2) {
+                    this.updateUserOnline(true)
+                } else {
+                    this.updateUserOnline(false)
+                }
+            })
+        },
     },
     mounted() {
         try {
-            const sub = this.centrifuge.newSubscription(this.chat.title)
-            sub.on('publication', (msg) => {
-                const message = msg.data.message
-                if (this.user.id == message.user) {
-                    message.isMy = false;
+            console.log(this.chat);
+            this.sub = this.getCentrifuge.getSubscription(this.chat.title)
+            if (this.sub == null) {
+                this.sub = this.getCentrifuge.newSubscription(this.chat.title)
+                this.sub.on('publication', (msg) => {
+                    const message = msg.data.message
+                    if (this.user.id == message.user) {
+                        message.isMy = false
+                    }
+                    this.messages.push(message)
+                    this.updateLastMessage(message.body, message.updatedAt)
+                })
+                this.sub.on('join', (joinMsg) => {
+                    console.log(joinMsg.info.user)
+                    if (this.user.id == joinMsg.info.user) {
+                        this.updateUserOnline(true)
+                    }
+                })
+                this.sub.on('leave', (leaveMsg) => {
+                    if (this.user.id == leaveMsg.info.user) {
+                        this.updateUserOnline(false)
+                    }
+                })
+                this.sub.subscribe()
+            }
+            const resp = this.sub.presence(this.chat.title)
+            resp.then((data) => {
+                console.log(data)
+                if (Object.keys(data.clients).length == 2) {
+                    this.updateUserOnline(true)
+                } else {
+                    this.updateUserOnline(false)
                 }
-                console.log(message)
-                this.messages.push(message)
             })
-            sub.subscribe()
         } catch (e) {
             console.log(e)
         }
+    },
+    unmounted() {
+        this.sub.unsubscribe()
+        console.log('unmounted')
     },
 }
 </script>
@@ -126,6 +232,20 @@ input:active {
     border: none;
     outline: none;
     all: none;
+}
+
+.online {
+    min-height: 20px;
+    min-width: 20px;
+    border-radius: 10px;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
 }
 .chat__content {
     height: calc(100vh - 120px);
@@ -167,5 +287,9 @@ input:active {
     font-size: 16px;
     min-width: calc(100% - 55px);
     padding: 25px 7px;
+}
+
+.publish__message {
+    border: none;
 }
 </style>

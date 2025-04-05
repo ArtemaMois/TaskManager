@@ -1,20 +1,22 @@
-<?php 
+<?php
 
 namespace App\Services\Chat;
 
 use App\Models\Chat;
 use App\Models\ChatUser;
+use App\Models\Message;
+use Carbon\Carbon;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Facades\Auth;
 
 class ChatService
 {
     public function getPersonalChat(int $currentUserId, int $foreignUserId)
     {
         $existingChat = $this->existsChat($currentUserId, $foreignUserId);
-        if(!is_null($existingChat))
-        {
-            return $existingChat->chat;
-        } else{
+        if (!is_null($existingChat)) {
+            return $existingChat;
+        } else {
             return $this->newChat($currentUserId, $foreignUserId);
         }
     }
@@ -22,26 +24,18 @@ class ChatService
     private function newChat(int $currentUserId, int $foreignUserId): Chat
     {
         $chat = Chat::query()->create([
-            'title' => "chat-$currentUserId$foreignUserId"
+            'title' => "chat-$currentUserId$foreignUserId",
+            'first_member_id' => $currentUserId,
+            'second_member_id' => $foreignUserId,
+            'updated_at' => Carbon::createFromFormat('Y-m-d H:i:s', '2000-01-01 10:00:00'),
+            'created_at' =>  Carbon::createFromFormat('Y-m-d H:i:s', '2000-01-01 10:00:00')
         ]);
-        $this->newChatUser($chat->id, $currentUserId, $foreignUserId);
         return $chat;
     }
 
-    public function newChatUser(int $chatId, int $currentUserId, int $foreignUserId): ChatUser
+    public function existsChat(int $currentUserId, int $foreignUserId): Chat|null
     {
-        return ChatUser::query()->create(
-            [
-                'chat_id' => $chatId,
-                'first_member_id' => $currentUserId,
-                'second_member_id' => $foreignUserId
-            ]
-        );
-    }
-
-    public function existsChat(int $currentUserId, int $foreignUserId): ChatUser|null
-    {
-        return ChatUser::where([
+        return Chat::where([
             ['first_member_id', '=', $currentUserId],
             ['second_member_id', '=', $foreignUserId]
         ])->orWhere(function ($query) use ($currentUserId, $foreignUserId) {
@@ -50,5 +44,15 @@ class ChatService
                 ['second_member_id', '=', $currentUserId]
             ]);
         })->first();
+    }
+
+    public function getLastChats()
+    {
+        $currentUserId = Auth::user()->id;
+        $chats = Chat::where('first_member_id', '=', $currentUserId)
+            ->orWhere('second_member_id', '=', $currentUserId)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(15);
+        return $chats;
     }
 }

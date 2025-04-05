@@ -1,18 +1,20 @@
 <template>
     <div class="items">
-        <div v-for="user in users" :key="user.id">
-            <my-chat-user-item @openChat="openChat(user)"
-                :login="chats.login"
-                :image="chats.image"
-                :time="chats.updated_at"
-                :message="chats.message"
-            ></my-chat-user-item>
+        <div v-for="chat in chats.value" :key="chat.id" >
+            <my-chat-list-item 
+                :login="chat.login"
+                :image="chat.image"
+                :time="chat.updatedAt"
+                :message="chat.message"
+                :chatTitle="chat.title"
+                @openChat="openChat(chat)"
+            ></my-chat-list-item>
         </div>
     </div>
 </template>
 
 <script>
-import MyChatUserItem from './MyChatUserItem.vue'
+import MyChatListItem from './MyChatListItem.vue'
 export default {
     components: {
         MyChatListItem,
@@ -23,11 +25,11 @@ export default {
         },
     },
     methods: {
-        openChat(user)
+        openChat(chat)
         {
-            this.$emit('openChat', user);
+            this.$emit('openChat', chat.userId);
         }
-    }
+    },
 
 }
 </script>

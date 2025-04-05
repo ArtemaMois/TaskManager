@@ -29,6 +29,11 @@ body {
     margin: auto;
 }
 
+input{
+    outline: none;
+    border: none;
+}
+
 .main-class {
     flex: 1 1 auto;
 }
@@ -48,6 +53,30 @@ body {
 @font-face {
     font-family: NimbusRegular;
     src: url('~@/assets/fonts/Nimbus/NimbusSanL-Reg.otf');
+}
+
+@font-face {
+    font-family: 'Ubuntu Light';
+    src: url('~@/assets/fonts/ubuntu/Ubuntu-Light.woff2');
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'Ubuntu Regular';
+    src: url('~@/assets/fonts/ubuntu/Ubuntu-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Ubuntu Medium';
+    src: url('~@/assets/fonts/ubuntu/Ubuntu-Medium.woff2');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Ubuntu Bold';
+    src: url('~@/assets/fonts/ubuntu/Ubuntu-Bold.woff2');
+    font-weight: 700;
 }
 
 /** Plus Jakarta Sans */

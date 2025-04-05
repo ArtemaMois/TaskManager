@@ -8,6 +8,7 @@ use App\Extensions\Centrifugo\Services\CentrifugoService;
 use App\Http\Resources\api\Message\MinifiedMessageResource;
 use App\Models\Chat;
 use App\Models\Message;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,8 +35,11 @@ class WSController
             'user_id' => Auth::user()->id,
             'chat_id' => $chat->id
         ]);
+        $chat->update([
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
         CentrifugoClientFacade::publish($channel, ['message' => new MinifiedMessageResource($message)]);
-
         return response()->json(['status' => 'success', ]);
     }
 }

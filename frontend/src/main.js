@@ -67,4 +67,5 @@ app
     .component('my-sliderMentors', mySliderMentors)
     .component('my-search', mySearch)
     .use(router)
+    .use(store)
     .mount('#app')

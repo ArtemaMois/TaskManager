@@ -9,7 +9,7 @@ class MessageService
 {
     public function getOrderedChatMessages(int $chatId)
     {
-        $messages = Message::where('chat_id', '=', $chatId)->orderBy('updated_at')->paginate(30);
+        $messages = Message::where('chat_id', '=', $chatId)->get();
         return $messages;
     }
 }
