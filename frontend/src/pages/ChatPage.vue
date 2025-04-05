@@ -93,7 +93,7 @@ const openChat = (user) => {
 const searchUsers = async () => {
     try {
         const response = await axios.get(
-            'http://localhost/api/accounts/chat?search=' +
+            'http://localhost:80/api/accounts/chat?search=' +
                 userSearchQueryString.value,
             {
                 headers: {
@@ -154,7 +154,7 @@ const fetchChatInfo = async (userId) => {
 
 onMounted(async () => {
     try {
-        const response = await axios.get('http://localhost/api/ws/token', {
+        const response = await axios.get('http://localhost:80/api/ws/token', {
             headers: {
                 Authorization: localStorage.getItem('api_token'),
             },

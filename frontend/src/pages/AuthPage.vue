@@ -16,6 +16,8 @@
                 <sign-form v-else />
             </div>
         </div>
+        <my-error class="error-message" v-if="showError">Нет доступа!</my-error>
+
     </div>    
 </template>
 
@@ -30,6 +32,7 @@
         data() {
             return {
                 isRegistered: false,
+                showError: false,
             };
         },
         methods: {
@@ -39,6 +42,9 @@
             document.body.style.backgroundColor = "#F9F9FE";
             const token = localStorage.getItem("api_token");
             this.isRegistered = !!token;
+            if (this.$route.query.authError) {
+                this.showError = true;
+            }
         },
         beforeUnmount() {
             document.body.style.backgroundColor = "";
@@ -94,5 +100,10 @@
 .error-view{
     position: absolute;
     max-height: 50px;
+}
+.error-message {
+    display: flex;
+    justify-content: center;
+    width: 250px;
 }
 </style>

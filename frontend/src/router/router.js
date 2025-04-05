@@ -13,27 +13,27 @@ const routes = [{
     {
         path: '/overview',
         component: OverPage,
-        meta: { reqiresAuth: true },
+        meta: { requiresAuth: false },
     },
     {
         path: '/task',
         component: TaskPage,
-        meta: { reqiresAuth: true },
+        meta: { requiresAuth: true },
     },
     {
         path: '/mentors',
         component: MentorsPage,
-        meta: { reqiresAuth: true },
+        meta: { requiresAuth: true },
     },
     {
         path: '/settings',
         component: SettingsPage,
-        meta: { reqiresAuth: true },
+        meta: { requiresAuth: true },
     }, 
     {
         path: '/chat',
         component: ChatPage,
-        meta: { reqiresAuth: true },
+        meta: { requiresAuth: true },
     }
 ]
 
@@ -43,13 +43,18 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem('api_token');
+    console.log('Переход на:', to.fullPath)
+    console.log('Нужна авторизация:', to.meta.requiresAuth)
+    console.log('Токен:', localStorage.getItem('token'))
   
-    if (to.meta.requiresAuth && !token) {
-      next('/');
+    const token = localStorage.getItem('token')
+    if (to.meta.requiresAuth && (!token || token === '')) {
+      console.log('→ Редирект на /')
+      next({ path: '/', query: { authError: true } })
     } else {
-      next();
+      next()
     }
-});
+  })
+  
 
 export default router;

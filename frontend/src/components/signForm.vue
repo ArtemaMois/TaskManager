@@ -78,8 +78,11 @@ import axios from 'axios';
                     });
                     if (response.data.status == "success") {
                         console.log('Успешная регистрация! Можете войти!', response.data);
-                        localStorage.setItem("api_token", "Bearer " + response.data.token);
+                        localStorage.setItem("api_token", "Bearer " + response.data.api_token);
+                        
+                        
                         this.$router.push('/settings');
+                    
                     } else {
                         alert('Пройдите регистрацию снова, проверьте данные!');
                     }
