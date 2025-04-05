@@ -12,4 +12,5 @@ Route::controller(UserController::class)
         Route::patch('/me', 'update')->name('users.update');
         Route::patch('/me/password', 'changePassword')->name('users.password.update');
         Route::get("/cookie", "getCookie")->name('cookie');
+        Route::get('/chat', 'userForChats')->name('users.chat');
 });

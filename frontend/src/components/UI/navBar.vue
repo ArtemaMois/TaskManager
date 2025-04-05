@@ -100,9 +100,14 @@
     width: 100%;
     height: 44px;
     font-family: NimbusRegular;
-    
 
 }
+.btns:hover{
+    cursor: pointer;
+    background-color: rgb(220, 222, 234);
+    transition: all .3s ease;
+}
+
 .btn__image{
     margin-left: 20px;
     display: flex;

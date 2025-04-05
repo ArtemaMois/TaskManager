@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(TasksController::class)
 ->prefix('tasks')
+->middleware('auth:sanctum')
 ->group(function () {
    Route::get('/', 'index')->name('tasks.index');
    Route::post('/', 'store')->name('tasks.store')->middleware(MentorMiddleware::class);

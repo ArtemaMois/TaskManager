@@ -23,7 +23,7 @@ export default [
         id: 4, 
         text: 'Message', 
         image: '/assets/btn-images/message.svg',
-        path: '',
+        path: '/chat',
 
     },
     {
