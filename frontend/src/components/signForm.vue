@@ -10,7 +10,7 @@
             style="padding: 15px 20px; margin-bottom: 24px;"
             v-model="form.email"
             type="text" 
-            placeholder="Электронная почта / номер телефона"
+            placeholder="Электронная почта"
         />
         <div class="password-wrapper">
             <my-input 
@@ -81,7 +81,7 @@ import axios from 'axios';
                         localStorage.setItem("api_token", "Bearer " + response.data.api_token);
                         
                         
-                        this.$router.push('/settings');
+                        this.$router.push('/overview');
                     
                     } else {
                         alert('Пройдите регистрацию снова, проверьте данные!');

@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from '@/App'
+import store from './store'
 import router from '@/router/router'
 import MyButton from '@/components/UI/myButton.vue'
 import MyInput from '@/components/UI/myInput.vue'

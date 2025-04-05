@@ -46,6 +46,7 @@
 .general-input__login, .general-input__email {
     padding: 8px 15px;
     font-size: 16px;
+    max-width: 300px;
     max-height: none;
     border: 2px solid #546FFF;
     border-radius: 10px;

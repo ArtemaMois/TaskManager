@@ -62,7 +62,7 @@ import axios from 'axios';
                     if (response2.data.status == "success") {
                         console.log('Успешный вход!', response2.data.token);
                         localStorage.setItem("api_token", "Bearer " + response2.data.token);
-                        this.$router.push('/settings');
+                        this.$router.push('/overview');
                         
                     } else {
                         if (response2.status == "failed") {
@@ -70,15 +70,19 @@ import axios from 'axios';
                             this.errorMessage = response2.data;
                         }
                     }
-                } catch (error) {
-                    if (error && error.status === 422) {
-                        const errors = error.response2.errors || {};
-                        this.errorMessage = errors.login?.[0];
+                } catch (e) {
+                    if (e && e.status === 422) {
+                        const errors = e.response.data.errors || {};
+                        if (errors.login?.[0]) {
+                            this.errorMessage = errors.login?.[0];
+                        } else {
+                            this.errorMessage = errors.email?.[0];
+                        }
                     } else {
                         this.errorMessage = 'Произошла непредвиденная ошибка!';
                     }
-                    console.log(error);                    
-                }
+                    console.log(e);  
+                } 
             },
         },
     }

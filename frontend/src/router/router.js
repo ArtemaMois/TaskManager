@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
     console.log('Нужна авторизация:', to.meta.requiresAuth)
     console.log('Токен:', localStorage.getItem('token'))
   
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('api_token')
     if (to.meta.requiresAuth && (!token || token === '')) {
       console.log('→ Редирект на /')
       next({ path: '/', query: { authError: true } })
