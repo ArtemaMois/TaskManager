@@ -70,11 +70,11 @@ import { useStore } from 'vuex'
 const userSearchQueryString = ref('')
 const isVisibleChat = ref(false)
 const store = useStore();
-const currentUser = ref({})
-const wsToken = ref('')
-const messages = ref([])
-const chat = ref('')
-const centrifuge = ref({})
+const currentUser = ref({});
+const wsToken = ref('');
+const messages = ref([]);
+const chat = ref('');
+const centrifuge = ref({});
 const myChats = useInitialChats();
 const { users, nextSearhUsersRef } = useSearchUsers(userSearchQueryString.value);
 const openChat = (userId) => {
