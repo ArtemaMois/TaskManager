@@ -49,8 +49,9 @@ export default {
 .message {
     background-color: #fff;
     color: #000;
-    font-family: 'JakartaSansMedium', sans-serif;
-    font-size: 14px;
+    font-family: 'Ubuntu Regular', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.2px;;
     padding: 8px 12px;
     max-width: 440px;
     border-radius: 8px;
@@ -66,7 +67,7 @@ export default {
 }
 
 .message__time{
-    font-family: 'JakartaSansRegular', sans-serif;
+    font-family: 'Ubuntu Regular', sans-serif;
     font-size: 12px;
     color: #fff;
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="items">
-        <div v-for="chat in chats.value" :key="chat.id" >
+        <div v-for="chat in chats" :key="chat.id" >
             <my-chat-list-item 
                 :login="chat.login"
                 :image="chat.image"
@@ -30,6 +30,10 @@ export default {
             this.$emit('openChat', chat.userId);
         }
     },
+    mounted()
+    {
+        console.log(this.chats);
+    }
 
 }
 </script>

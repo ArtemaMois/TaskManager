@@ -106,17 +106,17 @@ export default {
 
 .item__login {
     font-size: 14px;
-    font-family: 'JakartaSansSemiBold';
+    font-family: 'Ubuntu Medium';
 }
 
 .item__time {
     font-size: 12px;
     color: #8e92bc;
-    font-family: 'JakartaSansRegular';
+    font-family: 'Ubuntu Regular';
 }
 
 .item__message{
-    font-family: 'JakartaSansRegular';
+    font-family: 'Ubuntu Regular';
     font-size: 12px;
     color: #8E92BC;
 }

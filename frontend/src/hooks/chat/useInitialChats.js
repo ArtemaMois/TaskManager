@@ -11,19 +11,15 @@ export function useInitialChats() {
                     "Authorization": localStorage.getItem('api_token')
                 }
             });
-            console.log(response.data.data.chats);
             response.data.data.chats.forEach(element => {
                 chats.value.push(element);
             });
-            nextChatsRef.value = response.data.data.nextRef;
         }catch (e)
         {
             console.log(e);
         }
     }
     fetchMyChats();
-    return {
-        chats, 
-        nextChatsRef
-    };
+    console.log(chats);
+    return chats;
 }

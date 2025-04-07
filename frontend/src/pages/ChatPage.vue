@@ -43,7 +43,19 @@
                         </svg>
                     </button>
                 </div>
-                <my-chat-list :chats="myChats.chats" :centrifuge="centrifuge" @openChat="openChat" class="chat__list-self"></my-chat-list>
+                <my-chat-user-list
+                    class="chat__list-users"
+                    v-if="isSearching"
+                    :users="users"
+                    @openChat="openChat"
+                ></my-chat-user-list>
+                <my-chat-list
+                    v-else
+                    :chats="myChats"
+                    :centrifuge="centrifuge"
+                    @openChat="openChat"
+                    class="chat__list-self"
+                ></my-chat-list>
             </div>
             <div v-if="isVisibleChat" class="chat__container">
                 <my-chat
@@ -62,43 +74,55 @@ import axios from 'axios'
 import { Centrifuge } from 'centrifuge'
 import MyChat from '@/components/Chat/MyChat.vue'
 import MyChatList from '@/components/Chat/MyChatList.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import MyChatUserList from '@/components/Chat/MyChatUserList.vue'
 import { useSearchUsers } from '@/hooks/chat/useSearchUsers'
 import { useInitialChats } from '@/hooks/chat/useInitialChats'
 import { useStore } from 'vuex'
 const userSearchQueryString = ref('')
 const isVisibleChat = ref(false)
-const store = useStore();
-const currentUser = ref({});
-const wsToken = ref('');
-const messages = ref([]);
-const chat = ref('');
-const centrifuge = ref({});
+const isSearching = ref(false)
+const store = useStore()
+const currentUser = ref({})
+const wsToken = ref('')
+const messages = ref([])
+const chat = ref('')
+const centrifuge = ref({})
 const myChats = useInitialChats();
-const { users, nextSearhUsersRef } = useSearchUsers(userSearchQueryString.value);
+const isNewChat = ref(false);
+const { users, nextSearhUsersRef } = useSearchUsers(userSearchQueryString.value)
 const openChat = (userId) => {
-    currentUser.value = userId;
-    messages.value.splice(0);
-    fetchChatInfo(currentUser.value);
+    currentUser.value = userId
+    messages.value.splice(0)
+    fetchChatInfo(currentUser.value)
+    console.log(chat.value);
     if (chat.value != '') {
         isVisibleChat.value = true
+        isSearching.value = false
+        if (isNewChat.value) {
+            myChats.value.push(chat.value)
+        }
     }
 }
 
 const searchUsers = async () => {
     try {
-        const response = await axios.get(
-            'http://localhost/api/accounts/chat?search=' +
-                userSearchQueryString.value,
-            {
-                headers: {
-                    Authorization: localStorage.getItem('api_token'),
-                },
-            }
-        )
-        users.value = response.data.data.users
-        console.log(response);
+        if (!userSearchQueryString.value == '') {
+            const response = await axios.get(
+                'http://localhost/api/accounts/chat?search=' +
+                    userSearchQueryString.value,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('api_token'),
+                    },
+                }
+            )
+            userSearchQueryString.value = ''
+            users.value = response.data.data.users
+            isSearching.value = true
+        } else {
+            isSearching.value = false
+        }
     } catch (e) {
         console.log(e)
     }
@@ -116,13 +140,14 @@ const fetchChatInfo = async (userId) => {
                     Authorization: localStorage.getItem('api_token'),
                 },
             }
-        );
-        const data = response.data;
+        )
+        const data = response.data
         chat.value = data.chat;
-        currentUser.value = data.user;
+        isNewChat.value = data.isNewChat;
+        currentUser.value = data.user
         data.messages.forEach((item) => {
             messages.value.push(item)
-        });
+        })
     } catch (e) {
         console.log(e)
     }
@@ -142,11 +167,10 @@ onMounted(async () => {
                 token: wsToken.value,
             }
         )
-        store.dispatch('setCentrifuge', wsToken.value);
+        store.dispatch('setCentrifuge', wsToken.value)
     } catch (e) {
         console.log(e)
     }
-
 })
 </script>
 
@@ -202,7 +226,7 @@ input:hover {
     outline: none;
     font-size: 16px;
     padding: 5px;
-    font-family: 'JakartaSansRegular';
+    font-family: 'Ubuntu Regular';
 }
 
 .chat__search {
@@ -214,7 +238,8 @@ input:hover {
     border-radius: 10px;
 }
 
-.chat__list-self {
+.chat__list-self,
+.chat__list-users {
     display: flex;
     flex-direction: column;
     gap: 15px;

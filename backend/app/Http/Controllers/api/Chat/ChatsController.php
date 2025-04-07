@@ -24,16 +24,17 @@ class ChatsController extends Controller
     public function myChats(Request $request)
     {
         $chats = ChatFacade::getLastChats();
-        return response()->json(['status' => 'success', 'data' => InitialChatsCollection::collection($chats)]);
+        return response()->json(['status' => 'success', 'data' => ['chats' => MinifiedChatResource::collection($chats), 'nextPageRef' => null]]);
     }
     
     public function personal(GetPersonalUserChatRequest $request)
     {
         $chatInfo = ChatFacade::getPersonalChat(Auth::user()->id, $request->get('user_id')); 
-        $messages = MessageFacade::getOrderedChatMessages($chatInfo->id);
-        return response()->json(['chat' => new MinifiedChatResource($chatInfo), 
+        $messages = MessageFacade::getOrderedChatMessages($chatInfo['chat']->id);
+        return response()->json(['chat' => new MinifiedChatResource($chatInfo['chat']),
+        'isNewChat' => $chatInfo['isNewChat'], 
         'messages' => MinifiedMessageResource::collection($messages),
-        'user' => new UserForChatResource($chatInfo->foreignUser())]);
+        'user' => new UserForChatResource($chatInfo['chat']->foreignUser())]);
     }
 
 

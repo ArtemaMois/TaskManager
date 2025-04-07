@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="user__list-item item" @click="openChat">
+        <div class="user__list-item item" v-bind:id="chatTitle" @click="openChat">
             <div class="item__info">
                 <div class="item__image">
                     <img
@@ -26,10 +26,12 @@
                 </div>
                 <div class="item__info-text">
                     <div class="item__login">{{ login }}</div>
-                    <div v-if="message" class="item__message" id="last-message">{{ message.body }}</div>
+                    <div v-if="message" class="item__message last-message" >{{ message.body }}</div>
+                    <div v-else class="item__message last-message" ></div>
                 </div>
             </div>
-            <div v-if="time" class="item__time" id="last-time">{{ time }}</div>
+            <div v-if="time" class="item__time last-time">{{ time }}</div>
+            <div v-else class="item__time last-time"></div>
         </div>
     </div>
 </template>
@@ -128,19 +130,19 @@ export default {
 
 .item__login {
     font-size: 14px;
-    font-family: 'JakartaSansSemiBold';
+    font-family: 'Ubuntu Medium';
 }
 
 .item__time {
     font-size: 13px;
     color: #5a62bc;
-    font-family: 'JakartaSansRegular';
+    font-family: 'Ubuntu Regular';
 }
 
 .item__message{
     max-width: 160px;
     overflow: hidden;
-    font-family: 'JakartaSansRegular';
+    font-family: 'Ubuntu Regular';
     font-size: 14px;
     color: #8E92BC;
 }
