@@ -4,7 +4,7 @@ module.exports =
     transpileDependencies: true,
     devServer: {
       port: 8080, 
-      disableHostCheck: true,
+      allowedHosts: 'all',
       webSocketServer: false,// Замените на желаемый порт, например
       proxy: {
         '/api': {
