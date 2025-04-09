@@ -19,7 +19,6 @@
                 </my-select>
             </div>
             <my-sliderTask :searchQuery="searchQuery" :selected="selected"></my-sliderTask>
-            <my-sliderTask :searchQuery="searchQuery" :selected="selected"></my-sliderTask>
         </div>
     </div>
 </template>
