@@ -17,13 +17,10 @@ export default {
 .btn {
     display: flex;
     align-items: center;
-    font-family: Square;
     border-radius: 10px;
     border: none;
 }
 .signup__btn{
-    width: 50%;
-    height: 30px;
     justify-content: center;
     align-items: center;
     font-size: 75%;

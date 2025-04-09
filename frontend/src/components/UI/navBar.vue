@@ -4,7 +4,7 @@
             <svg width="34px" height="34px" viewBox="0 0 34 34" fill="black" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.9834 0.333252H10.0167C3.95004 0.333252 0.333374 3.94992 0.333374 10.0166V23.9666C0.333374 30.0499 3.95004 33.6666 10.0167 33.6666H23.9667C30.0334 33.6666 33.65 30.0499 33.65 23.9833V10.0166C33.6667 3.94992 30.05 0.333252 23.9834 0.333252ZM16.1667 25.7499C16.1667 26.3499 15.5667 26.7499 15.0167 26.5166C13 25.6499 10.3667 24.8499 8.53337 24.6166L8.21671 24.5833C7.20004 24.4499 6.36671 23.4999 6.36671 22.4666V9.63325C6.36671 8.34992 7.40004 7.39992 8.66671 7.49992C10.75 7.66659 13.8334 8.66658 15.7667 9.76658C16.0334 9.91658 16.1667 10.1999 16.1667 10.4833V25.7499ZM27.6334 22.4499C27.6334 23.4833 26.8 24.4333 25.7834 24.5666L25.4334 24.5999C23.6167 24.8499 21 25.6333 18.9834 26.4833C18.4334 26.7166 17.8334 26.3166 17.8334 25.7166V10.4666C17.8334 10.1666 17.9834 9.88325 18.25 9.73325C20.1834 8.64992 23.2 7.68325 25.25 7.49992H25.3167C26.6 7.49992 27.6334 8.53325 27.6334 9.81659V22.4499Z" fill="#546FFF"/>
             </svg>
-            <div class="logo__title" translate="no">RAN</div>
+            <div class="logo__title" translate="no">SkillBridge</div>
         </div>
         <div class="navbar">
             <div class="navbar__btns">
@@ -18,9 +18,8 @@
                         <img class="image" 
                             :class="{ active: isActive(menu_item) }" 
                             :src="menu_item.image" 
-                            :alt="menu_item.description" 
-                            :key="index">
-                    {{ menu_item.text }}
+                            :alt="menu_item.description">
+                        <span class="btn-text">{{ menu_item.text }}</span>
                     </div>
                 </my-button>
             </div>
@@ -144,7 +143,83 @@
 .logo__title{
     color: black;
     font-family: NimbusBold;
-    font-size: 200%;
+    font-size: 180%;
     margin-left: 1.5px;
 }
+
+@media (max-width: 1024px) {
+  .btn-text {
+    display: none;
+  }
+
+  .btn__image {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .navbar__btns {
+    margin-left: 16px;
+    width: auto;
+  }
+
+  .logo__title {
+    display: none;
+  }
+
+  .logo-view {
+    justify-content: center;
+    margin-left: 0;
+  }
+  .logo__title {
+    display: none;
+  }
+
+  .logo-view {
+    justify-content: center;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .navbar-wrapper {
+    max-width: 72px;
+    align-items: center;
+  }
+
+  .navbar__btns {
+    margin-left: 0;
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn__image {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .btns {
+    padding: 0;
+    justify-content: center;
+  }
+  .btns.active {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F5F7;
+    font-family: NimbusBold;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .navbar-wrapper {
+    max-width: 72px;
+  }
+  .btns {
+    padding: 0;
+  }
+}
+
 </style>

@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from '@/App'
+import store from './store'
 import router from '@/router/router'
 import MyButton from '@/components/UI/myButton.vue'
 import MyInput from '@/components/UI/myInput.vue'
@@ -8,6 +9,7 @@ import MySelect from '@/components/UI/mySelect.vue'
 import NavBar from '@/components/UI/navBar.vue'
 import PostList from '@/components/postList.vue'
 import signForm from '@/components/signForm.vue'
+import signinForm from '@/components/signinForm.vue'
 import PostItem from '@/components/postItem.vue'
 import signupForm from '@/components/signupForm.vue'
 import myFootMain from '@/components/UI/myFootMain.vue'
@@ -22,7 +24,11 @@ import myInputRadio from '@/components/UI/myInputRadio.vue'
 import myError from '@/components/UI/myError.vue'
 import myActivitySchedule from '@/components/UI/myActivitySchedule.vue'
 import mySliderSmall from '@/components/UI/mySliderSmall.vue'
-import store from './store';
+import myTaskCard from '@/components/UI/myTaskCard.vue'
+import mySlider from '@/components/UI/mySlider.vue'
+import mySliderTasks from '@/components/UI/mySliderTasks.vue'
+import mySliderMentors from '@/components/UI/mySliderMentors.vue'
+import mySearch from '@/components/UI/mySearch.vue'
 
 
 const app = createApp(App)
@@ -42,6 +48,7 @@ app
     .component('nav-bar', NavBar)
     .component('post-list', PostList)
     .component('sign-form', signForm)
+    .component('signin-form', signinForm)
     .component('post-item', PostItem)
     .component('signup-form', signupForm)
     .component('my-main-foot', myFootMain)
@@ -55,6 +62,11 @@ app
     .component('my-error', myError)
     .component('my-activity', myActivitySchedule)
     .component('my-sslider', mySliderSmall)
+    .component('my-taskcard', myTaskCard)
+    .component('my-slider', mySlider)
+    .component('my-sliderTask', mySliderTasks)
+    .component('my-sliderMentors', mySliderMentors)
+    .component('my-search', mySearch)
     .use(router)
     .use(store)
     .mount('#app')

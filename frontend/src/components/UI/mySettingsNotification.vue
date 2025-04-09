@@ -49,8 +49,8 @@
     margin: 32px 0 0 32px;
 }
 .notif__select{
+    max-width: 300px;
     margin: 16px 0 0 32px;
-
 }
 .notif-lang{
     font-family: NimbusRegular;

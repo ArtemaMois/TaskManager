@@ -3,20 +3,20 @@ export default [
         id: 1, 
         text: 'Главная', 
         image: '/assets/btn-images/category-2.svg',
-        path: '/posts'
+        path: '/overview'
     },
     {
         id: 2, 
         text: 'Задачи', 
         image: '/assets/btn-images/book.svg',
-        path: '/about',
+        path: '/task',
 
     },
     {
         id: 3, 
         text: 'Менторы', 
         image: '/assets/btn-images/user-octagon.svg',
-        path: '',
+        path: '/mentors',
 
     },
     {

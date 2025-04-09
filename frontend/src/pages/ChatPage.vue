@@ -155,7 +155,7 @@ const fetchChatInfo = async (userId) => {
 
 onMounted(async () => {
     try {
-        const response = await axios.get('http://localhost/api/ws/token', {
+        const response = await axios.get('http://localhost:80/api/ws/token', {
             headers: {
                 Authorization: localStorage.getItem('api_token'),
             },
@@ -253,9 +253,9 @@ input:hover {
     overflow-x: hidden;
 }
 
-.chat__container {
+/* .chat__container {
     /* border: 1px solid blue; */
-}
+/*}*/ 
 button {
     background-color: transparent;
     outline: none;

@@ -11,7 +11,7 @@
                 </svg>
             </div>
             <div class="profile-settings">
-                <img src="/assets/foot-images/Profil.png" alt="">
+                <img src="/assets/foot-images/lam.jpg" alt="">
             </div>
         </div>
     </div>
@@ -67,7 +67,11 @@
     justify-content: center;
     align-items: center;
 }
-.profile-settings {
+
+.profile-settings img{
+    border-radius: 50%;
     width: 52px;
+    height: 52px;
+    object-fit: cover
 }
 </style>

@@ -29,20 +29,20 @@ Nikita, [27.11.2024 0:04]
           top: tooltip2.y + 'px',
         }">
         <svg width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g filter="url(#filter0_d_27_1488)">
-        <path d="M30.4571 30.1293C31.2571 31.0992 32.7429 31.0992 33.5429 30.1293L37.9611 24.7726C39.037 23.4681 38.1091 21.5 36.4182 21.5H27.5818C25.8909 21.5 24.963 23.4681 26.0389 24.7726L30.4571 30.1293Z" fill="#141522"/>
-        </g>
-        <defs>
-        <filter id="filter0_d_27_1488" x="0.578003" y="0.5" width="62.844" height="59.3568" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-        <feOffset dy="4"/>
-        <feGaussianBlur stdDeviation="12.5"/>
-        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
-        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_27_1488"/>
-        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_27_1488" result="shape"/>
-        </filter>
-        </defs>
+          <g filter="url(#filter0_d_27_1488)">
+          <path d="M30.4571 30.1293C31.2571 31.0992 32.7429 31.0992 33.5429 30.1293L37.9611 24.7726C39.037 23.4681 38.1091 21.5 36.4182 21.5H27.5818C25.8909 21.5 24.963 23.4681 26.0389 24.7726L30.4571 30.1293Z" fill="#141522"/>
+          </g>
+          <defs>
+          <filter id="filter0_d_27_1488" x="0.578003" y="0.5" width="62.844" height="59.3568" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dy="4"/>
+          <feGaussianBlur stdDeviation="12.5"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_27_1488"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_27_1488" result="shape"/>
+          </filter>
+          </defs>
         </svg>
 
       </div>
@@ -297,6 +297,7 @@ canvas {
     transform: translate(-50%, -50%);
     white-space: nowrap;
     pointer-events: none;
+    cursor: pointer;
 }
 .tooltip2 {
     position: absolute;
@@ -307,6 +308,7 @@ canvas {
     transform: translate(-50%, -50%);
     white-space: nowrap;
     pointer-events: none;
+    cursor: pointer;
 }
 .header {
     display: flex;
@@ -328,6 +330,7 @@ canvas {
     border: none;
     background: none;
     margin: 0 20px 0 0;
+    cursor: pointer;
 }
 .header__option {
     font-family: NimbusRegular;
@@ -335,6 +338,7 @@ canvas {
     border: none;
     background: #FFFFFF;
     margin: 0 20px 0 0;
+    cursor: pointer;
 }
 
 
