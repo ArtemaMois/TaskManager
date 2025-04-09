@@ -5,6 +5,8 @@ import SettingsPage from "@/pages/SettingsPage.vue";
 import { createRouter, createWebHistory } from 'vue-router';
 import ChatPage from "@/pages/ChatPage.vue";
 import MentorsPage from "@/pages/MentorsPage.vue";
+import MentorsDetail from "@/pages/MentorsDetail.vue";
+import TaskDetail from "@/pages/TaskDetail.vue";
 const routes = [{
         path: '/',
         component: AuthPage,
@@ -34,7 +36,17 @@ const routes = [{
         path: '/chat',
         component: ChatPage,
         meta: { requiresAuth: true },
-    }
+    },
+    {
+        path: '/mentors/:id',
+        component: MentorsDetail,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/task/:id',
+        component: TaskDetail,
+        meta: { requiresAuth: true },
+    },
 ]
 
 const router = createRouter({

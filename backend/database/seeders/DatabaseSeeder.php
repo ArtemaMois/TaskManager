@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\ClaimStatus;
 use App\Models\Grade;
+use App\Models\Mentor;
 use App\Models\Role;
 use App\Models\Timezone;
 use App\Models\User;
@@ -234,29 +235,38 @@ class DatabaseSeeder extends Seeder
         //     'role_id' => 3
         // ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 4
-        ]);
+        // Grade::create([
+        //     'mentor_id' => 1,    
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 4
+        // ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 2
-        ]);
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 2
+        // ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 5
-        ]);
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 5
+        // ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 4
-        ]);
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 4
+        // ]);
+        $users = User::query()->where('id', "<", 5)->get();
+        foreach($users as $user)
+        {
+            Mentor::create([
+                'login' => $user->login,
+                'user_id' => $user->id,
+                'about_me' => null
+            ]);
+        }
 
     }
 }
