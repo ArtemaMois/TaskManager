@@ -40,4 +40,9 @@ class Task extends Model
     {
         return $this->hasMany(PerformedCheckpoint::class);
     }
+
+    public function taskGrades()
+    {
+        return $this->hasMany(TaskGrade::class);
+    }
 }

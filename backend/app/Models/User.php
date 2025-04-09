@@ -115,4 +115,9 @@ class User extends Authenticatable
     {
     }
 
+    public function taskGrades()
+    {
+        return $this->hasMany(TaskGrade::class);
+    }
+
 }

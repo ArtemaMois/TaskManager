@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\ClaimStatus;
 use App\Models\Grade;
+use App\Models\Mentor;
 use App\Models\Role;
+use App\Models\Task;
+use App\Models\TaskGrade;
 use App\Models\Timezone;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -234,29 +237,98 @@ class DatabaseSeeder extends Seeder
         //     'role_id' => 3
         // ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 4
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 4
+        // ]);
+
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 2
+        // ]);
+
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 5
+        // ]);
+
+        // Grade::create([
+        //     'mentor_id' => 1,
+        //     'user_id' => User::inRandomOrder()->first()->id,
+        //     'stars' => 4
+        // ]);
+
+        // $users = User::query()->where('id', "<", 5)->get();
+        // foreach($users as $user)
+        // {
+        //     Mentor::create([
+        //         'login' => $user->login,
+        //         'user_id' => $user->id,
+        //         'about_me' => null
+        //     ]);
+        // }
+        Task::query()->create([
+            'title' => 'Some title',
+            'description' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur est quisquam repellendus et, culpa expedita ullam quas molestias quidem, quaerat harum fugit sunt explicabo quae perferendis nulla asperiores esse quibusdam.
+            Minima architecto voluptas, vel libero sint suscipit velit quaerat? Ab provident, cupiditate sunt aliquid, quasi, repellendus distinctio assumenda totam id eius consectetur! Consectetur reprehenderit est eum minima, nam incidunt dolor?
+            Labore quasi quaerat suscipit quia est maiores incidunt quibusdam unde adipisci tempora cum ducimus aperiam reprehenderit iure enim delectus officiis sed inventore saepe expedita repudiandae architecto, laudantium eveniet? Nobis, sit.",
+            "mentor_id" => Mentor::all()->random()->id,
+            'category_id' => Category::all()->random()->id
         ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 2
+        Task::query()->create([
+            'title' => 'UI/UX дизайн',
+            'description' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur est quisquam repellendus et, culpa expedita ullam quas molestias quidem, quaerat harum fugit sunt explicabo quae perferendis nulla asperiores esse quibusdam.
+            Minima architecto voluptas, vel libero sint suscipit velit quaerat? Ab provident, cupiditate sunt aliquid, quasi, repellendus distinctio assumenda totam id eius consectetur! Consectetur reprehenderit est eum minima, nam incidunt dolor?
+            Labore quasi quaerat suscipit quia est maiores incidunt quibusdam unde adipisci tempora cum ducimus aperiam reprehenderit iure enim delectus officiis sed inventore saepe expedita repudiandae architecto, laudantium eveniet? Nobis, sit.",
+            "mentor_id" => Mentor::all()->random()->id,
+            'category_id' => Category::all()->random()->id
         ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 5
+
+        Task::query()->create([
+            'title' => 'Разработка приложений под Android',
+            'description' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur est quisquam repellendus et, culpa expedita ullam quas molestias quidem, quaerat harum fugit sunt explicabo quae perferendis nulla asperiores esse quibusdam.
+            Minima architecto voluptas, vel libero sint suscipit velit quaerat? Ab provident, cupiditate sunt aliquid, quasi, repellendus distinctio assumenda totam id eius consectetur! Consectetur reprehenderit est eum minima, nam incidunt dolor?
+            Labore quasi quaerat suscipit quia est maiores incidunt quibusdam unde adipisci tempora cum ducimus aperiam reprehenderit iure enim delectus officiis sed inventore saepe expedita repudiandae architecto, laudantium eveniet? Nobis, sit.",
+            "mentor_id" => Mentor::all()->random()->id,
+            'category_id' => Category::all()->random()->id
         ]);
 
-        Grade::create([
-            'mentor_id' => 1,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'stars' => 4
+
+        Task::query()->create([
+            'title' => 'Разработка приложений под IOS',
+            'description' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur est quisquam repellendus et, culpa expedita ullam quas molestias quidem, quaerat harum fugit sunt explicabo quae perferendis nulla asperiores esse quibusdam.
+            Minima architecto voluptas, vel libero sint suscipit velit quaerat? Ab provident, cupiditate sunt aliquid, quasi, repellendus distinctio assumenda totam id eius consectetur! Consectetur reprehenderit est eum minima, nam incidunt dolor?
+            Labore quasi quaerat suscipit quia est maiores incidunt quibusdam unde adipisci tempora cum ducimus aperiam reprehenderit iure enim delectus officiis sed inventore saepe expedita repudiandae architecto, laudantium eveniet? Nobis, sit.",
+            "mentor_id" => Mentor::all()->random()->id,
+            'category_id' => Category::all()->random()->id
         ]);
 
+        Task::query()->create([
+            'title' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque aspernatur quia, odit cum, ex similique ab eos error voluptatibus vero quod rerum unde, provident rem voluptate? Tempora, quo harum. Explicabo.",
+            'description' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur est quisquam repellendus et, culpa expedita ullam quas molestias quidem, quaerat harum fugit sunt explicabo quae perferendis nulla asperiores esse quibusdam.
+            Minima architecto voluptas, vel libero sint suscipit velit quaerat? Ab provident, cupiditate sunt aliquid, quasi, repellendus distinctio assumenda totam id eius consectetur! Consectetur reprehenderit est eum minima, nam incidunt dolor?
+            Labore quasi quaerat suscipit quia est maiores incidunt quibusdam unde adipisci tempora cum ducimus aperiam reprehenderit iure enim delectus officiis sed inventore saepe expedita repudiandae architecto, laudantium eveniet? Nobis, sit.",
+            "mentor_id" => Mentor::all()->random()->id,
+            'category_id' => Category::all()->random()->id
+        ]);
+
+        $tasks = Task::all();
+        foreach ($tasks as $task) {
+            TaskGrade::query()->create([
+                'task_id' => $task->id,
+                'stars' => rand(1, 5),
+                'user_id' => User::all()->random()->id
+            ]);
+            TaskGrade::query()->create([
+                'task_id' => $task->id,
+                'stars' => rand(1, 5),
+                'user_id' => User::all()->random()->id
+            ]);
+        }
     }
 }
