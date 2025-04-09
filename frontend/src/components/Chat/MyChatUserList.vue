@@ -1,7 +1,7 @@
 <template>
     <div class="items">
         <div v-for="user in users" :key="user.id">
-            <my-chat-user-item @openChat="openChat(user)"
+            <my-chat-user-item @openChat="openChat(user.id)"
                 :login="user.login"
                 :image="user.image"
                 :time="user.updated_at"
@@ -32,6 +32,8 @@ export default {
 }
 </script>
 <style scoped>
-
+.items {
+    gap: 20px;;
+}
 
 </style>

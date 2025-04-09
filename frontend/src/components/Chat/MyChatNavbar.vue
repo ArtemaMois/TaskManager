@@ -80,12 +80,12 @@ export default {
 }
 
 .navbar__login {
-    font-family: 'JakartaSansSemiBold';
+    font-family: 'Ubuntu Medium';
     font-size: 16px;
 }
 
 .navbar__status {
-    font-family: 'JakartaSansMedium';
+    font-family: 'Ubuntu Medium';
     font-size: 14px;
     color: #b9b9bafd;
 }

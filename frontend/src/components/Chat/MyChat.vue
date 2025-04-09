@@ -103,8 +103,9 @@ export default {
             }
         },
         updateLastMessage(message, time) {
-            document.querySelector('#last-message').innerText = message
-            document.querySelector('#last-time').innerText = time
+            const parentElement = document.querySelector(`#${this.chat.title}`);
+            parentElement.querySelector(".last-message").innerText = message;
+            parentElement.querySelector('.last-time').innerText = time;
         },
         updateUserOnline(isOnline) {
             this.online = isOnline
@@ -282,7 +283,7 @@ input:active {
 }
 
 .chat__message-input {
-    font-family: 'JakartaSansRegular';
+    font-family: 'Ubuntu Regular';
     border: none;
     font-size: 16px;
     min-width: calc(100% - 55px);
