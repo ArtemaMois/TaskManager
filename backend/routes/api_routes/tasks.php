@@ -9,6 +9,7 @@ Route::controller(TasksController::class)
 ->middleware('auth:sanctum')
 ->group(function () {
    Route::get('/', 'index')->name('tasks.index');
+   Route::get('/{task}', 'show')->name('tasks.show');
    Route::post('/', 'store')->name('tasks.store')->middleware(MentorMiddleware::class);
    Route::patch('/{task}', 'update')->name('tasks.update')->middleware(MentorMiddleware::class);
    Route::delete('/{task}', 'delete')->name('tasks.delete')->middleware(MentorMiddleware::class); 
