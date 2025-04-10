@@ -17,7 +17,7 @@ class TasksController extends Controller implements ShouldDispatchAfterCommit
     public function index()
     {
         $tasks = TaskResource::collection(Task::all());
-        return response()->json(['status' => 'success', 'tasks' => TaskResource::collection($tasks)]);
+        return response()->json(['status' => 'success', 'tasks' => $tasks]);
     }
 
     public function store(StoreTaskRequest $request)

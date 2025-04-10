@@ -3,6 +3,7 @@
 namespace App\Http\Resources\api\Task;
 
 use App\Http\Resources\api\Categories\MinifiedCategoryResource;
+use App\Http\Resources\api\Category\MentorCategoryResource;
 use App\Http\Resources\api\Checkpoint\MinifiedCheckpointResource;
 use App\Http\Resources\api\Mentors\MinifiedMentorResource;
 use Illuminate\Http\Request;
@@ -20,12 +21,11 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
             'iframe' => $this->iframe,
+            "rank" => $this->taskGrades->avg('stars'),
             'created_at' => $this->created_at,
-            'checkpoints' => MinifiedCheckpointResource::collection($this->checkpoints),
-            'category' => new MinifiedCategoryResource($this->category),
-            'mentor' => new MinifiedMentorResource($this->mentor),
+            'category' => new MentorCategoryResource($this->category),
+            // 'mentor' => new MinifiedMentorResource($this->mentor),
         ];
     }
 }
