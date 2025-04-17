@@ -13,7 +13,7 @@
                         v-model="userSearchQueryString"
                         class="chat__serach-input"
                         @keydown.enter="searchUsers"
-                        placeholder="Search users"
+                        placeholder="Найти пользователя"
                     ></my-input>
                     <button @click="searchUsers">
                         <svg
