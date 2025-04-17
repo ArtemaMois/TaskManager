@@ -10,14 +10,14 @@
                         :class="{ active: activeTab === 'General' }"
                         @click="activeTab = 'General'"
                     >
-                        General
+                        Основные
                     </div>
                     <div
                         class="tab"
                         :class="{ active: activeTab === 'Notification' }"
                         @click="activeTab = 'Notification'"
                     >
-                        Notification
+                        Уведомления
                     </div>
                 </div>
                 <div class="tab-content">

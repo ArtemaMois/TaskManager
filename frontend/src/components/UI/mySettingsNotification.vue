@@ -55,5 +55,6 @@
 .notif-lang{
     font-family: NimbusRegular;
     margin: 32px 0 0 32px;
+    font-size: 14px;
 }
 </style>

@@ -60,7 +60,7 @@
     font-family: NimbusRegular, sans-serif;
     font-weight: bold;
     color: #141522;
-    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Адаптивный шрифт */
+    font-size: clamp(1.2rem, 2vw, 2rem);
     line-height: 1.2;
     margin: 0;
   }
@@ -100,21 +100,23 @@
   /* Медиа-запросы */
   @media (max-width: 1024px) {
     .main-class {
-      grid-template-columns: 25% 75%; /* Увеличиваем ширину навбара для читаемости */
+      grid-template-columns: 5% 1fr;
+      padding: 16px;
     }
   
     .mentor-container {
-      padding: 20px;
+      margin-left: 16px;
+      padding: 16px;
     }
   }
   
   @media (max-width: 768px) {
     .main-class {
-      grid-template-columns: 30% 70%; /* Навбар остается слева */
+      grid-template-columns: 5% 1fr;
     }
   
     .mentor-search {
-      flex-direction: column; /* Поиск и селект в столбец */
+      flex-direction: column;
     }
   
     .mentor-search__input,
@@ -125,12 +127,9 @@
   }
   
   @media (max-width: 480px) {
-    .main-class {
-      grid-template-columns: 40% 60%; /* Навбар чуть шире на маленьких экранах */
-    }
   
     .mentor-container {
-      padding: 15px;
+      padding: 16px;
     }
   
     .mentor-search__input,

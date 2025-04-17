@@ -80,4 +80,46 @@ import foot from '@/data/foot-name.js';
     object-fit: cover
 }
 
+@media (min-width: 768px) {
+    .main-foot {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 32px;
+    }
+    .welcome-message__main {
+        font-size: 24px;
+    }
+    .welcome-message__secondary {
+        font-size: 16px;
+    }
+    .user_image-block {
+        max-width: 128px;
+    }
+    .notif, .profile img {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-foot {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 0;
+    }
+    .welcome-message__main {
+        font-size: 16px;
+    }
+    .welcome-message__secondary {
+        font-size: 12px;
+    }
+    .user_image-block {
+        max-width: 128px;
+    }
+    .notif, .profile img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
 </style>
