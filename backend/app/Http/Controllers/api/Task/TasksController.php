@@ -36,7 +36,7 @@ class TasksController extends Controller implements ShouldDispatchAfterCommit
     public function show(int $task)
     {
         $task = Task::find($task);
-        return response()->json(['task' =>  new TaskResource($task)]);
+        return response()->json(['status' => 'success', 'task' =>  new TaskResource($task)]);
     }
  
     public function delete(Task $task)
