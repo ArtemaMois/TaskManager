@@ -138,29 +138,33 @@ export default {
 
 @media (max-width: 767px) {
   .main-class {
-    display: flex;
+    grid-template-columns: 5% 1fr;
     padding: 16px;
   }
 
   .main-menu {
-    padding-left: 0;
+    padding-left: 32px;
     max-width: 100%;
   }
+
 
   .finished-menu {
     max-width: 100%;
     margin-top: 16px;
     order: 0; /* Перемещает finished-menu перед main-menu */
   }
+  .activity-menu {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {
   .main-class {
-    padding: 12px;
+    padding: 16px;
   }
 
   .main-menu {
-    padding-left: 0;
+    padding-left: 24px;
   }
 
   .finished-menu {

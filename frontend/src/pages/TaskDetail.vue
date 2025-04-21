@@ -98,9 +98,7 @@
               title: taskData.title,
               title1: taskData.category?.title || 'Без категории',
               message: taskData.messages_count || 0,
-              rank: taskData.rating || 0,
               reviews: taskData.reviews_count || 0,
-              comments: taskData.comments || [], // Комментарии к заданию
             };
           } else {
             throw new Error('Не удалось загрузить данные задания');

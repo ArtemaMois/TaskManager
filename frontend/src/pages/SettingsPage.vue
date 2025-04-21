@@ -39,7 +39,6 @@ import mySettingsNotification from '@/components/UI/mySettingsNotification.vue';
             };
         },
         computed: {
-            // Определяем, какой компонент отображать
             activeTabComponent() {
                 return this.activeTab === 'General' ? mySettingsGeneral : mySettingsNotification;
             },
@@ -51,10 +50,10 @@ import mySettingsNotification from '@/components/UI/mySettingsNotification.vue';
 .main-class {
     display: grid;
     grid-template-columns: 17.5% 83.5%;
+    padding: 32px;
 }
 .main-menu__settings{
     grid-column: 2;
-    padding-left: 2px;
     background-color: #FAFAFA;
 }
 .settings-menu{
@@ -94,5 +93,18 @@ import mySettingsNotification from '@/components/UI/mySettingsNotification.vue';
     width: 76px;
     height: 2px;
     background-color: #546FFF;
+}
+
+@media (max-width: 1024px) {
+    .main-class {
+        display: grid;
+        grid-template-columns: 5% 1fr;
+        padding: 16px;
+    }
+    .main-menu__settings {
+        margin-left: 16px;
+        padding-left: 16px;
+    }
+
 }
 </style>

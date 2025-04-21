@@ -179,7 +179,6 @@ export default {
 
 <style lang="scss" scoped>
 .slider-container {
-  width: 100%;
   max-width: 688px;
   position: relative;
   margin: 32px 0 0 0;
@@ -288,9 +287,6 @@ export default {
     padding-right: 15px;
   }
 
-  .slide-content {
-    max-width: 100%;
-  }
 
   .slide-title {
     font-size: 16px;

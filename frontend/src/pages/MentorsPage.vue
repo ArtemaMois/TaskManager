@@ -49,6 +49,7 @@
     display: grid;
     grid-template-columns: 17.5% 82.5%; /* Навбар слева, контент справа */
     min-height: 100vh;
+    padding: 32px;
   }
   
   .mentor-container {

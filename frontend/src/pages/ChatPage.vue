@@ -195,7 +195,7 @@ input:hover {
     grid-template-areas:
         'sidebar navbar'
         'sidebar content';
-    padding: 16px;
+    padding: 32px;
 }
 
 .sidebar {
@@ -283,7 +283,9 @@ button {
     .chat {
         margin-left: 16px;
     }
-  
+    .main-foot {
+        padding-left: 32px;
+    }
   }
   
   @media (max-width: 768px) {
