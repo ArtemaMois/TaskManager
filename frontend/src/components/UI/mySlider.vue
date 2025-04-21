@@ -227,7 +227,6 @@ export default {
 
 <style lang="scss" scoped>
 .grid-container {
-  width: 100%;
   max-width: 1200px;
   margin: 32px auto;
   padding: 0 40px 0 0;

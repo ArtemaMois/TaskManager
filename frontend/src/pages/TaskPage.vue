@@ -103,10 +103,21 @@ import { ref } from 'vue';
 
 @media (max-width: 767px) {
   .main-class {
-    display: flex;
+    grid-template-columns: 5% 1fr;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  
+  .task-container {
     padding: 16px;
   }
 
- 
+  .task-search__input,
+  .task-search__select {
+    height: 44px;
+    font-size: 0.875rem;
+  }
 }
 </style>

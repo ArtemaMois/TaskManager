@@ -377,16 +377,23 @@ export default {
   color: #141522;
 }
 
+@media (max-width: 1024px) {
+    .main-class {
+        grid-template-columns: 5% 1fr;
+        padding: 16px;
+    }
+    .main-menu {
+      padding-left: 16px;
+      margin-left: 16px;
+    }
+}
+
 @media (max-width: 767px) {
   .main-class {
-    display: flex;
-    padding: 16px;
+    grid-template-columns: 5% 1fr;
   }
 
-  .main-menu {
-    padding-left: 24px;
-    max-width: 100%;
-  }
+
 
   .search-section {
     flex-direction: column;
@@ -417,7 +424,7 @@ export default {
 
 @media (max-width: 480px) {
   .main-class {
-    padding: 12px;
+    padding: 16px;
   }
 
   .search-input,
