@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://baseknowledge.ru'],
 
     'allowed_origins_patterns' => [],
 
