@@ -75,8 +75,10 @@ import axios from 'axios';
 .runing-block{
     display: flex;
     flex-direction: column;
-    width: 194px;
-    height: 214px;
+    width: 100%;
+    max-width: 160px;
+    height: auto;
+    padding: 16px;
     border-radius: 10px;
     background: #141522;
 }

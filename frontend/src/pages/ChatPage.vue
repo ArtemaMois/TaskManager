@@ -1,7 +1,11 @@
 <template>
     <div @click="publishMessage" class="main-class">
         <nav-bar class="sidebar"></nav-bar>
-        <my-main-foot class="my-main-foot"></my-main-foot>
+        <my-main-foot class="my-main-foot">
+            <template v-slot:name>
+                <h1 class="chat-title">Чат</h1>
+            </template>
+        </my-main-foot>
         <div class="chat">
             <div class="chat__list">
                 <div class="chat__search">
@@ -9,7 +13,7 @@
                         v-model="userSearchQueryString"
                         class="chat__serach-input"
                         @keydown.enter="searchUsers"
-                        placeholder="Search users"
+                        placeholder="Найти пользователя"
                     ></my-input>
                     <button @click="searchUsers">
                         <svg
@@ -191,6 +195,7 @@ input:hover {
     grid-template-areas:
         'sidebar navbar'
         'sidebar content';
+    padding: 16px;
 }
 
 .sidebar {
@@ -199,14 +204,18 @@ input:hover {
 .my-main-foot {
     grid-area: navbar;
     max-height: 100px;
-    border-bottom: 2px solid #8e92bc44;
 }
 
 .chat {
     grid-area: content;
     display: grid;
-    grid-template-columns: 400px 1fr;
-    border: 2px solid #8e92bc47;
+    grid-template-columns: 15% 1fr;
+    background: #fafafa;
+}
+
+.chat-title {
+    background: #fff;
+    font-size: clamp(1.2rem, 2vw, 2rem);
 }
 
 .chat__list {
@@ -234,7 +243,7 @@ input:hover {
     justify-content: space-between;
     padding: 10px 20px;
     align-items: center;
-    border: 1px solid #8e92bc;
+    border: 1px solid #e0e0e0;
     border-radius: 10px;
 }
 
@@ -262,4 +271,26 @@ button {
     border: none;
     all: none;
 }
+
+@media (max-width: 1024px) {
+    .main-class {
+      grid-template-columns: 5% 1fr;
+      padding: 16px;
+    }
+    .chat__list {
+        margin-left: 16px;
+    }
+    .chat {
+        margin-left: 16px;
+    }
+  
+  }
+  
+  @media (max-width: 768px) {
+    .main-class {
+      grid-template-columns: 5% 1fr;
+    }
+  
+    
+  }
 </style>

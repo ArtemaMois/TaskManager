@@ -53,7 +53,7 @@
     
 }
 .general-input-title__login {
-    font-family: 'Ubuntu Regular';
+    font-family: NimbusRegular;
     font-size: 16px;
 }
 .general-input__email {
@@ -67,7 +67,7 @@
     padding: 10px 0 10px 0;
     justify-content: center;
     color: #FFF;
-    font-family: 'Ubuntu Medium';
+    font-family: NimbusRegular;
     background-color: #546FFF;
     cursor: pointer;
 }

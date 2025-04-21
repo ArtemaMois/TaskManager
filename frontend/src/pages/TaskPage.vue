@@ -3,7 +3,9 @@
         <nav-bar v-if="$route.path !== '/'" ></nav-bar>
         <div class="task-container">
             <my-main-foot>
-                <template v-slot:name>Исследуйте задачу</template>
+                <template v-slot:name>
+                    <h1 class="task-title">Исследуйте задачу</h1>
+                </template>
             </my-main-foot>
             <div class="task-search">
                 <my-input
@@ -56,6 +58,7 @@ import { ref } from 'vue';
 .main-class {
     display: grid;
     grid-template-columns: 17.5% 83.5%;
+    padding: 32px;
 }
 .task-container {
     padding-left: 32px;
@@ -63,6 +66,9 @@ import { ref } from 'vue';
 }
 .task-dialog-view {
     margin: auto;
+}
+.task-title {
+    font-size: clamp(1.2rem, 2vw, 2rem);
 }
 .task-search{
     display: flex;
@@ -79,5 +85,28 @@ import { ref } from 'vue';
 }
 .task-search__select {
     width: 50%;
+}
+
+@media (max-width: 1024px) {
+    .main-class {
+        display: grid;
+        grid-template-columns: 5% 1fr;
+        padding: 16px;
+    }
+
+    .task-container {
+        margin-left: 16px;
+        padding-left: 16px;
+        background: #FAFAFA;
+    }
+}
+
+@media (max-width: 767px) {
+  .main-class {
+    display: flex;
+    padding: 16px;
+  }
+
+ 
 }
 </style>

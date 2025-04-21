@@ -33,5 +33,12 @@ export default [
         path: '/settings',
 
     },
+    {
+        id: 6, 
+        text: 'Админка', 
+        image: '/assets/btn-images/setting-2.svg',
+        path: '/admin',
+
+    },
 
 ]

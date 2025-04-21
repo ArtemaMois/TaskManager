@@ -3,12 +3,14 @@
     <div class="grid-header">
       <h2 class="grid-title">Задания</h2>
     </div>
-    <TransitionGroup name="grid-fade" tag="div" class="grid-wrapper">
+    <div v-if="loading" class="loading">Загрузка...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
+    <TransitionGroup v-else name="grid-fade" tag="div" class="grid-wrapper">
       <div
         v-for="(slide, index) in filteredSlides"
         :key="index"
         class="grid-item"
-        @click="pushComments"
+        @click="pushDetail(slide.id)"
       >
         <img :src="slide.image" :alt="`Task ${index + 1}`" />
         <div class="grid-content-task">
@@ -84,7 +86,8 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 
 export default {
   name: 'my-gridTask',
@@ -93,56 +96,55 @@ export default {
     selected: Number,
   },
   setup(props) {
-    const slidesTasks = ref([
-      {
-        image: './assets/task-card/task1.jpg',
-        title: 'Creating Awesome Mobile Apps',
-        title1: 'UI UX Design',
-        message: 40,
-        rank: 4,
-        reviews: 750,
-      },
-      {
-        image: './assets/task-card/task2.jpg',
-        title: 'Creating Awesome Mobile Apps',
-        title1: 'Web Developer',
-        message: 40,
-        rank: 4.2,
-        reviews: 750,
-      },
-      {
-        image: './assets/task-card/task1.jpg',
-        title: 'Creating Awesome Mobile Apps',
-        title1: 'UI UX Design',
-        message: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-      {
-        image: './assets/task-card/task2.jpg',
-        title: 'Creating Fresh Website',
-        title1: '3D Design',
-        message: 40,
-        rank: 4.5,
-        reviews: 750,
-      },
-      {
-        image: './assets/task-card/task3.jpg',
-        title: 'Creating Color Palettes',
-        title1: 'UI UX Design',
-        message: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-      {
-        image: './assets/task-card/task4.jpg',
-        title: 'Creating Mobile App Design',
-        title1: 'Web Developer',
-        message: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-    ]);
+    const slidesTasks = ref([]);
+    const loading = ref(true);
+    const error = ref(null);
+
+    // Функция для получения данных с бэкенда
+    const fetchTasks = async () => {
+      error.value = '';
+      try {
+        const token = localStorage.getItem('api_token');
+        if (!token) {
+          throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
+        }
+
+        const response = await axios.get('http://localhost:80/api/tasks', {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.data.status === 'success') {
+          slidesTasks.value = response.data.tasks.map((task) => ({
+            id: task.id,
+            image: task.image || './assets/task-card/default.jpg', // Дефолтное изображение, если нет картинки
+            title: task.title,
+            title1: task.category?.title || 'Без категории',
+            message: task.messages_count || 0,
+            rank: task.rating || 0,
+            reviews: task.reviews_count || 0,
+          }));
+        } else {
+          throw new Error('Не удалось загрузить данные заданий');
+        }
+      } catch (e) {
+        if (e.response && e.response.status === 401) {
+          error.value = 'Неавторизован. Пожалуйста, войдите снова.';
+        } else if (e.response && e.response.status === 422) {
+          error.value = 'Ошибка валидации данных';
+        } else {
+          error.value = e.message || 'Произошла непредвиденная ошибка!';
+        }
+        console.log(e);
+      } finally {
+        loading.value = false;
+      }
+    };
+
+    onMounted(() => {
+      fetchTasks();
+    });
 
     const filteredSlides = computed(() => {
       let filtered = slidesTasks.value;
@@ -171,11 +173,18 @@ export default {
     return {
       slidesTasks,
       filteredSlides,
+      loading,
+      error,
     };
   },
   methods: {
-    pushComments() {
-      this.$router.push('/settings');
+    // pushComments(taskId) {
+    //   console.log('Переход к комментариям задания с ID:', taskId);
+    //   this.$router.push(`/task/${taskId}/comments`); // Предполагаемый маршрут
+    // },
+    pushDetail(taskId) {
+      console.log('Переход к детальной странице задания с ID:', taskId);
+      this.$router.push(`/tasks/${taskId}`);
     },
   },
 };
@@ -197,6 +206,7 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;
+  color: #141522;
 }
 
 .grid-wrapper {
@@ -214,6 +224,13 @@ export default {
   font-family: NimbusRegular;
   font-size: 18px;
   max-height: 450px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Тень по умолчанию */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анимация */
+
+  &:hover {
+    transform: translateY(-5px); /* Поднятие карточки */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Усиленная тень */
+  }
 }
 
 .grid-item img {
@@ -231,11 +248,12 @@ export default {
 .grid-content-task__title {
   font-size: 18px;
   padding-bottom: 5px;
+  color: #141522;
 }
 
 .grid-content-task-title__small {
   font-size: 12px;
-  color: gray;
+  color: #8e92bc;
   padding-left: 15px;
 }
 
@@ -253,7 +271,7 @@ export default {
   align-items: center;
   gap: 5px;
   font-size: 14px;
-  color: #141522;
+  color: #54577a;
 }
 
 .grid-content-task-top__rev {
@@ -264,6 +282,19 @@ export default {
 
 .grid-content-task-top__rev-2 {
   font-size: 14px;
+  color: #54577a;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-family: NimbusRegular;
+  font-size: 1rem;
+  padding: 20px;
+}
+
+.error {
+  color: #ff4d4f;
 }
 
 .grid-fade-enter-active,

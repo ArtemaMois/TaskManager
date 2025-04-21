@@ -3,19 +3,39 @@
     <div class="grid-header">
       <h2 class="grid-title">Наставники</h2>
     </div>
-    <TransitionGroup name="grid-fade" tag="div" class="grid-wrapper">
+    <div v-if="loading" class="loading">Загрузка...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
+    <TransitionGroup v-else name="grid-fade" tag="div" class="grid-wrapper">
       <div
         v-for="(slide, index) in filteredSlides"
         :key="index"
         class="grid-item-mentor-box"
+        @click="mentorsDetail(slide.id)"
       >
-        
         <div class="grid-content-mentor">
-          <img :src="slide.image" :alt="`Mentor ${index + 1}`" />
+          <!-- Проверка: если image есть, показываем <img>, иначе SVG -->
+          <img v-if="slide.image" :src="slide.image" :alt="`Mentor ${index + 1}`" />
+          <svg
+            v-else
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            class="default-avatar"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M22 12C22 17.523 17.523 22 12 22C6.477 22 2 17.523 2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12ZM15 9C15 9.79565 14.6839 10.5587 14.1213 11.1213C13.5587 11.6839 12.7956 12 12 12C11.2044 12 10.4413 11.6839 9.87868 11.1213C9.31607 10.5587 9 9.79565 9 9C9 8.20435 9.31607 7.44129 9.87868 6.87868C10.4413 6.31607 11.2044 6 12 6C12.7956 6 13.5587 6.31607 14.1213 6.87868C14.6839 7.44129 15 8.20435 15 9ZM12 20.5C13.7163 20.5028 15.3928 19.9834 16.807 19.011C17.411 18.596 17.669 17.806 17.317 17.163C16.59 15.83 15.09 15 12 15C8.91 15 7.41 15.83 6.682 17.163C6.331 17.806 6.589 18.596 7.193 19.011C8.6072 19.9834 10.2837 20.5028 12 20.5Z"
+              fill="black"
+            />
+          </svg>
           <div class="grid-content-mentor__title">
             {{ slide.title }}
           </div>
-          <div @click="mentorsFollow" class="grid-content-mentor__follow">
+          <div 
+            class="grid-content-mentor__follow"
+            @click.stop="followMentor(slide.id)">
             + Follow
           </div>
         </div>
@@ -78,7 +98,7 @@
               </svg>
             </div>
             <div class="grid-content-mentor-top__rev-2">
-              {{ slide.rank }} ({{ slide.reviews }})
+              {{ slide.rank }}
             </div>
           </div>
         </div>
@@ -88,49 +108,65 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 
 export default {
-  name: 'my-gridMentors',
+  name: 'my-sliderMentors',
   props: {
     searchQuery1: String,
     selected1: Number,
   },
   setup(props) {
-    const slidesMentor = ref([
-      {
-        image: './assets/mentors-slider/mentors1.jpg',
-        title: 'Олег George',
-        title1: 'UI UX Дизайнер',
-        tasks: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-      {
-        image: './assets/mentors-slider/mentors2.png',
-        title: 'Abraham Lincoln',
-        title1: '3D Design',
-        tasks: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-      {
-        image: './assets/mentors-slider/mentors1.jpg',
-        title: 'Curious George',
-        title1: 'UI UX Design',
-        tasks: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-      {
-        image: './assets/mentors-slider/mentors2.png',
-        title: 'Abraham Lincoln',
-        title1: '3D Design',
-        tasks: 40,
-        rank: 4.6,
-        reviews: 750,
-      },
-    ]);
+    const slidesMentor = ref([]);
+    const loading = ref(true);
+    const error = ref(null);
+
+    // Функция для получения данных с бэкенда
+    const fetchMentors = async () => {
+      error.value = '';
+      try {
+        const token = localStorage.getItem('api_token');
+        if (!token) {
+          throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
+        }
+
+        const response = await axios.get('http://localhost:80/api/mentors', {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.data.status === 'success') {
+          slidesMentor.value = response.data.mentors.map((mentor) => ({
+            id: mentor.id,
+            image: mentor.image, // Оставляем как есть, null обработается в шаблоне
+            title: mentor.login,
+            title1: mentor.categories[0]?.title || 'Без категории',
+            tasks: mentor.tasks,
+            rank: mentor.grade,
+            reviews: 0,
+          }));
+        } else {
+          throw new Error('Не удалось загрузить данные наставников');
+        }
+      } catch (e) {
+        if (e.response && e.response.status === 401) {
+          error.value = 'Неавторизован. Пожалуйста, войдите снова.';
+        } else if (e.response && e.response.status === 422) {
+          error.value = 'Ошибка валидации данных';
+        } else {
+          error.value = e.message || 'Произошла непредвиденная ошибка!';
+        }
+        console.log(e);
+      } finally {
+        loading.value = false;
+      }
+    };
+
+    onMounted(() => {
+      fetchMentors();
+    });
 
     const filteredSlides = computed(() => {
       let filtered = slidesMentor.value;
@@ -147,7 +183,7 @@ export default {
       } else if (props.selected1 === 2) {
         filtered = filtered.filter((slide) => slide.title1 === 'UI UX Design');
       } else if (props.selected1 === 3) {
-        filtered = filtered.filter((slide) => slide.title1 === 'Web Developer');
+        filtered = filtered.filter((slide) => slide.title1 === 'Веб разработка');
       } else if (props.selected1 === 4) {
         filtered = filtered.filter((slide) => slide.title1 === '3D Design');
       }
@@ -158,11 +194,14 @@ export default {
     return {
       slidesMentor,
       filteredSlides,
+      loading,
+      error,
     };
   },
   methods: {
-    mentorsFollow() {
-      console.log('Follow clicked');
+    mentorsDetail(mentorId) {
+      console.log('Mentor ID:', mentorId);
+      this.$router.push(`/mentors/${mentorId}`);
     },
   },
 };
@@ -199,7 +238,7 @@ export default {
   flex-direction: column;
   background-color: #fff;
   max-height: 250px;
-  border-radius: 20px 20px;
+  border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -211,18 +250,24 @@ export default {
   }
 }
 
-.grid-item-mentor-box img {
-  width: 20%;
-  max-height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
 .grid-content-mentor {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 15px 20px 5px;
+}
+
+.grid-item-mentor-box img,
+.default-avatar {
+  width: 20%;
+  max-height: 100px;
+  object-fit: cover; /* Для <img> */
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.default-avatar {
+  width: 48px; /* Фиксированный размер SVG */
+  height: 48px;
 }
 
 .grid-content-mentor__title {
@@ -230,6 +275,7 @@ export default {
   font-size: 1.125rem;
   font-weight: 500;
   color: #141522;
+  flex-grow: 1;
 }
 
 .grid-content-mentor__follow {
@@ -285,6 +331,18 @@ export default {
   color: #54577a;
 }
 
+.loading,
+.error {
+  text-align: center;
+  font-family: NimbusRegular;
+  font-size: 1rem;
+  padding: 20px;
+}
+
+.error {
+  color: #ff4d4f;
+}
+
 .grid-fade-enter-active,
 .grid-fade-leave-active {
   transition: all 0.5s ease;
@@ -300,7 +358,6 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
-
   .grid-content-mentor__title {
     font-size: 1rem;
   }
@@ -315,6 +372,5 @@ export default {
     max-width: 320px;
     margin: 0 auto;
   }
-
 }
 </style>

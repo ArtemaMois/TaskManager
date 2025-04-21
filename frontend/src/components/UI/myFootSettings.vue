@@ -1,7 +1,7 @@
 <template>
     <div class="main-foot-settings">
         <div class="welcome-message-settings">
-            <div class="welcome-message-settings__main">Settings</div>
+            <div class="welcome-message-settings__main">Настройки</div>
         </div>
         <div class="user_image-block-settings">
             <div class="notif-settings">
@@ -44,12 +44,12 @@
     font-family: NimbusRegular, sans-serif;
     font-weight: bold;
     color: #141522;
-    font-size: 24px;
+    font-size: clamp(1.2rem, 2vw, 2rem);
 }
 .welcome-message__secondary {
     font-family: NimbusRegular, sans-serif;
     color: #54577A;
-    font-size: 16px;
+    font-size: clamp(1.2rem, 2vw, 2rem);
 }
 .user_image-block-settings{
     display: flex;
