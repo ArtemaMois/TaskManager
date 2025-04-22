@@ -13,6 +13,7 @@ use App\Services\Message\MessageService;
 use App\Services\Password\ResetPasswordService;
 use App\Services\PerformedCheckpoint\PerformedCheckpointService;
 use App\Services\PerformingTask\PerformingTaskService;
+use App\Services\Role\RoleService;
 use App\Services\Task\TaskService;
 use App\Services\User\UserService;
 use App\Services\Verification\VerificationService;
@@ -66,6 +67,10 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(MessageService::class, function () {
             return new MessageService();
+        });
+
+        $this->app->singleton(RoleService::class, function () {
+            return new RoleService();
         });
     }
 

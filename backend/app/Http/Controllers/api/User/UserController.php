@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api\User;
 
 use App\Collections\Chat\UserForChatCollection;
+use App\Facades\Role\RoleFacade;
 use App\Facades\User\UserFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\Password\ResetPasswordRequest;
 use App\Http\Requests\api\Password\UpdatePasswordRequest;
+use App\Http\Requests\api\Roles\UpdateUserRoleRequest;
 use App\Http\Requests\api\User\UpdateUserRequest;
 use App\Http\Resources\api\Role\MinifiedRoleResource;
 use App\Http\Resources\api\User\UserForAdminResource;
@@ -75,9 +77,11 @@ class UserController extends Controller
         return response()->json(['status' => 'success', 'users' => UserForAdminResource::collection(User::all()), 'roles' => MinifiedRoleResource::collection(Role::all())]);
     }
 
-    public function updateUserRole()
+    public function updateUserRole(UpdateUserRoleRequest $request)
     {
-
+        $result = RoleFacade::updateUserRole(...$request->validated());
+        $response = $result ? ['status' => 'success'] : ['status' => 'failed'];
+        return response()->json($response);
     }
 
 }
