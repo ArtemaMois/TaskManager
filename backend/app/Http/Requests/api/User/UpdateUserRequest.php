@@ -11,7 +11,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'photo' => ['required', 'required', 'mimes:png,jpeg,jpg,webp', 'max:2048'],
+            'photo' => ['required', 'mimes:png,jpeg,jpg,webp', 'max:2048'],
             'login' => ['string', 'max:30', 'min:3'],
         ];
         if(Auth::user()->role->code != 'user')

@@ -11,7 +11,7 @@ Route::controller(UserController::class)
         Route::get('/me', 'me')->name('users.password.update');
         Route::get('/admin/users', 'getUserForAdmin')->name('users.index.admin');
         Route::patch('/admin/users', 'updateUserRole')->name('users.update.role');
-        Route::patch('/me', 'update')->name('users.update');
+        Route::post('/me', 'update')->name('users.update');
         Route::patch('/me/password', 'changePassword')->name('users.password.update');
         Route::get("/cookie", "getCookie")->name('cookie');
         Route::get('/chat', 'userForChats')->name('users.chat');
