@@ -108,12 +108,17 @@ export default {
   padding: 16px;
 }
 
-@media (min-width: 768px) {
-  .main-class {
-    display: grid;
-    grid-template-columns: 17.5% 1fr 30.6%;
-    padding: 32px;
-  }
+.activity-menu {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  margin-top: 44px;
+}
+
+.slider-box-small {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .main-menu {
@@ -131,9 +136,19 @@ export default {
 @media (max-width: 1024px) {
     .main-class {
         display: grid;
-        grid-template-columns: 5% 1fr 30.6%;
+        grid-template-columns: 5% 1fr;
         padding: 16px;
     }
+    .finished-menu {
+      display: none;
+    }
+}
+
+@media (min-width: 768px) {
+  .main-class {
+    grid-template-columns: 5% 1fr;
+    padding: 16px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -151,7 +166,7 @@ export default {
   .finished-menu {
     max-width: 100%;
     margin-top: 16px;
-    order: 0; /* Перемещает finished-menu перед main-menu */
+    order: 0;
   }
   .activity-menu {
     display: none !important;
@@ -172,17 +187,6 @@ export default {
   }
 }
 
-.activity-menu {
-  display: flex;
-  flex-direction: row;
-  gap: 32px;
-  margin-top: 44px;
-}
 
-.slider-box-small {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
 </style>
 ```

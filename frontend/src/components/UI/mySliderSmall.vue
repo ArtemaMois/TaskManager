@@ -236,8 +236,6 @@ export default {
   max-width: 350px;
   font-family: NimbusRegular;
   font-size: 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 
   &:hover {
