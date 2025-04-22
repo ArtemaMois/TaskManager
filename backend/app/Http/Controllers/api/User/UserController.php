@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $updateData = UserFacade::getUpdatedData($request->validated(), $request->file('photo'));
         Auth::user()->update($updateData);
-        return response()->json(['status' => 'success', 'user' => new UserResource(Auth::user())]);
+        return response()->json(['status' => 'success', 'image' => Auth::user()->photo_url]);
     }
 
     public function changePassword(UpdatePasswordRequest $request)
