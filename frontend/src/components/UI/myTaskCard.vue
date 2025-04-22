@@ -278,6 +278,13 @@ input[type='range']:focus::-moz-range-track {
   align-items: center;
 }
 
+@media (max-width: 1024px) {
+
+    .card-wrapper {
+      margin: 16px;
+    }
+}
+
 @media (max-width: 767px) {
   .card-wrapper {
     margin: 16px;

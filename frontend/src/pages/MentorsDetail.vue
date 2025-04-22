@@ -91,13 +91,10 @@
           if (!token) {
             throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
           }
-          console.log('route:', route);
-          console.log('route.params:', route.params);
-          console.log('mentorId:', route.params?.id);
 
           const mentorId = route.params.id;
           console.log('Загрузка данных для mentorId:', mentorId);
-          const response = await axios.get(`http://localhost:80/api/mentors/${mentorId}`, {
+          const response = await axios.get(`http://localhost:80/api/tasks/2`, {
             headers: {
               Authorization: token,
             },

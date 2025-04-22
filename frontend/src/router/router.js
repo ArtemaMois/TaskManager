@@ -44,7 +44,7 @@ const routes = [{
         meta: { requiresAuth: true },
     },
     {
-        path: '/task/:id',
+        path: '/tasks/:id',
         component: TaskDetail,
         meta: { requiresAuth: true },
     },
