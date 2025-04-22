@@ -105,46 +105,46 @@ class DatabaseSeeder extends Seeder
         //     'value' => "UTC+12:00"
         // ]);
 
-        Category::factory()->create([
-            'title' => 'Веб разработка',
-            'slug' => 'web'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'Веб разработка',
+        //     'slug' => 'web'
+        // ]);
 
-        Category::factory()->create([
-            'title' => 'Android-разработка',
-            'slug' => 'android'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'Android-разработка',
+        //     'slug' => 'android'
+        // ]);
 
 
-        Category::factory()->create([
-            'title' => 'IOS-разработка',
-            'slug' => 'ios'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'IOS-разработка',
+        //     'slug' => 'ios'
+        // ]);
 
-        Category::factory()->create([
-            'title' => 'Верстка',
-            'slug' => 'html-coding'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'Верстка',
+        //     'slug' => 'html-coding'
+        // ]);
 
-        Category::factory()->create([
-            'title' => 'Backend-разработка',
-            'slug' => 'backend'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'Backend-разработка',
+        //     'slug' => 'backend'
+        // ]);
 
-        Category::factory()->create([
-            'title' => 'Frontend-разработка',
-            'slug' => 'frontend'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'Frontend-разработка',
+        //     'slug' => 'frontend'
+        // ]);
 
-        Category::factory()->create([
-            'title' => 'Разработка игр',
-            'slug' => 'gamedev'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'Разработка игр',
+        //     'slug' => 'gamedev'
+        // ]);
 
-        Category::factory()->create([
-            'title' => 'DevOps',
-            'slug' => 'devops'
-        ]);
+        // Category::factory()->create([
+        //     'title' => 'DevOps',
+        //     'slug' => 'devops'
+        // ]);
 
         // User::factory()->create([
         //     'login' => 'timon Petrovich',
