@@ -8,8 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\api\Password\ResetPasswordRequest;
 use App\Http\Requests\api\Password\UpdatePasswordRequest;
 use App\Http\Requests\api\User\UpdateUserRequest;
+use App\Http\Resources\api\Role\MinifiedRoleResource;
+use App\Http\Resources\api\User\UserForAdminResource;
 use App\Http\Resources\api\User\UserForChatResource;
 use App\Http\Resources\api\User\UserResource;
+use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Contracts\Database\Query\Builder;
@@ -65,6 +68,16 @@ class UserController extends Controller
         ->where('id', '!=', Auth::user()->id)
         ->paginate(10);
         return response()->json(['status' => 'success', 'data' => UserForChatCollection::collection($users)]);
+    }
+
+    public function getUserForAdmin()
+    {
+        return response()->json(['status' => 'success', 'users' => UserForAdminResource::collection(User::all()), 'roles' => MinifiedRoleResource::collection(Role::all())]);
+    }
+
+    public function updateUserRole()
+    {
+
     }
 
 }

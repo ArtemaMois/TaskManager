@@ -12,7 +12,7 @@ class Role extends Model
 
     protected $fillable = [
         'code',
-        'title'
+        'name'
     ];
 
     public function users(): HasMany
