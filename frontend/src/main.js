@@ -29,6 +29,7 @@ import mySlider from '@/components/UI/mySlider.vue'
 import mySliderTasks from '@/components/UI/mySliderTasks.vue'
 import mySliderMentors from '@/components/UI/mySliderMentors.vue'
 import mySearch from '@/components/UI/mySearch.vue'
+import { createPinia } from 'pinia';
 
 
 const app = createApp(App)
@@ -69,4 +70,5 @@ app
     .component('my-search', mySearch)
     .use(router)
     .use(store)
+    .use(createPinia())
     .mount('#app')

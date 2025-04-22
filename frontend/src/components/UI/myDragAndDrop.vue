@@ -1,153 +1,147 @@
 <template>
-    <div 
-      ref="dropZone"
-      class="drop-zone"
-      @dragover.prevent="onDragOver"
-      @dragleave="onDragLeave"
-      @drop.prevent="onDrop"
-    >
-      <p v-if="!image">Перетащите фото сюда</p>
-      <img v-if="image" :src="image" alt="Фото профиля" class="profile-photo" />
-    </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  export default {
-    name: 'my-dragdrop',
-    data() {
-      return {
-        image: null,
-        serverResponse: null,
-      };
-    },
-    methods: {
-      onDragOver() {
-        this.$refs.dropZone?.classList.add('drag-over');
-      },
-      onDragLeave() {
-        this.$refs.dropZone?.classList.remove('drag-over');
-      },
-      async onDrop(event) {
-        event.preventDefault();
-        const files = event.dataTransfer.files;
-        if (files.length === 0) return;
-        const file = files[0];
-        console.log(file);
-        const photo = new FormData();
-        photo.append("photo", file);
-        console.log(photo);
-          try {
-          const response = axios.post("http://localhost:80/api/accounts/me", photo, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              "Authorization": localStorage.getItem("api_token")
-            },
-            params : {
-              "_method": "PATCH",
-            }
-          });
-          response.then((response)=> {
-            console.log(response);
-          }) 
-          
-        } catch (e) {
-          console.log("Ошибка при загрузке!", e);
-        }
+  <div
+    ref="dropZone"
+    class="drop-zone"
+    @dragover.prevent="onDragOver"
+    @dragleave="onDragLeave"
+    @drop.prevent="onDrop"
+  >
+    <p v-if="!image">Перетащите фото сюда</p>
+    <img v-if="image" :src="image" alt="Фото профиля" class="profile-photo" />
+  </div>
+</template>
 
-        
+<script>
+import axios from 'axios';
+import { useUserStore } from '@/store/user';
 
-        try {
-          const response = axios.post("http://localhost:88/api/accounts/me", photo, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              "Authorization": localStorage.getItem("api_token")
-            },
-            params : {
-              "_method": "PATCH",
-            }
-          });
-          console.log("Файл загружен!", response);
-          
-        } catch (e) {
-          console.log("Ошибка при загрузке!", e);
-          
-        }
-
-
-
-
-
-        // const file = event.dataTransfer.files[0];
-  
-      //   if (file && file.type.startsWith('image/')) {
-
-      //     const reader = new FileReader();
-      //     reader.onload = () => {
-      //       this.image = reader.result;
-      //     };
-      //     reader.readAsDataURL(file);
-  
-      //     try {
-      //       const response = await this.createFile();
-      //       this.serverResponse = response;
-      //       console.log('Успешно загружено:', response);
-      //       console.log('Успешно загружено:', file);
-      //     } catch (error) {
-      //       console.error('Ошибка загрузки:', error);
-      //     }
-      //   }
-      //   this.$refs.dropZone?.classList.remove('drag-over');
-      // },
-
-      // async createFile() {
-      //   axios.post('http://127.0.0.1:88/api/accounts/me', this.file, {
-      //       photo: this.file, 
-      //   }, {
-      //           'Content-Type': 'multipart/form-data',
-      //           'cookie': localStorage.getItem('xsrfToken'), 
-      //       })
-      //           .then(response => console.log(response))
-      //           .catch(error => console.log(error))
-      //       },
-      //           onAttachmentChange (e) {
-      //           this.file.image = e.target.files[0]
-            }
-        }
+export default {
+  name: 'my-dragdrop',
+  data() {
+    return {
+      image: null,
     };
-  </script>
-  
-  <style scoped>
-  .drop-zone {
-    margin: 32px 0 0 32px;
-    width: 200px;
-    height: 250px;
-    border: 1px dashed #546FFF;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #aaa;
-    background-color: #f9f9f9;
-    transition: background-color 0.3s;
-  }
-  
-  .drop-zone:hover,
-  .drop-zone.drag-over {
-    opacity: 30%;
-    border-color: #333;
-    transition: 0.3s;
-  }
-  
-  .profile-photo {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  .drop-zone img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  </style>
+  },
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+  methods: {
+    onDragOver() {
+      this.$refs.dropZone?.classList.add('drag-over');
+    },
+    onDragLeave() {
+      this.$refs.dropZone?.classList.remove('drag-over');
+    },
+    async onDrop(event) {
+      this.$refs.dropZone?.classList.remove('drag-over');
+      const files = event.dataTransfer.files;
+      if (files.length === 0) return;
+
+      const file = files[0];
+      if (!file.type.startsWith('image/')) {
+        this.$emit('show-error', {
+          message: 'Файл должен быть изображением',
+          type: 'error',
+        });
+        return;
+      }
+
+      if (file.size > 2 * 1024 * 1024) {
+        this.$emit('show-error', {
+          message: 'Файл слишком большой (максимум 2MB)',
+          type: 'error',
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.image = reader.result;
+        console.log('FileReader result:', reader.result);
+      };
+      reader.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append('photo', file);
+
+      try {
+        const response = await axios.post(
+          'http://localhost:80/api/accounts/me',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: localStorage.getItem('api_token'),
+            },
+          }
+        );
+
+        console.log('Полный ответ сервера:', response);
+
+        if (response.data.status === 'success' && response.data.image) {
+          this.image = response.data.image;
+          this.userStore.setAvatar(response.data.image);
+          this.$emit('show-error', {
+            message: 'Изображение успешно загружено',
+            type: 'success',
+          });
+          console.log('Изображение обновлено с URL:', this.image);
+        } else {
+          console.warn(
+            'Сервер не вернул URL изображения, используется локальное изображение'
+          );
+        }
+      } catch (error) {
+        console.error('Ошибка при загрузке файла:', error);
+        if (error.response) {
+          console.error('Детали ошибки сервера:', error.response.data);
+          if (error.response.data.errors) {
+            this.$emit('show-error', {
+              message: Object.values(error.response.data.errors).flat().join(' '),
+              type: 'error',
+            });
+          }
+        }
+        this.image = null;
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.drop-zone {
+  margin: 32px 0 0 32px;
+  width: 200px;
+  height: 250px;
+  border: 1px dashed #546FFF;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #aaa;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+  opacity: 30%;
+  border-color: #333;
+  transition: 0.3s;
+}
+
+.profile-photo {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.drop-zone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+</style>
