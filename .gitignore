@@ -5,4 +5,7 @@
 /rabbitmq
 /rabbitmq/*
 /database
+/node_modules
 start.txt
+
+
