@@ -104,7 +104,8 @@ class User extends Authenticatable
             get: function($value) {
                 if(!is_null($value))
                 {
-                    return  "https://baseknowledge.ru" . $value;
+                    // return  env("APP_URL") . $value;
+                    return $value;
                 }
                 return null;
             } 
