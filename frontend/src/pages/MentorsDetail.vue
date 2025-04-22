@@ -65,13 +65,14 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
-
+import { inject } from 'vue';
 export default {
   setup() {
     const mentor = ref(null);
     const loading = ref(true);
     const error = ref(null);
     const route = useRoute();
+    const apiDomain = inject('apiDomain');
 
     const fetchMentor = async () => {
       error.value = '';
@@ -83,7 +84,7 @@ export default {
 
         const mentorId = route.params.id;
         console.log('Загрузка данных для mentorId:', mentorId);
-        const response = await axios.get(`http://localhost:80/api/mentors/${mentorId}`, {
+        const response = await axios.get(`${apiDomain}/api/mentors/${mentorId}`, {
           headers: {
             Authorization: token,
           },

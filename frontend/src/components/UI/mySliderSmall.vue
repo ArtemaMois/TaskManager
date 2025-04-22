@@ -53,7 +53,7 @@ import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation } from 'swiper/modules';
 import axios from 'axios';
-
+import { inject } from 'vue';
 export default {
   name: 'my-sslider',
   components: {
@@ -70,6 +70,7 @@ export default {
     const slidesTasks = ref([]);
     const loading = ref(true);
     const error = ref(null);
+    const apiDomain = inject('apiDomain');
 
     const fetchTasks = async () => {
       error.value = '';
@@ -79,7 +80,7 @@ export default {
           throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
         }
 
-        const response = await axios.get('http://localhost:80/api/tasks', {
+        const response = await axios.get(`${apiDomain}/api/tasks`, {
           headers: {
             Authorization: token,
           },

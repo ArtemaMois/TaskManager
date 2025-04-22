@@ -33,7 +33,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
-
+import { inject } from 'vue';
 export default {
   name: 'my-gridTask',
   props: {
@@ -44,6 +44,7 @@ export default {
     const slidesTasks = ref([]);
     const loading = ref(true);
     const error = ref(null);
+    const apiDomain = inject('apiDomain');
 
     // Функция для получения данных с бэкенда
     const fetchTasks = async () => {
@@ -54,7 +55,7 @@ export default {
           throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
         }
 
-        const response = await axios.get('http://localhost:80/api/tasks', {
+        const response = await axios.get(`${apiDomain}/api/tasks`, {
           headers: {
             Authorization: token,
           },

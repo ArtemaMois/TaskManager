@@ -83,6 +83,7 @@ import MyChatUserList from '@/components/Chat/MyChatUserList.vue'
 import { useSearchUsers } from '@/hooks/chat/useSearchUsers'
 import { useInitialChats } from '@/hooks/chat/useInitialChats'
 import { useStore } from 'vuex'
+import { inject } from 'vue';
 const userSearchQueryString = ref('')
 const isVisibleChat = ref(false)
 const isSearching = ref(false)
@@ -94,6 +95,7 @@ const chat = ref('')
 const centrifuge = ref({})
 const myChats = useInitialChats();
 const isNewChat = ref(false);
+const apiDomain = inject('apiDomain');
 const { users, nextSearhUsersRef } = useSearchUsers(userSearchQueryString.value)
 const openChat = (userId) => {
     currentUser.value = userId
@@ -135,7 +137,7 @@ const searchUsers = async () => {
 const fetchChatInfo = async (userId) => {
     try {
         const response = await axios.post(
-            'http://localhost:80/api/chats/personal/',
+            `${apiDomain}/api/chats/personal/`,
             {
                 user_id: userId,
             },
@@ -159,7 +161,7 @@ const fetchChatInfo = async (userId) => {
 
 onMounted(async () => {
     try {
-        const response = await axios.get('http://localhost:80/api/ws/token', {
+        const response = await axios.get(`${apiDomain}/api/ws/token`, {
             headers: {
                 Authorization: localStorage.getItem('api_token'),
             },

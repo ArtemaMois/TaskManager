@@ -14,17 +14,21 @@
 <script>
 import axios from 'axios';
 import { useUserStore } from '@/store/user';
-
+import { inject } from 'vue';
 export default {
   name: 'my-dragdrop',
   data() {
     return {
       image: null,
+      apiDomain: '',
     };
+  },
+  created() {
+    this.apiDomain = inject('apiDomain');
   },
   setup() {
     const userStore = useUserStore();
-    return { userStore };
+    return { userStore};
   },
   methods: {
     onDragOver() {
@@ -66,7 +70,7 @@ export default {
 
       try {
         const response = await axios.post(
-          'http://localhost:80/api/accounts/me',
+          `${this.apiDomain}/api/accounts/me`,
           formData,
           {
             headers: {

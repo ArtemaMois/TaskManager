@@ -8,6 +8,7 @@ import MentorsPage from "@/pages/MentorsPage.vue";
 import AdminPage from '@/pages/AdminPage.vue';
 import MentorsDetail from "@/pages/MentorsDetail.vue";
 import TaskDetail from "@/pages/TaskDetail.vue";
+
 const routes = [{
         path: '/',
         component: AuthPage,

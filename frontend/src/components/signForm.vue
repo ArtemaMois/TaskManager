@@ -38,6 +38,7 @@
 import MyButton from '@/components/UI/myButton.vue';
 import MyInput from './UI/myInput.vue';
 import axios from 'axios';
+import { inject } from 'vue';
     export default {
         components: {
             MyButton, MyInput,
@@ -51,7 +52,11 @@ import axios from 'axios';
                     password: '',
                 },
                 errorMessage: '',
+                apiDomain: '',
             }
+        },
+        created() {
+            this.apiDomain = inject('apiDomain');
         },
         methods: {
             togglePassword() {
@@ -71,7 +76,7 @@ import axios from 'axios';
             
             async registerUser() {
                 try {
-                    const response = await axios.post('http://localhost:80/api/auth/register', {
+                    const response = await axios.post(`${this.apiDomain}/api/auth/register`, {
                         login: this.form.login,
                         email: this.form.email,
                         password: this.form.password,

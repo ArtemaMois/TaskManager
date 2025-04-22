@@ -71,4 +71,5 @@ app
     .use(router)
     .use(store)
     .use(createPinia())
+    .provide('apiDomain', 'http://localhost:80')
     .mount('#app')

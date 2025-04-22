@@ -97,7 +97,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
-
+import { inject } from 'vue';
 export default {
   name: 'my-sliderMentors',
   props: {
@@ -108,8 +108,8 @@ export default {
     const slidesMentor = ref([]);
     const loading = ref(true);
     const error = ref(null);
-
-    // Функция для получения данных с бэкенда
+    const apiDomain = inject('apiDomain');
+    
     const fetchMentors = async () => {
       error.value = '';
       try {
@@ -118,7 +118,7 @@ export default {
           throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
         }
 
-        const response = await axios.get('http://localhost:80/api/mentors', {
+        const response = await axios.get(`${apiDomain}/api/mentors`, {
           headers: {
             Authorization: token,
           },

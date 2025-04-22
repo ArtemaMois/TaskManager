@@ -50,6 +50,7 @@ import MyChatNavbar from './MyChatNavbar.vue'
 import MyChatBody from './MyChatBody.vue'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import { inject } from 'vue';
 export default {
     components: {
         MyChatNavbar,
@@ -61,6 +62,7 @@ export default {
             sub: null,
             test: false,
             online: false,
+            apiDomain: inject('apiDomain'),
         }
     },
     props: {
@@ -85,7 +87,7 @@ export default {
             if (event.target.value != '') {
                 try {
                     const response = await axios.post(
-                        `http://localhost:80/api/ws/${this.chat.id}/publish`,
+                        `${import.meta.env.VITE_API_DOMAIN}/api/ws/${this.chat.id}/publish`,
                         {
                             message: event.target.value,
                         },

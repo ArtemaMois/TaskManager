@@ -60,7 +60,7 @@
 <script>
 import { ref, computed } from 'vue';
 import axios from 'axios';
-
+import { inject } from 'vue';
 export default {
   name: 'AdminPage',
   setup() {
@@ -74,6 +74,7 @@ export default {
     const originalRoles = ref({});
     const changedUsers = ref({});
     const showSuccessMessage = ref(false);
+    const apiDomain = inject('apiDomain');
 
     const fetchUsers = async () => {
       loading.value = true;
@@ -84,7 +85,7 @@ export default {
           throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
         }
 
-        const response = await axios.get('http://localhost:80/api/accounts/admin/users', {
+        const response = await axios.get(`${apiDomain}/api/accounts/admin/users`, {
           headers: { Authorization: token },
         });
 
@@ -144,7 +145,7 @@ export default {
       try {
         const token = localStorage.getItem('api_token');
         const response = await axios.patch(
-          'http://localhost:80/api/accounts/admin/users',
+          `${apiDomain}/api/accounts/admin/users`,
           {
             user_id: pendingUser.value.id,
             role: pendingUser.value.role_code,
@@ -183,7 +184,7 @@ export default {
 
         for (const change of changes) {
           await axios.patch(
-            'http://localhost:80/api/accounts/admin/users',
+            `${apiDomain}/api/accounts/admin/users`,
             change,
             { headers: { Authorization: token } }
           );

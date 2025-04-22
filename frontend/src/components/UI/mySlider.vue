@@ -114,7 +114,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
-
+import { inject } from 'vue';
 export default {
   name: 'my-gridMentors',
   props: {
@@ -125,6 +125,7 @@ export default {
     const slidesMentor = ref([]);
     const loading = ref(true);
     const error = ref(null);
+    const apiDomain = inject('apiDomain');
 
     // Функция для получения данных с бэкенда
     const fetchMentors = async () => {
@@ -135,7 +136,7 @@ export default {
           throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
         }
 
-        const response = await axios.get('http://localhost:80/api/mentors', {
+        const response = await axios.get(`${apiDomain}/api/mentors`, {
           headers: {
             Authorization: token,
           },
@@ -212,7 +213,7 @@ export default {
       try {
         const token = localStorage.getItem('api_token');
         await axios.post(
-          `http://localhost:80/api/mentors/${mentorId}/follow`,
+          `${apiDomain}/api/mentors/${mentorId}/follow`,
           {},
           { headers: { Authorization: token } }
         );

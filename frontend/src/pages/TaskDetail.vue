@@ -32,6 +32,7 @@ import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import NavBar from '@/components/UI/navBar.vue';
 import MyMainFoot from '@/components/UI/myFootMain.vue';
+import { inject } from 'vue';
 
 export default {
   name: 'TaskDetail',
@@ -45,6 +46,7 @@ export default {
     const error = ref(null);
     const route = useRoute();
     const router = useRouter();
+    const apiDomain = inject('apiDomain');
 
     const formatDate = (dateString) => {
       const date = new Date(dateString);
@@ -68,7 +70,7 @@ export default {
         const taskId = route.params.id;
         console.log('Загрузка данных для taskId:', taskId);
 
-        const response = await axios.get(`http://localhost:80/api/tasks/${taskId}`, {
+        const response = await axios.get(`${apiDomain}/api/tasks/${taskId}`, {
           headers: {
             Authorization: token, // Проверьте, нужен ли Bearer
           },
