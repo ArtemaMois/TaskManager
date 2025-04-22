@@ -1,4 +1,3 @@
-```vue
 <template>
   <div class="main-class">
     <nav-bar v-if="$route.path !== '/'"></nav-bar>
@@ -19,6 +18,7 @@
       <button class="save-button" @click="saveChanges" :disabled="!hasChanges">
         Сохранить изменения
       </button>
+      <my-error v-if="showSuccessMessage">Изменения успешно сохранены</my-error>
       <div class="users-list">
         <div v-if="loading" class="loading">Загрузка...</div>
         <div v-else-if="error" class="error">{{ error }}</div>
@@ -27,13 +27,18 @@
         </div>
         <div v-else class="user-item" v-for="(user, index) in filteredUsers" :key="user.id">
           <div class="user-number">{{ index + 1 }}</div>
-          <div class="user-name">{{ user.username }}</div>
+          <img
+            :src="user.image || './assets/default-images/user-img/user.png'"
+            alt="User avatar"
+            class="user-image"
+          />
+          <div class="user-name">{{ user.login }}</div>
           <select
-            v-model="user.role_id"
+            v-model="user.role_code"
             class="role-select"
             @change="confirmRoleChange(user)"
           >
-            <option v-for="role in roles" :key="role.id" :value="role.id">
+            <option v-for="role in roles" :key="role.code" :value="role.code">
               {{ role.name }}
             </option>
           </select>
@@ -42,7 +47,7 @@
     </div>
     <div class="modal" v-if="showModal">
       <div class="modal-content">
-        <p>Вы уверены, что хотите изменить роль для {{ pendingUser?.username }}?</p>
+        <p>Вы уверены, что хотите изменить роль для {{ pendingUser?.login }}?</p>
         <div class="modal-buttons">
           <button class="modal-button confirm" @click="applyRoleChange">Да</button>
           <button class="modal-button cancel" @click="cancelRoleChange">Нет</button>
@@ -66,10 +71,10 @@ export default {
     const error = ref(null);
     const showModal = ref(false);
     const pendingUser = ref(null);
-    const originalRoles = ref({}); // Для отслеживания изменений
-    const changedUsers = ref({}); // Пользователи с изменёнными ролями
+    const originalRoles = ref({});
+    const changedUsers = ref({});
+    const showSuccessMessage = ref(false);
 
-    // Загрузка пользователей и ролей
     const fetchUsers = async () => {
       loading.value = true;
       error.value = null;
@@ -79,16 +84,24 @@ export default {
           throw new Error('Токен не найден. Пожалуйста, войдите в систему.');
         }
 
-        const response = await axios.get('http://localhost:80/api/accounts/chat?search=', {
+        const response = await axios.get('http://localhost:80/api/accounts/admin/users', {
           headers: { Authorization: token },
         });
 
+        console.log('Список:', response);
+
         if (response.data.status === 'success') {
-          users.value = response.data.users;
-          roles.value = response.data.roles;
-          // Сохраняем исходные роли
+          users.value = response.data.users
+            .filter((user) => user && user.role && user.role.code)
+            .map((user) => ({
+              id: user.id,
+              login: user.login,
+              image: user.image,
+              role_code: user.role.code,
+            }));
+          roles.value = response.data.roles.filter((role) => role && role.code && role.name);
           users.value.forEach((user) => {
-            originalRoles.value[user.id] = user.role_id;
+            originalRoles.value[user.id] = user.role_code;
           });
         } else {
           throw new Error('Не удалось загрузить данные');
@@ -100,99 +113,98 @@ export default {
       }
     };
 
-    // Фильтрация пользователей по поиску
     const filteredUsers = computed(() => {
       if (!searchQuery.value) return users.value;
       return users.value.filter((user) =>
-        user.username.toLowerCase().includes(searchQuery.value.toLowerCase())
+        user.login.toLowerCase().includes(searchQuery.value.toLowerCase())
       );
     });
 
-    // Проверка наличия изменений
     const hasChanges = computed(() => Object.keys(changedUsers.value).length > 0);
 
-    // Подтверждение изменения роли
     const confirmRoleChange = (user) => {
-      if (user.role_id !== originalRoles.value[user.id]) {
+      if (user.role_code !== originalRoles.value[user.id]) {
         pendingUser.value = { ...user };
         showModal.value = true;
       }
     };
 
-    // Отмена изменения роли
     const cancelRoleChange = () => {
       if (pendingUser.value) {
-        pendingUser.value.role_id = originalRoles.value[pendingUser.value.id];
+        pendingUser.value.role_code = originalRoles.value[pendingUser.value.id];
         delete changedUsers.value[pendingUser.value.id];
       }
       showModal.value = false;
       pendingUser.value = null;
     };
 
-    // Применение изменения роли
     const applyRoleChange = async () => {
       if (!pendingUser.value) return;
 
       try {
         const token = localStorage.getItem('api_token');
-        const response = await axios.post(
-          'http://localhost:80/api/change-role',
+        const response = await axios.patch(
+          'http://localhost:80/api/accounts/admin/users',
           {
             user_id: pendingUser.value.id,
-            role_id: pendingUser.value.role_id,
+            role: pendingUser.value.role_code,
           },
           { headers: { Authorization: token } }
         );
 
         if (response.data.status === 'success') {
-          changedUsers.value[pendingUser.value.id] = pendingUser.value.role_id;
-          originalRoles.value[pendingUser.value.id] = pendingUser.value.role_id;
+          changedUsers.value[pendingUser.value.id] = pendingUser.value.role_code;
+          originalRoles.value[pendingUser.value.id] = pendingUser.value.role_code;
+          const user = users.value.find((u) => u.id === pendingUser.value.id);
+          if (user) {
+            user.role_code = pendingUser.value.role_code;
+          }
         } else {
           throw new Error('Не удалось изменить роль');
         }
       } catch (e) {
         error.value = e.message || 'Ошибка при изменении роли';
-        pendingUser.value.role_id = originalRoles.value[pendingUser.value.id];
+        pendingUser.value.role_code = originalRoles.value[pendingUser.value.id];
       } finally {
         showModal.value = false;
         pendingUser.value = null;
       }
     };
 
-    // Сохранение всех изменений (если нужно отправить все сразу)
     const saveChanges = async () => {
       if (!hasChanges.value) return;
 
       try {
         const token = localStorage.getItem('api_token');
-        const changes = Object.entries(changedUsers.value).map(([userId, roleId]) => ({
+        const changes = Object.entries(changedUsers.value).map(([userId, roleCode]) => ({
           user_id: parseInt(userId),
-          role_id: roleId,
+          role: roleCode,
         }));
 
-        const response = await axios.post(
-          'http://localhost:80/api/change-role',
-          { changes },
-          { headers: { Authorization: token } }
-        );
-
-        if (response.data.status === 'success') {
-          changedUsers.value = {};
-          alert('Изменения сохранены');
-        } else {
-          throw new Error('Не удалось сохранить изменения');
+        for (const change of changes) {
+          await axios.patch(
+            'http://localhost:80/api/accounts/admin/users',
+            change,
+            { headers: { Authorization: token } }
+          );
         }
+
+        showSuccessMessage.value = true;
+        setTimeout(() => {
+          showSuccessMessage.value = false;
+        }, 5000);
+
+        await fetchUsers();
+        changedUsers.value = {};
       } catch (e) {
         error.value = e.message || 'Ошибка при сохранении изменений';
       }
     };
 
-    // Фильтрация при нажатии "Найти"
     const filterUsers = () => {
       searchQuery.value = searchQuery.value.trim();
     };
 
-    // Загрузка данных при монтировании
     fetchUsers();
 
     return {
@@ -210,6 +222,7 @@ export default {
       saveChanges,
       filterUsers,
       hasChanges,
+      showSuccessMessage,
     };
   },
 };
@@ -217,16 +230,16 @@ export default {
 
 <style lang="scss" scoped>
 .main-class {
-    display: grid;
-    grid-template-columns: 17.5% 82.5%;
-    padding: 32px;
+  display: grid;
+  grid-template-columns: 17.5% 82.5%;
+  padding: 32px;
 }
 
 .main-menu {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 32px;
-    background-color: #fafafa;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 32px;
+  background-color: #fafafa;
 }
 
 .search-section {
@@ -304,6 +317,10 @@ export default {
   color: #141522;
 }
 
+.user-image {
+  max-width: 40px;
+}
+
 .role-select {
   padding: 8px;
   font-family: NimbusRegular;
@@ -378,22 +395,20 @@ export default {
 }
 
 @media (max-width: 1024px) {
-    .main-class {
-        grid-template-columns: 5% 1fr;
-        padding: 16px;
-    }
-    .main-menu {
-      padding-left: 16px;
-      margin-left: 16px;
-    }
+  .main-class {
+    grid-template-columns: 5% 1fr;
+    padding: 16px;
+  }
+  .main-menu {
+    padding-left: 16px;
+    margin-left: 16px;
+  }
 }
 
 @media (max-width: 767px) {
   .main-class {
     grid-template-columns: 5% 1fr;
   }
-
-
 
   .search-section {
     flex-direction: column;
@@ -445,4 +460,3 @@ export default {
   }
 }
 </style>
-```
