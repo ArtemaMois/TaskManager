@@ -47,7 +47,7 @@
   <style lang="scss" scoped>
   .main-class {
     display: grid;
-    grid-template-columns: 17.5% 82.5%; /* Навбар слева, контент справа */
+    grid-template-columns: 17.5% 82.5%;
     min-height: 100vh;
     padding: 32px;
   }
@@ -71,7 +71,7 @@
     flex-wrap: wrap;
     gap: 20px;
     padding-top: 24px;
-    padding-right: 24px;
+    padding-right: 32px;
     margin-bottom: 32px;
   }
   
@@ -98,7 +98,6 @@
     box-sizing: border-box;
   }
   
-  /* Медиа-запросы */
   @media (max-width: 1024px) {
     .main-class {
       grid-template-columns: 5% 1fr;
@@ -108,6 +107,10 @@
     .mentor-container {
       margin-left: 16px;
       padding: 16px;
+    }
+
+    .mentor-search {
+      padding-right: 0px;
     }
   }
   

@@ -14,22 +14,9 @@
       >
         <div class="grid-content-mentor">
           <!-- Проверка: если image есть, показываем <img>, иначе SVG -->
-          <img v-if="slide.image" :src="slide.image" :alt="`Mentor ${index + 1}`" />
-          <svg
-            v-else
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            class="default-avatar"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M22 12C22 17.523 17.523 22 12 22C6.477 22 2 17.523 2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12ZM15 9C15 9.79565 14.6839 10.5587 14.1213 11.1213C13.5587 11.6839 12.7956 12 12 12C11.2044 12 10.4413 11.6839 9.87868 11.1213C9.31607 10.5587 9 9.79565 9 9C9 8.20435 9.31607 7.44129 9.87868 6.87868C10.4413 6.31607 11.2044 6 12 6C12.7956 6 13.5587 6.31607 14.1213 6.87868C14.6839 7.44129 15 8.20435 15 9ZM12 20.5C13.7163 20.5028 15.3928 19.9834 16.807 19.011C17.411 18.596 17.669 17.806 17.317 17.163C16.59 15.83 15.09 15 12 15C8.91 15 7.41 15.83 6.682 17.163C6.331 17.806 6.589 18.596 7.193 19.011C8.6072 19.9834 10.2837 20.5028 12 20.5Z"
-              fill="black"
-            />
-          </svg>
+          <img 
+            :src="slide.image || './assets/default-images/user-img/user.png'" 
+            :alt="`Mentor ${index + 1}`" />
           <div class="grid-content-mentor__title">
             {{ slide.title }}
           </div>
@@ -137,6 +124,9 @@ export default {
           },
         });
 
+        console.log("list", response);
+        
+
         if (response.data.status === 'success') {
           slidesMentor.value = response.data.mentors.map((mentor) => ({
             id: mentor.id,
@@ -212,7 +202,7 @@ export default {
   width: 100%;
   max-width: 1200px;
   margin: 32px auto;
-  padding: 0 40px 0 0;
+  padding: 0 32px 0 0;
 }
 
 .grid-header {
@@ -238,7 +228,7 @@ export default {
   flex-direction: column;
   background-color: #fff;
   max-height: 250px;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -258,15 +248,15 @@ export default {
 
 .grid-item-mentor-box img,
 .default-avatar {
-  width: 20%;
+  width: 48px;
   max-height: 100px;
-  object-fit: cover; /* Для <img> */
+  object-fit: cover;
   border-radius: 50%;
   margin-right: 15px;
 }
 
 .default-avatar {
-  width: 48px; /* Фиксированный размер SVG */
+  width: 48px;
   height: 48px;
 }
 
@@ -353,6 +343,12 @@ export default {
   transform: translateY(20px);
 }
 
+@media (max-width: 1024px) {
+    .grid-container {
+      padding-right: 0;
+    }
+  }
+
 @media (max-width: 768px) {
   .grid-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -368,9 +364,5 @@ export default {
     grid-template-columns: 1fr;
   }
 
-  .grid-item-mentor-box {
-    max-width: 320px;
-    margin: 0 auto;
-  }
 }
 </style>

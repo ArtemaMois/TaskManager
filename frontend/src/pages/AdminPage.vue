@@ -13,11 +13,11 @@
           placeholder="Поиск пользователя..."
           class="search-input"
         />
-        <button class="search-button" @click="filterUsers">Найти</button>
-      </div>
-      <button class="save-button" @click="saveChanges" :disabled="!hasChanges">
+        <button class="save-button" @click="saveChanges" :disabled="!hasChanges">
         Сохранить изменения
       </button>
+      </div>
+      
       <my-error v-if="showSuccessMessage">Изменения успешно сохранены</my-error>
       <div class="users-list">
         <div v-if="loading" class="loading">Загрузка...</div>
@@ -247,6 +247,7 @@ export default {
   max-width: 700px;
   gap: 16px;
   margin-top: 50px;
+  padding-right: 16px;
 }
 
 .search-input {
@@ -259,19 +260,7 @@ export default {
   outline: none;
 }
 
-.search-button {
-  padding: 12px 24px;
-  background: #546fff;
-  color: #fff;
-  font-family: NimbusRegular;
-  font-size: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .save-button {
-  margin-top: 16px;
   padding: 12px 24px;
   background: #546fff;
   color: #fff;
@@ -289,6 +278,7 @@ export default {
 
 .users-list {
   margin-top: 24px;
+  padding-right: 32px;
 }
 
 .user-item {
@@ -417,14 +407,12 @@ export default {
   }
 
   .search-input,
-  .search-button,
   .save-button {
     width: 100%;
   }
 
   .user-item {
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 16px;
   }
 

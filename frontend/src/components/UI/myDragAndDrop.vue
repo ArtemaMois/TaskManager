@@ -6,7 +6,7 @@
     @dragleave="onDragLeave"
     @drop.prevent="onDrop"
   >
-    <p v-if="!image">Перетащите фото сюда</p>
+    <p v-if="!image">Перетащите фото сюда<br>(.jpg, .png и т.д.)</p>
     <img v-if="image" :src="image" alt="Фото профиля" class="profile-photo" />
   </div>
 </template>
@@ -58,7 +58,6 @@ export default {
       const reader = new FileReader();
       reader.onload = () => {
         this.image = reader.result;
-        console.log('FileReader result:', reader.result);
       };
       reader.readAsDataURL(file);
 

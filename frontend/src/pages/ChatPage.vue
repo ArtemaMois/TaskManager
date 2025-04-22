@@ -236,6 +236,8 @@ input:hover {
     font-size: 16px;
     padding: 5px;
     font-family: 'Ubuntu Regular';
+    background: none;
+
 }
 
 .chat__search {

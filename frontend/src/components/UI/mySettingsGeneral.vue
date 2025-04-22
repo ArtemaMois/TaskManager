@@ -13,9 +13,6 @@
         disabled
         class="general-input__email"
       ></my-input>
-      <my-button @click="loginSet" class="general-input-button"
-        >Обновить данные</my-button
-      >
     </div>
   </div>
 </template>
@@ -35,9 +32,6 @@ export default {
     return { userStore };
   },
   methods: {
-    loginSet() {
-      this.login = localStorage.getItem('login');
-    },
     handleError({ message, type }) {
       this.$emit('show-error', { message, type });
     },

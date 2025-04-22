@@ -5,7 +5,6 @@
     <div class="main-menu">
       <my-main-foot>
         <template v-slot:name>Никита</template>
-        <template v-slot:title>Давайте закончим это задание сегодня!</template>
       </my-main-foot>
       <div class="activity-menu">
         <my-runing></my-runing>
@@ -144,13 +143,6 @@ export default {
     }
 }
 
-@media (min-width: 768px) {
-  .main-class {
-    grid-template-columns: 5% 1fr;
-    padding: 16px;
-  }
-}
-
 @media (max-width: 767px) {
   .main-class {
     grid-template-columns: 5% 1fr;
@@ -159,7 +151,6 @@ export default {
 
   .main-menu {
     padding-left: 32px;
-    max-width: 100%;
   }
 
 

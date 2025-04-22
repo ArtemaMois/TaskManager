@@ -40,13 +40,13 @@ import { ref } from 'vue';
                         value: 1, label: "Сортировать по рейтингу"
                     },
                     {
-                        value: 2, label: "UI UX Design"
+                        value: 2, label: "Backend-разработка"
                     },
                     {
-                        value: 3, label: "Web Developer"
+                        value: 3, label: "Frontend-разработка"
                     },
                     {
-                        value: 4, label: "3D Design"
+                        value: 4, label: "DevOps"
                     },
                 ],
             };
@@ -72,19 +72,32 @@ import { ref } from 'vue';
 }
 .task-search{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 24%;
+    flex-wrap: wrap;
+    gap: 20px;
     padding-top: 24px;
     padding-right: 24px;
+    margin-bottom: 32px;
 }
 .task-search__input{
+    flex: 1 1 300px;
     height: 52px;
     border-radius: 10px;
     padding-left: 28px;
+    font-family: NimbusRegular, sans-serif;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    box-sizing: border-box;
 }
 .task-search__select {
-    width: 50%;
+    flex: 1 1 200px;
+    height: 52px;
+    border-radius: 10px;
+    font-family: NimbusRegular, sans-serif;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
@@ -98,6 +111,10 @@ import { ref } from 'vue';
         margin-left: 16px;
         padding-left: 16px;
         background: #FAFAFA;
+    }
+
+    .task-search {
+        padding-right: 16px;
     }
 }
 

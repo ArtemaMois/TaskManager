@@ -12,23 +12,33 @@
                 </svg>
             </div>
             <div class="profile">
-                <img src="/assets/foot-images/lam.jpg" alt="Image">
+                <img 
+                    :src="avatarUrl || '/assets/foot-images/lam.jpg'"
+                    alt="Аватар пользователя"
+                >
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import foot from '@/data/foot-name.js';
+import { useUserStore } from '@/store/user';
+
     export default {
         name: 'my-main-foot',
-        data() {
-            return {
-                foot,
-            };
+        setup() {
+        const userStore = useUserStore();
+        userStore.fetchAvatar(); // Загружаем аватар при монтировании
+        return { userStore };
+        },
+        computed: {
+            avatarUrl() {
+            return this.userStore.avatarUrl;
+            },
         },
     }
 </script>
+
 
 <style lang="scss" scoped>
 .main-foot{

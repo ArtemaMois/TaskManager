@@ -237,7 +237,7 @@ export default {
 
 .grid-title {
   font-family: NimbusRegular;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 2vw, 2rem);
   font-weight: bold;
   margin: 0;
   color: #141522;
@@ -386,7 +386,6 @@ export default {
 
   .grid-item-mentor-box {
     max-width: 320px;
-    margin: 0 auto;
   }
 }
 </style>

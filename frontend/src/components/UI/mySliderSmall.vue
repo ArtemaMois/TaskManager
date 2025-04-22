@@ -34,11 +34,11 @@
     >
       <SwiperSlide v-for="(slide, index) in filteredSlides" :key="index">
         <div class="slide-content" @click="taskDetail(slide.id)">
-          <img :src="slide.image" :alt="`Task ${index + 1}`" />
-          <div class="slide-title" style="margin-left: 15px;">
+          <img :src="slide.image" :alt="`Task ${index + 1}`" loading="lazy" />
+          <div class="slide-title">
             {{ slide.title }}
           </div>
-          <div class="slide-title__small" style="font-size: 12px; color: gray; margin-left: 15px;">
+          <div class="slide-title__small">
             {{ slide.title1 }}
           </div>
         </div>
@@ -71,7 +71,6 @@ export default {
     const loading = ref(true);
     const error = ref(null);
 
-    // Функция для получения данных с бэкенда
     const fetchTasks = async () => {
       error.value = '';
       try {
@@ -89,7 +88,7 @@ export default {
         if (response.data.status === 'success') {
           slidesTasks.value = response.data.tasks.map((task) => ({
             id: task.id,
-            image: task.image || './assets/task-card/default.jpg',
+            image: task.image || './assets/task-card/task2.jpg',
             title: task.title,
             title1: task.category?.title || 'Без категории',
           }));
@@ -114,7 +113,6 @@ export default {
       fetchTasks();
     });
 
-    // Фильтрация данных
     const filteredSlides = computed(() => {
       let filtered = slidesTasks.value;
       if (props.searchQuery) {
@@ -139,12 +137,15 @@ export default {
       return filtered;
     });
 
-    // Адаптивные настройки для Swiper
-    const slidesPerView = ref(2);
+    const slidesPerView = ref('auto');
     const breakpoints = {
       320: {
-        slidesPerView: 1,
+        slidesPerView: 'auto',
         spaceBetween: 10,
+      },
+      480: {
+        slidesPerView: 'auto',
+        spaceBetween: 15,
       },
       768: {
         slidesPerView: 2,
@@ -179,21 +180,25 @@ export default {
 
 <style lang="scss" scoped>
 .slider-container {
-  max-width: 688px;
+  max-width: 100%;
   position: relative;
-  margin: 32px 0 0 0;
+  margin: 16px 0 0 0;
+  overflow-x: hidden;
+  padding: 0 10px;
+  touch-action: pan-y;
 }
 
 .slider-header {
   display: flex;
   justify-content: space-between;
-  padding-right: 32px;
-  margin-bottom: 20px;
+  align-items: center;
+  padding: 0 10px;
+  margin-bottom: 15px;
 }
 
 .slider-title {
   font-family: NimbusRegular;
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 5vw, 1.5rem);
   font-weight: bold;
   margin: 0;
   color: #141522;
@@ -201,111 +206,187 @@ export default {
 
 .slider-controls {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 
 .slider-button {
   background: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 50%;
   cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
 }
 
-.swiper-button-prev {
-  left: -10px;
+.slider-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.swiper-button-next {
-  right: -10px;
+.swiper-button-prev svg,
+.swiper-button-next svg {
+  width: 20px;
+  height: 20px;
 }
 
 .slider {
   width: 100%;
-  padding-right: 24px;
+  padding: 0 5px;
+}
+
+.swiper-slide {
+  width: auto !important;
+  max-width: 350px;
 }
 
 .slide-content {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 8px;
   background-color: #fff;
-  border-radius: 20px;
-  max-height: 230px;
-  padding-bottom: 20px;
+  border-radius: 15px;
+  max-height: 200px;
+  padding-bottom: 15px;
+  width: 100%;
   max-width: 350px;
   font-family: NimbusRegular;
-  font-size: 18px;
   cursor: pointer;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  }
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .slide-content img {
-  border-radius: 20px 20px 0 0;
+  border-radius: 15px 15px 0 0;
   width: 100%;
-  height: 150px;
+  height: 120px;
   object-fit: cover;
 }
 
 .slide-title {
   font-family: NimbusRegular;
-  font-size: 18px;
+  font-size: clamp(14px, 4vw, 16px);
   color: #141522;
+  margin-left: 10px;
 }
 
 .slide-title__small {
   font-family: NimbusRegular;
-  font-size: 12px;
+  font-size: clamp(10px, 3vw, 11px);
   color: #8e92bc;
+  margin-left: 10px;
 }
 
 .loading,
 .error {
   text-align: center;
   font-family: NimbusRegular;
-  font-size: 1rem;
-  padding: 20px;
+  font-size: clamp(14px, 4vw, 16px);
+  padding: 15px;
 }
 
 .error {
   color: #ff4d4f;
 }
 
+/* Медиа-запросы для мобильных устройств */
 @media (max-width: 768px) {
   .slider-container {
-    max-width: 100%;
-    padding: 0 15px;
+    margin: 10px 0 0 0;
+    padding: 0 5px;
   }
 
   .slider-header {
-    padding-right: 15px;
+    padding: 0 5px;
   }
 
-
-  .slide-title {
-    font-size: 16px;
+  .slider-title {
+    font-size: clamp(1rem, 4vw, 1.25rem);
   }
 
-  .slide-title__small {
-    font-size: 11px;
+  .slider-controls {
+    gap: 5px;
+  }
+
+  .slider-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .swiper-button-prev svg,
+  .swiper-button-next svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .slide-content {
+    max-height: 180px;
+    border-radius: 12px;
+    padding-bottom: 10px;
+  }
+
+  .slide-content img {
+    height: 100px;
+    border-radius: 12px 12px 0 0;
   }
 }
 
 @media (max-width: 480px) {
+  .slider-container {
+    margin: 8px 0 0 0;
+    padding: 0 3px;
+  }
+
+  .slider-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
   .slider-title {
-    font-size: 1.25rem;
+    font-size: clamp(0.875rem, 3.5vw, 1rem);
+  }
+
+  .slider-controls {
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .slide-content {
-    max-height: 200px;
+    max-height: 160px;
+    border-radius: 10px;
+    max-width: 300px;
   }
 
   .slide-content img {
-    height: 120px;
+    height: 90px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .slide-title {
+    font-size: clamp(12px, 3.5vw, 14px);
+    margin-left: 8px;
+  }
+
+  .slide-title__small {
+    font-size: clamp(9px, 2.5vw, 10px);
+    margin-left: 8px;
+  }
+
+  .loading,
+  .error {
+    font-size: clamp(12px, 3.5vw, 14px);
+    padding: 10px;
+  }
+}
+
+/* Отключение hover на мобильных устройствах */
+@media (hover: none) {
+  .slide-content:hover {
+    transform: none;
+    box-shadow: none;
   }
 }
 </style>
