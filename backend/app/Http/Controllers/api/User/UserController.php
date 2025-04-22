@@ -54,6 +54,11 @@ class UserController extends Controller
         return response()->json(['status' => 'success', 'user' => $user]);
     }
 
+    public function getUserImage()
+    {
+        return response()->json(['status' => 'success', 'image' => Auth::user()->photo_url]);
+    }
+
     public function getCookie()
     {
         $xsrf = Cookie::get('XSRF-TOKEN');

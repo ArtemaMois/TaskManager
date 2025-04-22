@@ -9,6 +9,7 @@ Route::controller(UserController::class)
     ->group(function () {
         Route::get('/', 'index')->name('users.index');
         Route::get('/me', 'me')->name('users.password.update');
+        Route::get('/me/image', 'getUserImage')->name('users.image');
         Route::get('/admin/users', 'getUserForAdmin')->name('users.index.admin');
         Route::patch('/admin/users', 'updateUserRole')->name('users.update.role');
         Route::post('/me', 'update')->name('users.update');
