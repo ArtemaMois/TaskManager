@@ -74,34 +74,6 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-
-    // const token = localStorage.getItem('api_token');
-    // if (to.meta.requiresAuth && (!token || token === '')) {
-    //     console.log('→ Редирект на /');
-    //     next({ path: '/', query: { authError: true } });
-    //     return;
-    // }
-
-    // if (to.meta.requiresAdmin) {
-    //     try {
-    //     const response = await axios.get('http://localhost:80/api/user', {
-    //         headers: { Authorization: token },
-    //     });
-    //     console.log('Роль пользователя:', response.data.user.role_id);
-    //     if (response.data.status === 'success' && response.data.user.role_id === 3) {
-    //         next();
-    //     } else {
-    //         console.log('→ Редирект на /overview (не админ)');
-    //         next({ path: '/overview', query: { accessError: 'admin_required' } });
-    //     }
-    //     } catch (e) {
-    //     console.error('Ошибка при проверке роли:', e);
-    //     next({ path: '/overview', query: { accessError: 'admin_required' } });
-    //     }
-    // } else {
-    //     next();
-    // }
-
   })
   
 
